@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
- 
+// sibal
 public class DBconnect {
     String driver = "org.mariadb.jdbc.Driver";
     Connection con;
