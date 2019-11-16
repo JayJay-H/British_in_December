@@ -16,9 +16,9 @@ public class DBconnect {
     	
     	Class.forName(driver);
     	con = DriverManager.getConnection(
-    			"jdbc:mariadb://localhost/mydb",
-    			"root",
-    			"tizm**423");
+    			"jdbc:mariadb://localhost/term_project",
+    			"dbuser",
+    			"sevenmillion");
             
     	if( con != null ) 
     		System.out.println("DB connect Success");
