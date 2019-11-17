@@ -7,7 +7,7 @@ import DBController.searchFromDB;
 public class authMember {
 	static String authenticateMember(String inputID, String inputPassword) {
 		try {
-			ResultSet client_list = searchFromDB.search_client("Member"); 	//Member테이블을 ResultSet 형태로 가져옴.
+			ResultSet client_list = searchFromDB.searchObjects("Member"); 	//Member테이블을 ResultSet 형태로 가져옴.
 			
 			while(client_list.next()) {
 				
