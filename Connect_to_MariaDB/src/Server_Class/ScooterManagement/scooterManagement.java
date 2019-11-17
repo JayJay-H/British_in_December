@@ -7,7 +7,7 @@ import DBController.deleteFromDB;
 import DBController.insertIntoDB;
 import DBController.searchFromDB;
 
-public class scooterManager {
+public class scooterManagement {
 	
 	public static boolean addScooter(String ID, String Location) {
 		return insertIntoDB.addScooter(ID, Location);
