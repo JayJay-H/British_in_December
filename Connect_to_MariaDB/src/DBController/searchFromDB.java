@@ -7,7 +7,8 @@ import java.sql.Statement;
 import Login.java.DBController.connectDB;
 
 public class searchFromDB {
-	public static ResultSet search_client(String tableName) throws SQLException {
+	
+	public static ResultSet searchObjects(String tableName) throws SQLException {
         Statement stmt = connectDB.DBStmt();
         ResultSet rs = null;
         
@@ -17,4 +18,5 @@ public class searchFromDB {
         
 		return rs;
 	}
+	
 }

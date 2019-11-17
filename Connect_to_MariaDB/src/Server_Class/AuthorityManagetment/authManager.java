@@ -6,7 +6,7 @@ import DBController.*;
 public class authManager {
 	static String authenticateManager(String inputID, String inputPassword) {
 		try {
-			ResultSet client_list = searchFromDB.search_client("Manager"); 	//Manager테이블을 ResultSet 형태로 가져옴.
+			ResultSet client_list = searchFromDB.searchObjects("Manager"); 	//Manager테이블을 ResultSet 형태로 가져옴.
 			
 			while(client_list.next()) {
 				
