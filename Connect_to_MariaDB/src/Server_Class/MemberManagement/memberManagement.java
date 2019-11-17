@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import DBController.*;
 
-public class memberManager {
+public class memberManagement {
 	
 	static boolean addMember(String ID, String Password) { // add에 성공하면 true 반대는 false
 		return insertIntoDB.addManager(ID, Password);
