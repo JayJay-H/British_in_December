@@ -10,10 +10,10 @@ public class connectToDB {
 		Connection 	conn = null;
 		Statement 	stmt = null;
 		try{
-            Class.forName("org.mariadb.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             
-            String url = "jdbc:mysql://localhost/term_project";
-            conn = DriverManager.getConnection(url, "dbuser", "sevenmillion");
+            String url = "jdbc:mysql://59.27.140.107:3306/term_project_seven";
+            conn = DriverManager.getConnection(url, "termSeven", "sevenmillion");
 
             stmt = conn.createStatement();
         }
