@@ -1,6 +1,12 @@
 package Scooter;
 
 
+/*
+ * TODO 
+ * - 스레드로 run() 함수 구현
+ *
+ */
+
 public class Scooter {
 	private String 	ID;
 	private double 	totalBattery;
@@ -57,6 +63,8 @@ public class Scooter {
 	}
 	
 	public void run() {
-		System.out.println("달린다! 달려!");
+		while(isNowUse()) { // 이용중일때만 달림
+			System.out.println("달린다! 달려!");
+		}
 	}
 }
