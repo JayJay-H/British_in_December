@@ -1,4 +1,0 @@
-# Eclipse #
-.project
-.classpath
-.gitignore
