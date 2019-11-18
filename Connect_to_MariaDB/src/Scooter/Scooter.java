@@ -1,4 +1,5 @@
-package Scotter;
+package Scooter;
+
 
 public class Scooter {
 	private String 	ID;
