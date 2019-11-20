@@ -16,7 +16,7 @@ public class authManager {
 					if(inputPassword.equals(client_list.getString(2))) {	//패스워드 확인
 						
 						
-						if(client_list.getString(3).equals("0")) 			//사용중인지 아닌지 확인
+						if(client_list.getString(5).equals("0")) 			//사용중인지 아닌지 확인
 							return "로그인 성공!"; 		//확인 성공!
 						
 						else 

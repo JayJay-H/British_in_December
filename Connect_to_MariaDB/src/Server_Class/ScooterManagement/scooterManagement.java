@@ -47,7 +47,7 @@ public class scooterManagement {
 		ResultSet memberList = searchFromDB.searchObjects("Scooter");
 		int count = 0;
 		while(memberList.next()){
-				if(memberList.getString(2).equals("1"))
+				if(memberList.getString(3).equals("1"))
 					count++;
         }
 		
