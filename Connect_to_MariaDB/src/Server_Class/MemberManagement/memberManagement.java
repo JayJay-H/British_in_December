@@ -20,7 +20,7 @@ public class memberManagement {
 		
 		while(memberList.next()){
 			
-			if(memberList.getString(0).equals(ID)) {
+			if(memberList.getString(1).equals(ID)) {
 				String show = ID
 						+ "님의 Password : " + memberList.getString(1)
 						+ "Phone : " + memberList.getString(2)
@@ -40,11 +40,11 @@ public class memberManagement {
 		
 		while(memberList.next()){
 	
-			String member = memberList.getString(0)
-					+ "님의 Password : " + memberList.getString(1)
-					+ "Phone : " + memberList.getString(2)
-					+ "Email : " + memberList.getString(3)
-					+ "사용상태 : " + memberList.getString(4) + "\n";
+			String member = memberList.getString(1)
+					+ "님의 Password : " + memberList.getString(2)
+					+ "Phone : " + memberList.getString(3)
+					+ "Email : " + memberList.getString(4)
+					+ "사용상태 : " + memberList.getString(5) + "\n";
 			showList.append(member);
 			
         }
@@ -61,8 +61,8 @@ public class memberManagement {
 		
 		while(memberList.next()){
 			
-			if(memberList.getString(0).equals(ID)) {
-				if(memberList.getString(4).equals("1"))
+			if(memberList.getString(1).equals(ID)) {
+				if(memberList.getString(5).equals("1"))
 					return 1;
 				else
 					return 0;
