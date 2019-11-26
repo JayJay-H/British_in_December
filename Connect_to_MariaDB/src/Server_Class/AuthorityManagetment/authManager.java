@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import DBController.*;
 
 public class authManager {
-	static String authenticateManager(String inputID, String inputPassword) {
+	public static String authenticateManager(String inputID, String inputPassword) {
 		try {
 			ResultSet client_list = searchFromDB.searchObjects("Manager"); 	//Manager테이블을 ResultSet 형태로 가져옴.
 			
