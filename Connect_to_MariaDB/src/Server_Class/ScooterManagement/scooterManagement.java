@@ -16,6 +16,22 @@ public class scooterManagement {
 	public static boolean deleteScooter(String ID) {
 		return deleteFromDB.deleteScooter(ID);
 	}
+	
+	public static String findScooter(String ID) throws SQLException {
+		ResultSet scooterList = searchFromDB.searchObjects("Scooter");
+		String scooter=null;
+		
+		while(scooterList.next()) {
+			if(ID.equals(scooterList.getString(1))) {
+				scooter = scooterList.getString(1)
+						+"의 위치: " + scooterList.getString(2)
+						+"사용상태: " + scooterList.getString(3) + "\n";
+				break;
+			}
+		}
+		
+		return scooter;
+	}
 
 	public static String findScooterList() throws SQLException {
 		ResultSet scooterList = searchFromDB.searchObjects("Scooter");
@@ -23,9 +39,9 @@ public class scooterManagement {
 		
 		while(scooterList.next()){
 	
-			String scooter = scooterList.getString(0)
-					+ "의 위치 : " + scooterList.getString(1)
-					+ "사용상태 : " + scooterList.getString(2) + "\n";
+			String scooter = scooterList.getString(1)
+					+ "의 위치 : " + scooterList.getString(2)
+					+ "사용상태 : " + scooterList.getString(3) + "\n";
 			showList.append(scooter);
 			
         }

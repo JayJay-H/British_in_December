@@ -7,15 +7,15 @@ import DBController.*;
 
 public class memberManagement {
 	
-	static boolean addMember(String ID, String Password) { // add에 성공하면 true 반대는 false
+	public static boolean addMember(String ID, String Password) { // add에 성공하면 true 반대는 false
 		return insertIntoDB.addManager(ID, Password);
 	}
 	
-	static boolean deleteMember(String ID) {			// add에 성공하면 true 반대는 false
+	public static boolean deleteMember(String ID) {			// add에 성공하면 true 반대는 false
 		return deleteFromDB.deleteMember(ID);
 	}
 	
-	static String findMember(String ID) throws SQLException {		// 특정 회원을 찾음
+	public static String findMember(String ID) throws SQLException {		// 특정 회원을 찾음
 		ResultSet memberList = searchFromDB.searchObjects("Member");
 		
 		while(memberList.next()){
@@ -34,7 +34,7 @@ public class memberManagement {
 		return "찾는 ID가 존재하지 않습니다.";
 	}
 	
-	static String findMemberList() throws SQLException {			// 모든 회원의 리스트를 반환
+	public static String findMemberList() throws SQLException {			// 모든 회원의 리스트를 반환
 		ResultSet memberList = searchFromDB.searchObjects("Member");
 		StringBuilder showList = new StringBuilder();
 		
@@ -52,11 +52,11 @@ public class memberManagement {
 		return showList.toString();
 	}
 	
-	static void findEvent(String ID) { 		// ??? 왜 있는거야??
+	public static void findEvent(String ID) { 		// ??? 왜 있는거야??
 		
 	}
 	
-	static int findToken(String ID) throws SQLException {  			// 토큰이 있는다면 1 반대는 0 ID가 존재하지 않으면 -1
+	public static int findToken(String ID) throws SQLException {  			// 토큰이 있는다면 1 반대는 0 ID가 존재하지 않으면 -1
 		ResultSet memberList = searchFromDB.searchObjects("Member");
 		
 		while(memberList.next()){
@@ -73,7 +73,7 @@ public class memberManagement {
 		return -1;
 	}
 	
-	static int getNumberOfMember() throws SQLException {			// 모든 회원의 수를 반환.
+	public static int getNumberOfMember() throws SQLException {			// 모든 회원의 수를 반환.
 		ResultSet memberList = searchFromDB.searchObjects("Member");
 		int count = 0;
 		while(memberList.next()){
