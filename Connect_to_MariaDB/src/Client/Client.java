@@ -8,7 +8,13 @@ public class Client {
 	boolean islogin = false, isUsing = false;
 	
 	static void Login(String inputID, String inputPassword) {
-		authMember.authenticateMember(inputID, inputPassword);
+		String Loginstatus = authMember.authenticateMember(inputID, inputPassword);
+        if (Loginstatus.equals("0"){
+            islogin = true;
+        } else {
+            islogin = false;
+        }
+        }
 	}
 	
 	static String findScooterList() throws SQLException {
