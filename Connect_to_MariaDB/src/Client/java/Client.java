@@ -5,16 +5,18 @@ import Server_Class.AuthorityManagetment.authMember;
 import Server_Class.ScooterManagement.scooterManagement;
 
 public class Client {
-	static boolean islogin = false;
+	boolean islogin = false;
 	boolean isUsing = false;
+	String[] errorMessage = {"로그인 성공!", "DB관련 오류","비밀번호가 틀립니다.", "이미 사용중입니다.", "아이디가 없습니다."};
 
-	static void Login(String inputID, String inputPassword) {
+	public String Login(String inputID, String inputPassword) {
 		String Loginstatus = authMember.authenticateMember(inputID, inputPassword);
 		if (Loginstatus.equals("0")) {
 			islogin = true;
 		} else {
 			islogin = false;
 		}
+		return errorMessage[Integer.parseInt(Loginstatus)]; //에러 메시지 출력
 	}
 
 	static String findScooterList() throws SQLException {
