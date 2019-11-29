@@ -1,4 +1,4 @@
-package Client;
+package Client.java;
 
 public class ClientLoginController {
 
