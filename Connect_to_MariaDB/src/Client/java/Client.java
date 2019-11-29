@@ -5,11 +5,12 @@ import Server_Class.AuthorityManagetment.authMember;
 import Server_Class.ScooterManagement.scooterManagement;
 
 public class Client {
-	boolean islogin = false, isUsing = false;
+	static boolean islogin = false;
+	boolean isUsing = false;
 	
 	static void Login(String inputID, String inputPassword) {
 		String Loginstatus = authMember.authenticateMember(inputID, inputPassword);
-        if (Loginstatus.equals("0"){
+        if (Loginstatus.equals("0")){
             islogin = true;
         } else {
             islogin = false;
