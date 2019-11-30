@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="backButton" layoutX="346.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonHandler" text="Back" />
+      <VBox layoutX="30.0" layoutY="215.0" prefHeight="120.0" prefWidth="150.0">
+         <children>
+            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="ScooterManagement" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="25.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="ScooterManagementButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#ScooterManagementButtonHandler" text="Add / Delete" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="25.0" left="20.0" right="20.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <Label layoutX="85.0" layoutY="193.0" text="Scooter" />
+      <Label layoutX="270.0" layoutY="193.0" text="Member" />
+      <VBox layoutX="217.0" layoutY="215.0" prefHeight="120.0" prefWidth="150.0">
+         <children>
+            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="MemberManagement" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="25.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="MemberManagementButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#MemberManagementButtonHandler" text="Add / Delete" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="25.0" left="20.0" right="20.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <VBox layoutX="30.0" layoutY="335.0" prefHeight="120.0" prefWidth="150.0">
+         <children>
+            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="ScooterInfo" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="25.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="ScooterInfoButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#ScooterInfoButtonHandler" text="Show Info" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="25.0" left="20.0" right="20.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <VBox layoutX="217.0" layoutY="335.0" prefHeight="120.0" prefWidth="150.0">
+         <children>
+            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="MemberInfo" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="25.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="MemberInfoButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#MemberInfoButtonHandler" text="Show Info" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="25.0" left="20.0" right="20.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <Label layoutX="177.0" layoutY="123.0" text="Manager" />
+      <Label layoutX="16.0" layoutY="18.0" text="ID" />
+   </children>
+</AnchorPane>
