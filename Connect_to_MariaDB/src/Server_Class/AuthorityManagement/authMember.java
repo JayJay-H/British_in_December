@@ -1,4 +1,4 @@
-package Server_Class.AuthorityManagetment;
+package Server_Class.AuthorityManagement;
 
 import java.sql.ResultSet;
 

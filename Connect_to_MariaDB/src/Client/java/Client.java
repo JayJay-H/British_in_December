@@ -1,7 +1,7 @@
 package Client.java;
 
 import java.sql.SQLException;
-import Server_Class.AuthorityManagetment.authMember;
+import Server_Class.AuthorityManagement.authMember;
 import Server_Class.ScooterManagement.scooterManagement;
 
 public class Client {

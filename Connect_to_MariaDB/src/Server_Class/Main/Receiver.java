@@ -7,8 +7,8 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.StringTokenizer;
 
-import Server_Class.AuthorityManagetment.authManager;
-import Server_Class.AuthorityManagetment.authMember;
+import Server_Class.AuthorityManagement.authManager;
+import Server_Class.AuthorityManagement.authMember;
 import Server_Class.MemberManagement.memberManagement;
 import Server_Class.ScooterManagement.scooterManagement;
 

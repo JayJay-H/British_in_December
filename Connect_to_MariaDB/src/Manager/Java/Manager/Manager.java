@@ -2,7 +2,7 @@ package Manager.Java.Manager;
 
 import java.sql.SQLException;
 
-import Server_Class.AuthorityManagetment.authManager;
+import Server_Class.AuthorityManagement.authManager;
 import Server_Class.MemberManagement.memberManagement;
 import Server_Class.ScooterManagement.scooterManagement;
 
