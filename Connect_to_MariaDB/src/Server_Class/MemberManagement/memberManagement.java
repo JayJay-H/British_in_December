@@ -8,7 +8,7 @@ import DBController.*;
 public class memberManagement {
 	
 	public static boolean addMember(String ID, String Password) { // add에 성공하면 true 반대는 false
-		return insertIntoDB.addManager(ID, Password);
+		return insertIntoDB.addMember(ID, Password);
 	}
 	
 	public static boolean deleteMember(String ID) {			// add에 성공하면 true 반대는 false
