@@ -19,7 +19,7 @@ public class ScooterInformationGuiController {
 
 	@FXML public void backButtonHandler() {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/ManagerGui.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/ScooterManagementGui.fxml"));
 			Scene scene = new Scene(root);;
 			Stage primaryStage = (Stage) backButton.getScene().getWindow();
 			primaryStage.setScene(scene);
@@ -27,5 +27,4 @@ public class ScooterInformationGuiController {
 			e.printStackTrace();
 		}
 	}
-
 }

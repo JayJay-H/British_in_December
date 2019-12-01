@@ -17,8 +17,6 @@ public class ManagerGuiController {
 	@FXML
 	Button MemberManagementButton;
 	@FXML
-	Button ScooterInfoButton;
-	@FXML
 	Button MemberInfoButton;
 
 	@FXML
@@ -28,6 +26,7 @@ public class ManagerGuiController {
 			Scene scene = new Scene(root);;
 			Stage primaryStage = (Stage) backButton.getScene().getWindow();
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Manager");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -40,6 +39,7 @@ public class ManagerGuiController {
 			Scene scene = new Scene(root);;
 			Stage primaryStage = (Stage) backButton.getScene().getWindow();
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("ScooterManagement");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -52,22 +52,12 @@ public class ManagerGuiController {
 			Scene scene = new Scene(root);;
 			Stage primaryStage = (Stage) backButton.getScene().getWindow();
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("MemeberManagement");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	@FXML
-	public void ScooterInfoButtonHandler(ActionEvent event) {
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/ScooterInfoGui.fxml"));
-			Scene scene = new Scene(root);;
-			Stage primaryStage = (Stage) backButton.getScene().getWindow();
-			primaryStage.setScene(scene);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	@FXML
 	public void MemberInfoButtonHandler(ActionEvent event) {
@@ -76,6 +66,7 @@ public class ManagerGuiController {
 			Scene scene = new Scene(root);;
 			Stage primaryStage = (Stage) backButton.getScene().getWindow();
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("MemberInfoGui");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
