@@ -5,4 +5,5 @@ open module Connect_to_MariaDB {
 	requires javafx.fxml;
 	requires javafx.graphics;
 	requires javafx.base;
+	requires java.desktop;
 }
