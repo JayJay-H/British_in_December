@@ -25,34 +25,50 @@ public class Receiver extends Thread {
 	public void run() {
 		try {
 			while(true) { //로그인
-				StringTokenizer authInfo = new StringTokenizer(in.readUTF());
-				String 			ID = null;
-				String 			Pass = null;
-				String 			loginStatus = null;
-				
-				if(authInfo.nextToken().equals("Member")) {
-					ID = authInfo.nextToken();
-					Pass = authInfo.nextToken();
-					loginStatus = authMember.authenticateMember(ID, Pass);
+				try {
+					StringTokenizer authInfo = new StringTokenizer(in.readUTF());
+					String 			ID = null;
+					String 			Pass = null;
+					String 			loginStatus = null;
+					String			q = authInfo.nextToken();
 					
-					if(loginStatus.equals("0")) {
-						break;
-					} else {
-						out.writeUTF(loginStatus);
+					if(q.equals("Member")) {
+						ID = authInfo.nextToken();
+						Pass = authInfo.nextToken();
+						loginStatus = authMember.authenticateMember(ID, Pass);
+						
+						if(loginStatus.equals("0")) {
+							out.writeUTF(loginStatus);
+							break;
+						} else {
+							out.writeUTF(loginStatus);
+						}
 					}
+					
+					else if(q.equals("Manager")) {
+						ID = authInfo.nextToken();
+						Pass = authInfo.nextToken();
+						loginStatus = authManager.authenticateManager(ID, Pass);
+						
+						if(loginStatus.equals("0")) {
+							break;
+						} else {
+							out.writeUTF(loginStatus);
+						}
+					}
+					
+					else if(q.equals("SignUp")) {
+						ID = authInfo.nextToken();
+						Pass = authInfo.nextToken();
+						out.writeBoolean(memberManagement.addMember(ID, Pass));
+					}
+					
+					else {
+						System.out.println(q);
+					}
+				} catch (Exception e) {
+					continue;
 				}
-				
-				if(authInfo.nextToken().equals("Manager")) {
-					ID = authInfo.nextToken();
-					Pass = authInfo.nextToken();
-					loginStatus = authManager.authenticateManager(ID, Pass);
-					
-					if(loginStatus.equals("0")) {
-						break;
-					} else {
-						out.writeUTF(loginStatus);
-					}
-				} 
 			}
 			
 			while(true) { //메소드 실행

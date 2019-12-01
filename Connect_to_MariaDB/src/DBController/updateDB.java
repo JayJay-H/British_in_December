@@ -17,7 +17,7 @@ public class updateDB {
 	        	
 	        	else {
 	        		
-		        	String sql = "update Member set "
+		        	String sql = "update `Member` set "
 		        			+ columns[i]
 		        			+ "=\""
 		        			+ updateTarget[i]
