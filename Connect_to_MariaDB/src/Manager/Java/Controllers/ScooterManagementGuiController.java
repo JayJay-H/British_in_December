@@ -53,6 +53,7 @@ public class ScooterManagementGuiController implements Initializable {
 			Scene scene = new Scene(root);
 			Stage primaryStage = (Stage) backButton.getScene().getWindow();
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Manager");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -66,10 +67,11 @@ public class ScooterManagementGuiController implements Initializable {
 		 * String형이 아니라 새로운 Scooter객체를 만들어야 할지도 모르겠다.  
 		 */
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/scooterInformationGui.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/ScooterInformationGui.fxml"));
 			Scene scene = new Scene(root);
 			Stage primaryStage = (Stage) backButton.getScene().getWindow();
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("ScooterInformation");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -82,6 +84,7 @@ public class ScooterManagementGuiController implements Initializable {
 			Scene scene = new Scene(root);
 			Stage primaryStage = (Stage) backButton.getScene().getWindow();
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("ScooterLocation");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
