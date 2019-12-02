@@ -3,6 +3,7 @@ package Manager.Java.Controllers;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -57,19 +58,16 @@ public class MemberManagementGuiController implements Initializable {
 	// TODO ID를 입력하고 조회버튼을 누르면 입력된 ID를 리스트에서 focus한다
 	@FXML
 	public void findMemberIDButtonHandler() {
-		FocusModel<String> member = new FocusModel<String>() {
+		filteredMemberList.setPredicate(new Predicate<String>() {
 			@Override
-			protected String getModelItem(int arg0) {
-				return null;
+			public boolean test(String t) {
+				if (t.contains(memberIDTextField.getText())) {
+					return true;
+				}
+				return false;
 			}
-
-			@Override
-			protected int getItemCount() {
-				
-				return 0;
-			}
-		};
-		memberListView.setFocusModel(member);
+		});
+		memberListView.setItems(filteredMemberList);
 	}
 
 	@FXML
