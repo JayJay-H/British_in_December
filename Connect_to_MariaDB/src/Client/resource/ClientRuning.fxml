@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.java.ClientRunningController">
    <children>
       <Label layoutX="126.0" layoutY="71.0" text="이용시간" />
       <Label layoutX="138.0" layoutY="162.0" text="금액" />
       <Label fx:id="useTime" layoutX="136.0" layoutY="113.0" text="00:00" />
       <Label fx:id="cost" layoutX="138.0" layoutY="200.0" text="0000" />
-      <Button layoutX="131.0" layoutY="275.0" mnemonicParsing="false" onAction="#returnScooter" text="반납" />
+      <Button fx:id="ReturnBotton" layoutX="131.0" layoutY="275.0" mnemonicParsing="false" onAction="#returnScooter" text="반납" />
    </children>
 </AnchorPane>
