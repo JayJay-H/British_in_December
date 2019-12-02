@@ -6,13 +6,11 @@ public class insertIntoDB {
 	
 	public static boolean addMember(String ID, String Pass) {
 		try {
-			System.out.println(ID);
 			Statement 	stmt = connectToDB.DBStmt();
 			String 		sql = "Insert into `Member` (ID,Password,nowUse) values (\"" + ID + "\",\"" + Pass + "\",\"" + "0" + "\")";
 			stmt.executeUpdate(sql);
 			return true;
 		}catch(Exception e) {
-			e.printStackTrace();
 			return false;
 		}
 	}
