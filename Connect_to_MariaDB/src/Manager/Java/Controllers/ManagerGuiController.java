@@ -60,7 +60,5 @@ public class ManagerGuiController {
 	}
 }
 
-/*
- * #해야할 일 1. 'BackButton'을 'Login'화면으로 바꾸든 다른 버튼으로 바꾸도록한다. 2. 'Member' Gui,
- * Class 구현하기. 3. Css
- */
+
+//TODO 1. 'BackButton'을 'Login'화면으로 전환하도록 변경.

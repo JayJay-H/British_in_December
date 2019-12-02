@@ -13,9 +13,9 @@ public class ScooterInformationGuiController {
 
 	@FXML Button backButton;
 	@FXML Label IDLabel;
-	@FXML ProgressBar leftBattery;
 	@FXML Label usedLabel;
 	@FXML Label locationLabel;
+	
 
 	@FXML public void backButtonHandler() {
 		try {
