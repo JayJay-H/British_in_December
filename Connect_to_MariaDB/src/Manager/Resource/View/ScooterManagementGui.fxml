@@ -12,30 +12,27 @@
 	fx:controller="Manager.Java.Controllers.ScooterManagementGuiController">
 	<children>
 		<ListView fx:id="scooterListView" layoutX="14.0"
-			layoutY="86.0" prefHeight="300.0" prefWidth="250.0" />
-		<Button fx:id="scooterInfoButton" layoutX="279.0"
-			layoutY="136.0" mnemonicParsing="false"
-			onAction="#scooterInfoButtonHandler" prefHeight="40.0"
-			text="스쿠터 정보 확인" />
+			layoutY="86.0" prefHeight="200.0" prefWidth="375.0" />
 		<Label layoutX="14.0" layoutY="63.0" text="현재 배치된 스쿠터 목록" />
-		<Button fx:id="scooterLocationButton" layoutX="279.0"
-			layoutY="210.0" mnemonicParsing="false"
-			onAction="#scooterLocationButtonHandler" prefHeight="40.0"
-			text="스쿠터 위치 조회" />
 		<Label layoutX="171.0" layoutY="29.0" text="ScooterList" />
 		<Button fx:id="backButton" layoutX="344.0" layoutY="14.0"
 			mnemonicParsing="false" onAction="#backButtonHandler" text="Back" />
-		<Label layoutX="14.0" layoutY="405.0" text="추가할 스쿠터의 정보를 입력하세요" />
+		<Label layoutX="14.0" layoutY="405.0" text="추가할 스쿠터의 정보를 입력하세요." />
 		<Label layoutX="14.0" layoutY="430.0" text="ID : " />
 		<Label layoutX="14.0" layoutY="455.0" text="Location : " />
-		<TextField fx:id="scooterID" layoutX="69.0" layoutY="426.0"
-			prefHeight="22.0" prefWidth="220.0" promptText="Scooter의 ID를 입력하세요" />
-		<TextField fx:id="scooterXLocation" layoutX="69.0"
-			layoutY="451.0" prefHeight="22.0" prefWidth="106.0" promptText="x 좌표" />
-		<TextField fx:id="scooterYLocation" layoutX="182.0"
-			layoutY="451.0" prefHeight="22.0" prefWidth="106.0" promptText="y 좌표" />
+		<TextField fx:id="scooterID" layoutX="83.0" layoutY="426.0"
+			prefHeight="22.0" prefWidth="206.0" promptText="Scooter의 ID를 입력하세요" />
+		<TextField fx:id="scooterXLocation" layoutX="83.0"
+			layoutY="451.0" prefHeight="22.0" prefWidth="206.0" promptText="x 좌표" />
 		<Button fx:id="addButton" layoutX="306.0" layoutY="426.0"
 			mnemonicParsing="false" onAction="#addButtonHandler"
-			prefHeight="40.0" prefWidth="74.0" text="추가" />
+			prefHeight="47.0" prefWidth="74.0" text="추가" />
+		<Label layoutX="14.0" layoutY="320.0" text="조회할 스쿠터의 ID를 입력하세요." />
+		<Label layoutX="14.0" layoutY="346.0" text="ID : " />
+		<TextField fx:id="scooterCheckID" layoutX="83.0"
+			layoutY="342.0" prefHeight="22.0" prefWidth="206.0"
+			promptText="Scooter의 ID를 입력하세요" />
+		<Button fx:id="checkButton" layoutX="312.0" layoutY="342.0"
+			mnemonicParsing="false" onAction="#checkButtonHandler" text="조회하기" />
 	</children>
 </AnchorPane>
