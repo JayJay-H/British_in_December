@@ -5,19 +5,7 @@ import Server_Class.AuthorityManagement.authMember;
 import Server_Class.ScooterManagement.scooterManagement;
 
 public class Client {
-	boolean islogin = false;
-	boolean isUsing = false;
-	String[] errorMessage = {"로그인 성공!", "DB관련 오류","비밀번호가 틀립니다.", "이미 사용중입니다.", "아이디가 없습니다."};
-
-	public String Login(String inputID, String inputPassword) {
-		String Loginstatus = authMember.authenticateMember(inputID, inputPassword);
-		if (Loginstatus.equals("0")) {
-			islogin = true;
-		} else {
-			islogin = false;
-		}
-		return errorMessage[Integer.parseInt(Loginstatus)]; //에러 메시지 출력
-	}
+	//TODO 어떻게 해서 각각의 클라이언트의 위치 및 이용시간, 이용금액을 체크 할 것인지 구현
 
 	static String findScooterList() throws SQLException {
 		return scooterManagement.findScooterList();
