@@ -16,14 +16,13 @@ public class ManagerGuiController {
 	Button ScooterManagementButton;
 	@FXML
 	Button MemberManagementButton;
-	@FXML
-	Button MemberInfoButton;
 
 	@FXML
 	public void backButtonHandler(ActionEvent event) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/ManagerGui.fxml"));
-			Scene scene = new Scene(root);;
+			Scene scene = new Scene(root);
+			;
 			Stage primaryStage = (Stage) backButton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Manager");
@@ -36,8 +35,9 @@ public class ManagerGuiController {
 	public void ScooterManagementButtonHandler(ActionEvent event) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/ScooterManagementGui.fxml"));
-			Scene scene = new Scene(root);;
-			Stage primaryStage = (Stage) backButton.getScene().getWindow();
+			Scene scene = new Scene(root);
+			;
+			Stage primaryStage = (Stage) ScooterManagementButton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("ScooterManagement");
 		} catch (Exception e) {
@@ -48,25 +48,12 @@ public class ManagerGuiController {
 	@FXML
 	public void MemberManagementButtonHandler(ActionEvent event) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/MemeberManagementGui.fxml"));
-			Scene scene = new Scene(root);;
-			Stage primaryStage = (Stage) backButton.getScene().getWindow();
+			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/MemberManagementGui.fxml"));
+			Scene scene = new Scene(root);
+			;
+			Stage primaryStage = (Stage) MemberManagementButton.getScene().getWindow();
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("MemeberManagement");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-
-	@FXML
-	public void MemberInfoButtonHandler(ActionEvent event) {
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/MemberInfoGui.fxml"));
-			Scene scene = new Scene(root);;
-			Stage primaryStage = (Stage) backButton.getScene().getWindow();
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("MemberInfoGui");
+			primaryStage.setTitle("MemberManagement");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,8 +61,6 @@ public class ManagerGuiController {
 }
 
 /*
- * #해야할 일
- * 1. 'BackButton'을 'Login'화면으로 바꾸든 다른 버튼으로 바꾸도록한다.
- * 2. 'Member' Gui, Class 구현하기.
- * 3. Css 
+ * #해야할 일 1. 'BackButton'을 'Login'화면으로 바꾸든 다른 버튼으로 바꾸도록한다. 2. 'Member' Gui,
+ * Class 구현하기. 3. Css
  */
