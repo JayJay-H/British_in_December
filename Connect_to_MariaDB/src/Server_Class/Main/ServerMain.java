@@ -115,7 +115,13 @@ public class ServerMain {
             			while(true) { //메소드 실행
             				int methodStatus = method();
             				
-            				// 접속이 끊겼는지 아닌지를 파악함
+            				if(methodStatus==0) {
+            					break;
+            				} else if(methodStatus==-2) {
+            					throw new IOException();
+            				}
+            				
+            				// 비 정상적으로 접속이 끊겼는지 아닌지를 파악함
             				byte[] bytes = new byte[256];
             				InputStream inputStream = socket.getInputStream();
                             // 클라이언트가 비정상 종료를 했을 경우 IOException 발생
@@ -123,13 +129,9 @@ public class ServerMain {
                             // 클라이언트가 정상적으로 Socket의 close()를 호출했을 경우
                             if (readByteCount == -1) {
                                 throw new IOException();
+                            } else {
+                            	continue;
                             }
-            				
-            				if(methodStatus==0) {
-            					break;
-            				} else if(methodStatus==-2) {
-            					throw new IOException();
-            				}
             			}
             			
             		} catch (IOException e) {
