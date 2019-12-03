@@ -9,7 +9,7 @@
 <AnchorPane prefHeight="500.0" prefWidth="400.0"
 	xmlns="http://javafx.com/javafx/11.0.1"
 	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="Manager.Java.Controllers.ScooterManagementGuiController">
+	fx:controller="Manager.Java.Controllers.ScooterManagementController">
 	<children>
 		<ListView fx:id="scooterListView" layoutX="14.0"
 			layoutY="86.0" prefHeight="200.0" prefWidth="375.0" />

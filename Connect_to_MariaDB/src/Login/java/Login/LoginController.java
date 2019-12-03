@@ -112,10 +112,11 @@ public class LoginController implements Initializable {
 				
 				if(loginStatus.equals("0")) {
 					try {
-						Parent root = FXMLLoader.load(getClass().getResource("/Manager/Main/ManagerGuiMain.fxml"));
+						Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/ManagerGui.fxml"));
 						Scene scene = new Scene(root);
 						Stage primaryStage = (Stage) RegisterBotton.getScene().getWindow();
 						primaryStage.setScene(scene);
+						primaryStage.setTitle("Manager");
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

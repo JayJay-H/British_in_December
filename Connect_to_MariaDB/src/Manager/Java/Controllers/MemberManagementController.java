@@ -24,7 +24,7 @@ import javafx.scene.control.FocusModel;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class MemberManagementGuiController implements Initializable {
+public class MemberManagementController implements Initializable {
 
 	@FXML
 	ListView<String> memberListView;
