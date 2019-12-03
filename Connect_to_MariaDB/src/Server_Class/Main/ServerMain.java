@@ -97,17 +97,19 @@ public class ServerMain {
                 public void run() {
             		try {
             			while(true) { //로그인
-            				if(login()==0) {
+            				int loginStatus = login();
+            				if(loginStatus==0) {
             					break;
-            				} else if(login()==-2) {
+            				} else if(loginStatus==-2) {
             					throw new IOException();
             				}
             			}
             			
             			while(true) { //메소드 실행
-            				if(method()==0) {
+            				int methodStatus = method();
+            				if(methodStatus==0) {
             					break;
-            				} else if(login()==-2) {
+            				} else if(methodStatus==-2) {
             					throw new IOException();
             				}
             			}
@@ -141,8 +143,10 @@ public class ServerMain {
 					
 					if(loginStatus.equals("0")) {
 						out.writeUTF(loginStatus);
+						return 0;
 					} else {
 						out.writeUTF(loginStatus);
+						return Integer.parseInt(loginStatus);
 					}
 				}
 				
@@ -153,8 +157,10 @@ public class ServerMain {
 					
 					if(loginStatus.equals("0")) {
 						out.writeUTF(loginStatus);
+						return 0;
 					} else {
 						out.writeUTF(loginStatus);
+						return Integer.parseInt(loginStatus);
 					}
 				}
 				
@@ -162,11 +168,12 @@ public class ServerMain {
 					ID = authInfo.nextToken();
 					Pass = authInfo.nextToken();
 					out.writeBoolean(memberManagement.addMember(ID, Pass));
+					return 0;
 				}
 			} catch (IOException e) {
 				return -2;
 			}
-			return 0;
+			return -3;
 		}
 		
 		private int method() {
