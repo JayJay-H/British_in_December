@@ -60,21 +60,23 @@ public class LoginController implements Initializable {
 	public void login() throws IOException {
 		String ID = IdTextField.getText();
 		String Pass = PassTextField.getText();
-        
-		boolean IdErr = false, PassErr = false, LoginErr = false; // 아이디 비밀번호, 로그인에 오류가 없는지 확인
-		boolean admin = false; // Manager로 로그안 하면 true
+
+		// 멤버인지 매니저인지 확인한 후 로그인 진행.
 		if(whoareyou.getSelectedToggle() == null) {
 			new Alert(Alert.AlertType.WARNING, "사용자로 로그인하실지 매니저로 로그인하실지 정해주세요!", ButtonType.CLOSE).show();
 		} else {
+			
+			// 멤버라면
 			if(whoareyou.getSelectedToggle().getUserData().toString().equals("Client")) {
-				String loginStatus = null;
+				String loginStatus = null; // 로그인 상태를 받아온다.
 				try {
-					outputStream.writeUTF("Member "+ID+" "+Pass);
-					loginStatus = inputStream.readUTF();
+					outputStream.writeUTF("Member "+ID+" "+Pass); // 쿼리를 보냄.
+					loginStatus = inputStream.readUTF(); //쿼리를 받음.
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
+				// 로그인이 성공할 시 클라이언트 세션에 들어감.
 				if(loginStatus.equals("0")) {
 					try {
 						Parent root = FXMLLoader.load(getClass().getResource("/Client/resource/ClientMain.fxml"));
@@ -99,7 +101,7 @@ public class LoginController implements Initializable {
 							LoginErrTextLabel.setText("존재하지 않는 아이디입니다.");
 							break;
 					}
-				}
+				}	// 매니저일 때.
 			} else if(whoareyou.getSelectedToggle().getUserData().toString().equals("Manager")){
 				outputStream.writeUTF("Manager "+ID+" "+Pass);
 				String loginStatus = null;
