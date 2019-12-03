@@ -15,6 +15,30 @@ public class memberManagement {
 		return deleteFromDB.deleteMember(ID);
 	}
 	
+	public static boolean changeNowUse(String table, String ID, String nowUse) {
+		String[] updateTarget = null;
+		
+		System.out.println(table+" "+nowUse+" "+ID);
+		
+		if(table.equals("Member") && nowUse.equals("0")) {
+			updateTarget = new String[] {"null", "null", "null", "0"};
+			
+			return updateDB.updateMember(ID, updateTarget);
+		} else if(table.equals("Member") && nowUse.equals("1")){
+			updateTarget = new String[] {"null", "null", "null", "1"};
+			
+			return updateDB.updateMember(ID, updateTarget);
+		} else if(table.equals("Member") && nowUse.equals("0")) {
+			updateTarget = new String[] {"null", "0"};
+			
+			return updateDB.updateManager(ID, updateTarget);
+		} else {
+			updateTarget = new String[] {"null", "1"};
+			
+			return updateDB.updateManager(ID, updateTarget);
+		}
+	}
+	
 	public static String findMember(String ID) throws SQLException {		// 특정 회원을 찾음
 		ResultSet memberList = searchFromDB.searchObjects("Member");
 		

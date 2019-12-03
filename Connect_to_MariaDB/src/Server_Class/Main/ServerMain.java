@@ -6,7 +6,9 @@ import Server_Class.ScooterManagement.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.*;
@@ -82,6 +84,10 @@ public class ServerMain {
 		DataInputStream in;
         DataOutputStream out;
         
+        String ID;
+        String Pass;
+        String loginTable;
+        
 		public Client(Socket socket) {
             this.socket = socket;
             try {
@@ -98,6 +104,7 @@ public class ServerMain {
             		try {
             			while(true) { //로그인
             				int loginStatus = login();
+                            
             				if(loginStatus==0) {
             					break;
             				} else if(loginStatus==-2) {
@@ -107,6 +114,17 @@ public class ServerMain {
             			
             			while(true) { //메소드 실행
             				int methodStatus = method();
+            				
+            				// 접속이 끊겼는지 아닌지를 파악함
+            				byte[] bytes = new byte[256];
+            				InputStream inputStream = socket.getInputStream();
+                            // 클라이언트가 비정상 종료를 했을 경우 IOException 발생
+                            int readByteCount = inputStream.read(bytes);
+                            // 클라이언트가 정상적으로 Socket의 close()를 호출했을 경우
+                            if (readByteCount == -1) {
+                                throw new IOException();
+                            }
+            				
             				if(methodStatus==0) {
             					break;
             				} else if(methodStatus==-2) {
@@ -116,6 +134,23 @@ public class ServerMain {
             			
             		} catch (IOException e) {
             			//접속이 끊긴상태
+            			if(loginTable.equals("Member")) {
+            				memberManagement.changeNowUse("Member", ID, "0");
+            				try {
+								socket.close();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+            			}else {
+            				memberManagement.changeNowUse("Manager", ID, "0");
+            				try {
+								socket.close();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+            			}
             		}
                 }
             };
@@ -131,10 +166,12 @@ public class ServerMain {
 			} catch (Exception e) {
 				return -1;
 			}
-			String 			ID = null;
-			String 			Pass = null;
 			String 			loginStatus = null;
 			String			q = authInfo.nextToken();
+			
+			ID = null;
+			Pass = null;
+			
 			try {
 				if(q.equals("Member")) {
 					ID = authInfo.nextToken();
@@ -143,6 +180,8 @@ public class ServerMain {
 					
 					if(loginStatus.equals("0")) {
 						out.writeUTF(loginStatus);
+						memberManagement.changeNowUse("Member", ID, "1");
+						loginTable = "Member";
 						return 0;
 					} else {
 						out.writeUTF(loginStatus);
@@ -157,6 +196,8 @@ public class ServerMain {
 					
 					if(loginStatus.equals("0")) {
 						out.writeUTF(loginStatus);
+						memberManagement.changeNowUse("Manager", ID, "1");
+						loginTable = "Manager";
 						return 0;
 					} else {
 						out.writeUTF(loginStatus);
@@ -167,8 +208,13 @@ public class ServerMain {
 				if(q.equals("SignUp")) {
 					ID = authInfo.nextToken();
 					Pass = authInfo.nextToken();
-					out.writeBoolean(memberManagement.addMember(ID, Pass));
-					return 0;
+					boolean signUpStatus = memberManagement.addMember(ID, Pass);
+					out.writeBoolean(signUpStatus);
+					if(signUpStatus) {
+						return 0;
+					} else {
+						return -1;
+					}
 				}
 			} catch (IOException e) {
 				return -2;
@@ -188,12 +234,20 @@ public class ServerMain {
 			try {
 				if(request.equals("Member")) {
 					switch(method) {
-						case "add":
+						case "add": // Member add ID PASS
 							out.writeBoolean(memberManagement.addMember(authInfo.nextToken(), authInfo.nextToken()));
 							break;
 							
-						case "delete":
+						case "delete": // Member delete ID
 							out.writeBoolean(memberManagement.deleteMember(authInfo.nextToken()));
+							break;
+						
+						case "changeMember": // Member changeMemger ID nowUSe
+							out.writeBoolean(memberManagement.changeNowUse(request, authInfo.nextToken(), authInfo.nextToken()));
+							break;
+						
+						case "changeManager": // Member changeManager ID nowUse
+							out.writeBoolean(memberManagement.changeNowUse("Manager", authInfo.nextToken(), authInfo.nextToken()));
 							break;
 							
 						case "findMember":

@@ -4,7 +4,7 @@ import java.sql.Statement;
 
 public class updateDB {
 	
-	public static boolean updateMember(String[] updateTarget, String[] originalContent) {
+	public static boolean updateMember(String ID, String[] updateTarget) {
 		try {
 			
 			Statement 	stmt = connectToDB.DBStmt();
@@ -22,9 +22,9 @@ public class updateDB {
 		        			+ "=\""
 		        			+ updateTarget[i]
 		        			+ "\" where "
-		        			+ columns[i]
+		        			+ "ID"
 		        			+ "=\""
-		        			+ originalContent[i]
+		        			+ ID
 		        			+ "\"";
 		        	
 		        	stmt.executeUpdate(sql);
@@ -40,7 +40,7 @@ public class updateDB {
 		}
 	}
 	
-	public static boolean updateManager(String[] updateTarget, String[] originalContent) {
+	public static boolean updateManager(String ID, String[] updateTarget) {
 		try {
 			
 			Statement 	stmt = connectToDB.DBStmt();
@@ -58,9 +58,9 @@ public class updateDB {
 		        			+ "=\""
 		        			+ updateTarget[i]
 		        			+ "\" where "
-		        			+ columns[i]
+		        			+ "ID"
 		        			+ "=\""
-		        			+ originalContent[i]
+		        			+ ID
 		        			+ "\"";
 		        	
 		        	stmt.executeUpdate(sql);
