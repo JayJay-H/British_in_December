@@ -103,7 +103,7 @@ public class ServerMain {
                 public void run() {
             		try {
             			while(true) { //로그인
-            				int loginStatus = login();
+                            int loginStatus = login();
                             
             				if(loginStatus==0) {
             					break;
@@ -113,13 +113,6 @@ public class ServerMain {
             			}
             			
             			while(true) { //메소드 실행
-            				int methodStatus = method();
-            				
-            				if(methodStatus==0) {
-            					break;
-            				} else if(methodStatus==-2) {
-            					throw new IOException();
-            				}
             				
             				// 비 정상적으로 접속이 끊겼는지 아닌지를 파악함
             				byte[] bytes = new byte[256];
@@ -129,9 +122,28 @@ public class ServerMain {
                             // 클라이언트가 정상적으로 Socket의 close()를 호출했을 경우
                             if (readByteCount == -1) {
                                 throw new IOException();
-                            } else {
-                            	continue;
                             }
+                            
+                            // 클라이언트의 비정상 종료를 감지하기 위해 위와같은 방법을 써서 한번받은 bytes배열을 가지고 명령을 수행.
+                            // 맨 bytes[0], bytes[1] 은 빈칸과 null 이므로 for문은 2번째 인덱스부터 시작한다.
+                            // 이 후 bytes[i]들은 char형으로 바꾸어 StringBuilder에 append
+                            // StringBuilder를 String으로 바꾸고 쿼리를 실행시킨다.
+                            StringBuilder sb = new StringBuilder();
+                            for(int i=2; i<bytes.length; i++) {
+                            	if(bytes[i] == 0)
+                            		break;
+                            	sb.append((char)bytes[i]);
+                            }
+                            String data = sb.toString();
+                            
+            				// 쿼리를 실행하는 부분
+            				int methodStatus = method(data);
+            				
+            				if(methodStatus==0) {
+            					break;
+            				} else if(methodStatus==-2) {
+            					throw new IOException();
+            				}
             			}
             			
             		} catch (IOException e) {
@@ -224,15 +236,12 @@ public class ServerMain {
 			return -3;
 		}
 		
-		private int method() {
-			StringTokenizer authInfo;
-			try {
-				authInfo = new StringTokenizer(in.readUTF());
-			} catch(Exception e) {
-				return -1;
-			}
+		private int method(String data) {
+			StringTokenizer authInfo = new StringTokenizer(data);
+			
 			String request = authInfo.nextToken();
 			String method = authInfo.nextToken();
+			
 			try {
 				if(request.equals("Member")) {
 					switch(method) {
