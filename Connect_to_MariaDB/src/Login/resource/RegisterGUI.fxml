@@ -5,22 +5,40 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.java.Register.RegisterController">
+<AnchorPane prefHeight="250.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.java.Register.RegisterController">
    <children>
-      <Label layoutX="175.0" layoutY="24.0" text="회원가입" />
-      <Label layoutX="32.0" layoutY="68.0" text="아이디" />
-      <Label layoutX="32.0" layoutY="108.0" text="비밀번호" />
-      <Label layoutX="32.0" layoutY="147.0" text="비밀번호 확인" />
-      <PasswordField fx:id="PassTextField" layoutX="118.0" layoutY="104.0" />
-      <PasswordField fx:id="PassVerifyTextField" layoutX="118.0" layoutY="143.0" />
-      <TextField fx:id="IdTextField" layoutX="118.0" layoutY="64.0" />
-      <Label fx:id="IdErrorMessageLabel" layoutX="291.0" layoutY="68.0" />
-      <Label fx:id="PassErrorMessageLabel" layoutX="291.0" layoutY="108.0" />
-      <Label fx:id="PassVerifyTextLabel" layoutX="291.0" layoutY="147.0" />
-      <Button fx:id="RegisterBotton" layoutX="103.0" layoutY="208.0" mnemonicParsing="false" onAction="#register" text="회원가입" />
-      <Button fx:id="CancleBotton" layoutX="258.0" layoutY="208.0" mnemonicParsing="false" onAction="#cancle" text="취소" />
-      <Label fx:id="RegisterErrorMessageTextLabel" layoutX="186.0" layoutY="181.0" />
-      <Button fx:id="ToLogin" layoutX="186.0" layoutY="208.0" mnemonicParsing="false" onAction="#toLogin" text="로그인" />
+      <Label layoutX="126.0" layoutY="14.0" text="회원가입" />
+      <HBox layoutX="73.0" layoutY="205.0" spacing="50.0">
+         <children>
+            <Button fx:id="RegisterBotton" mnemonicParsing="false" onAction="#register" text="회원가입" />
+            <Button fx:id="CancleBotton" mnemonicParsing="false" onAction="#cancle" text="취소" />
+         </children>
+      </HBox>
+      <VBox layoutX="35.0" layoutY="72.0" spacing="20.0">
+         <children>
+            <HBox spacing="30.0">
+               <children>
+                  <Label text="아이디" />
+                  <TextField fx:id="IdTextField" />
+               </children>
+            </HBox>
+            <HBox spacing="20.0">
+               <children>
+                  <Label text="비밀번호" />
+                  <PasswordField fx:id="PassTextField" />
+               </children>
+            </HBox>
+            <HBox spacing="32.0">
+               <children>
+                  <Label text="재입력" />
+                  <PasswordField fx:id="PassVerifyTextField" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Label fx:id="ErrorMessageLabel" alignment="CENTER" layoutX="4.0" layoutY="40.0" prefHeight="14.0" prefWidth="293.0" />
    </children>
 </AnchorPane>
