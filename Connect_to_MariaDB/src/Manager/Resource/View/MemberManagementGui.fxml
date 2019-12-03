@@ -11,7 +11,7 @@
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
 	prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1"
 	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="Manager.Java.Controllers.MemberManagementGuiController">
+	fx:controller="Manager.Java.Controllers.MemberManagementController">
 	<children>
 		<ListView fx:id="memberListView" layoutX="14.0"
 			layoutY="68.0" prefHeight="378.0" prefWidth="262.0" />

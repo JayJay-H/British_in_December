@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class ManagerGuiController {
+public class ManagerController {
 
 	@FXML
 	Button backButton;
@@ -20,9 +20,8 @@ public class ManagerGuiController {
 	@FXML
 	public void backButtonHandler(ActionEvent event) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/ManagerGui.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/Login/resource/LoginGUI.fxml"));
 			Scene scene = new Scene(root);
-			;
 			Stage primaryStage = (Stage) backButton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Manager");
@@ -36,7 +35,6 @@ public class ManagerGuiController {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/ScooterManagementGui.fxml"));
 			Scene scene = new Scene(root);
-			;
 			Stage primaryStage = (Stage) ScooterManagementButton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("ScooterManagement");
@@ -50,7 +48,6 @@ public class ManagerGuiController {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/MemberManagementGui.fxml"));
 			Scene scene = new Scene(root);
-			;
 			Stage primaryStage = (Stage) MemberManagementButton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("MemberManagement");

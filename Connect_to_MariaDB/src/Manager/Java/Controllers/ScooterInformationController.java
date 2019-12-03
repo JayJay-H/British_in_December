@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 
-public class ScooterInformationGuiController {
+public class ScooterInformationController {
 
 	@FXML Button backButton;
 	@FXML Label IDLabel;

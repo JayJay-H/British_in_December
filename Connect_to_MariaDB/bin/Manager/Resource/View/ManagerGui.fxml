@@ -9,7 +9,7 @@
 <AnchorPane prefHeight="500.0" prefWidth="400.0"
 	xmlns="http://javafx.com/javafx/11.0.1"
 	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="Manager.Java.Controllers.ManagerGuiController">
+	fx:controller="Manager.Java.Controllers.ManagerController">
 	<children>
 		<Button fx:id="backButton" layoutX="346.0" layoutY="14.0"
 			mnemonicParsing="false" onAction="#backButtonHandler" text="Back" />

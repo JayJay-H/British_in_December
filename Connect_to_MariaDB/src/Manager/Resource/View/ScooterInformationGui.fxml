@@ -5,7 +5,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager.Java.Controllers.ScooterInformationGuiController">
+<AnchorPane prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager.Java.Controllers.ScooterInformationController">
 	<children>
 		<Button fx:id="backButton" layoutX="344.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonHandler" text="Back" />
 		<Label layoutX="149.0" layoutY="72.0" text="ScooterInformation" />

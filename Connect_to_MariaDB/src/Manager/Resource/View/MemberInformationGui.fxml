@@ -4,19 +4,28 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager.Java.Controllers.MemberInformationGuiController">
+<AnchorPane prefHeight="500.0" prefWidth="400.0"
+	xmlns="http://javafx.com/javafx/11.0.1"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="Manager.Java.Controllers.MemberInformationController">
 	<children>
-		<Button fx:id="backButton" layoutX="344.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonHandler" text="Back" />
+		<Button fx:id="backButton" layoutX="344.0" layoutY="14.0"
+			mnemonicParsing="false" onAction="#backButtonHandler" text="Back" />
 		<Label layoutX="146.0" layoutY="58.0" text="MemberInformation" />
 		<Label layoutX="59.0" layoutY="138.0" text="ID :  " />
 		<Label layoutX="58.0" layoutY="243.0" text="Phone : " />
 		<Label layoutX="53.0" layoutY="358.0" text="NowUse : " />
 		<Label layoutX="60.0" layoutY="192.0" text="PASS :  " />
 		<Label layoutX="57.0" layoutY="300.0" text="E-Mail : " />
-		<Label fx:id="IDLabel" layoutX="86.0" layoutY="138.0" text="IDLabel" />
-		<Label fx:id="PASSLabel" layoutX="100.0" layoutY="192.0" text="PASSLabel" />
-		<Label fx:id="phoneLabel" layoutX="107.0" layoutY="243.0" text="PhoneLabel" />
-		<Label fx:id="mailLabel" layoutX="106.0" layoutY="300.0" text="E-MailLabel" />
-		<Label fx:id="nowUseLabel" layoutX="110.0" layoutY="358.0" text="NowUseLabel" />
+		<Label fx:id="IDLabel" layoutX="86.0" layoutY="138.0"
+			text="IDLabel" />
+		<Label fx:id="PASSLabel" layoutX="100.0" layoutY="192.0"
+			text="PASSLabel" />
+		<Label fx:id="phoneLabel" layoutX="107.0" layoutY="243.0"
+			text="PhoneLabel" />
+		<Label fx:id="mailLabel" layoutX="106.0" layoutY="300.0"
+			text="E-MailLabel" />
+		<Label fx:id="nowUseLabel" layoutX="110.0" layoutY="358.0"
+			text="NowUseLabel" />
 	</children>
 </AnchorPane>

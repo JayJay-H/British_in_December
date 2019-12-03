@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class ManagerGuiMain extends Application{
+public class ManagerMain extends Application{
 	@Override
 	public void start(Stage primaryStage) {
 		try {

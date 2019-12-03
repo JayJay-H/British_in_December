@@ -22,7 +22,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ScooterManagementGuiController implements Initializable {
+public class ScooterManagementController implements Initializable {
 
 	@FXML
 	ListView<String> scooterListView;
