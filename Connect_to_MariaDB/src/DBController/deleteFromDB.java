@@ -8,7 +8,7 @@ public class deleteFromDB {
 		try {
 			
 			Statement 	stmt = connectToDB.DBStmt();
-	        String sql = "delete from `Member` where name=\""+ID+"\"";
+	        String sql = "delete from `Member` where ID=\""+ID+"\"";
 	        stmt.executeUpdate(sql);
 	        
 			return true;
