@@ -46,10 +46,10 @@ public class memberManagement {
 			
 			if(memberList.getString(1).equals(ID)) {
 				String show = ID
-						+ "님의 Password : " + memberList.getString(1)
-						+ "Phone : " + memberList.getString(2)
-						+ "Email : " + memberList.getString(3)
-						+ "사용상태 : " + memberList.getString(4);
+						+ ";" + memberList.getString(2) // password
+						+ ";" + memberList.getString(3) // phone
+						+ ";" + memberList.getString(4) // email
+						+ ";" + memberList.getString(5); // nowUse
 				return show;
 			}
 			
@@ -65,10 +65,10 @@ public class memberManagement {
 		while(memberList.next()){
 	
 			String member = memberList.getString(1)
-					+ "님의 Password : " + memberList.getString(2)
+					+ ";님의 Password : " + memberList.getString(2)
 					+ "Phone : " + memberList.getString(3)
 					+ "Email : " + memberList.getString(4)
-					+ "사용상태 : " + memberList.getString(5) + "\n";
+					+ "사용상태 : " + memberList.getString(5) + "/";
 			showList.append(member);
 			
         }

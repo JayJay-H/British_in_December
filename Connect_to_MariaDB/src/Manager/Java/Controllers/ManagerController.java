@@ -50,7 +50,7 @@ public class ManagerController implements Initializable{
     	});
 	}
     
-	@FXML
+	@FXML // 뒤로가기
 	public void backButtonHandler(ActionEvent event) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/Login/resource/LoginGUI.fxml"));
@@ -64,7 +64,7 @@ public class ManagerController implements Initializable{
 		}
 	}
 
-	@FXML
+	@FXML // 스쿠터 관리로 넘어감
 	public void ScooterManagementButtonHandler(ActionEvent event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager/Resource/View/ScooterManagementGui.fxml"));
@@ -81,11 +81,16 @@ public class ManagerController implements Initializable{
 		}
 	}
 
-	@FXML
+	@FXML // 사용자 관리로 넘어감
 	public void MemberManagementButtonHandler(ActionEvent event) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/MemberManagementGui.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager/Resource/View/MemberManagementGui.fxml"));
+			
+			Parent root = (Parent)loader.load();
 			Scene scene = new Scene(root);
+			MemberManagementController controller = loader.getController();
+			controller.setField(ID, socket, outputStream, inputStream);
+			
 			Stage primaryStage = (Stage) MemberManagementButton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("MemberManagement");
@@ -94,6 +99,7 @@ public class ManagerController implements Initializable{
 		}
 	}
 	
+	// 로그아웃
     public void closeAction() {
         try {
 			outputStream.writeUTF("Member changeManager "+ID+" 0");

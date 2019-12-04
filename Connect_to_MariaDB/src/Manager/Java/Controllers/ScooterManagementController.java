@@ -82,49 +82,7 @@ public class ScooterManagementController implements Initializable {
 			scooterList.add(sList.nextToken());
 		}
 	}
-	/*
-	// 데이터베이스에 저장되어있는 scooterID와 비교해서 같은 스쿠터라면 그 스쿠터의 정보를 확인하게 한다.
-	public String getScooterID() {
-		int selectedIndex = scooterListView.getSelectionModel().getSelectedIndex();
-		if (selectedIndex < 0) {
-			new Alert(Alert.AlertType.WARNING, "항목을 선택하세요.", ButtonType.CLOSE).show();
-			return null;
-		} else {
-			String[] scooterIDInfo = scooterList.get(selectedIndex).split(" ");
-			String[] IDInfo = scooterIDInfo[2].split("\n");
-			selectedScooterID = IDInfo[0];
-			System.out.println(selectedScooterID);
-			return selectedScooterID;
-		}
-	}
-
-	public String getScooterLocation() {
-		int selectedIndex = scooterListView.getSelectionModel().getSelectedIndex();
-		if (selectedIndex < 0) {
-			new Alert(Alert.AlertType.WARNING, "항목을 선택하세요.", ButtonType.CLOSE).show();
-			return null;
-		} else {
-			String[] scooterLocationInfo = scooterList.get(selectedIndex).split(" ");
-			String[] locationInfo = scooterLocationInfo[5].split("\n");
-			selectedScooterLocation = locationInfo[0];
-			System.out.println(selectedScooterLocation);
-			return selectedScooterLocation;
-		}
-	}
-
-	public String getScooterNowUse() {
-		int selectedIndex = scooterListView.getSelectionModel().getSelectedIndex();
-		if (selectedIndex < 0) {
-			new Alert(Alert.AlertType.WARNING, "항목을 선택하세요.", ButtonType.CLOSE).show();
-			return null;
-		} else {
-			String[] usingInfo = scooterList.get(selectedIndex).split(" ");
-			selectedScooterNowUse = usingInfo[8];
-			System.out.println(selectedScooterNowUse);
-			return selectedScooterNowUse;
-		}
-	}
-	*/
+	
 	@FXML
 	public void backButtonHandler(ActionEvent event) {
 		try {
