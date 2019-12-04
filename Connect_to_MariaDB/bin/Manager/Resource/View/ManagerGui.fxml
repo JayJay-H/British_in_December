@@ -41,7 +41,7 @@
       <HBox layoutX="31.0" layoutY="20.0">
          <children>
       		<Label text="ID : " />
-            <Label fx:id="ID" prefHeight="14.0" prefWidth="150.0" />
+            <Label fx:id="idLabel" prefHeight="14.0" prefWidth="150.0" />
          </children>
       </HBox>
 	</children>
