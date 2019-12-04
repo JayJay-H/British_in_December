@@ -25,7 +25,7 @@ public class scooterManagement {
 			if(ID.equals(scooterList.getString(1))) {
 				scooter = scooterList.getString(1)
 						+"의 위치: " + scooterList.getString(2)
-						+"사용상태: " + scooterList.getString(3) + "\n";
+						+"\n사용상태: " + scooterList.getString(3) + "/\n";
 				break;
 			}
 		}
@@ -41,7 +41,7 @@ public class scooterManagement {
 	
 			String scooter = scooterList.getString(1)
 					+ "의 위치 : " + scooterList.getString(2)
-					+ "사용상태 : " + scooterList.getString(3) + "\n";
+					+ "\n사용상태 : " + scooterList.getString(3) + "/";
 			showList.append(scooter);
 			
         }

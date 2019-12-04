@@ -120,7 +120,7 @@ public class LoginController implements Initializable {
 						ManagerController controller = loader.getController();
 						
 						Scene scene = new Scene(root);
-						controller.setID(ID);
+						controller.setField(ID, socket, outputStream, inputStream);
 						Stage primaryStage = (Stage) RegisterBotton.getScene().getWindow();
 						primaryStage.setScene(scene);
 						primaryStage.setTitle("Manager");
