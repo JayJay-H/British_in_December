@@ -34,15 +34,15 @@ public class ManagerController implements Initializable{
 	private Socket socket;
     private DataOutputStream outputStream;
     
-    public ManagerController(String ID) {
+    public void setID(String ID) {
     	this.ID = ID;
 	}
     
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
     	Platform.runLater(() -> {
-    		idLabel.setText(ID);
-        });
+        	idLabel.setText(ID);
+    	});
 		startClient();
 	}
     
@@ -99,6 +99,7 @@ public class ManagerController implements Initializable{
                     socket.connect(new InetSocketAddress("localhost", 8000));
                     
                     outputStream = new DataOutputStream(socket.getOutputStream());
+                    outputStream.writeUTF("Manager ! !");
                 } catch (IOException e) {
                     disconnectServer();
                 }

@@ -197,6 +197,9 @@ public class ServerMain {
 				if(q.equals("Member")) {
 					ID = authInfo.nextToken();
 					Pass = authInfo.nextToken();
+					if(ID.equals("!")) {
+						return 0;
+					}
 					loginStatus = authMember.authenticateMember(ID, Pass);
 					
 					if(loginStatus.equals("0")) {
@@ -213,6 +216,9 @@ public class ServerMain {
 				if(q.equals("Manager")) {
 					ID = authInfo.nextToken();
 					Pass = authInfo.nextToken();
+					if(ID.equals("!")) {
+						return 0;
+					}
 					loginStatus = authManager.authenticateManager(ID, Pass);
 					
 					if(loginStatus.equals("0")) {
