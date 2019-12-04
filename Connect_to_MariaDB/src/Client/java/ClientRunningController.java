@@ -1,5 +1,8 @@
 package Client.java;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,6 +34,18 @@ public class ClientRunningController implements Initializable {
 	@FXML
 	Button startBotton;
 
+	// socket 관련 필드
+	private Socket socket;
+	private DataInputStream inputStream;
+	private DataOutputStream outputStream;
+	private String userID;
+	
+	public void setField(String userID, Socket socket, DataInputStream inputStream, DataOutputStream outputStream) {
+		this.userID = userID;
+		this.socket = socket;
+		this.inputStream = inputStream;
+		this.outputStream = outputStream;
+	}
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -66,7 +81,7 @@ public class ClientRunningController implements Initializable {
 		int m = 0;
 
 		// TODO
-		this.milliseconds++;
+		//this.milliseconds++;
 
 		m = (int) ((milliseconds / 1000 / 60) % 60);
 
@@ -89,10 +104,16 @@ public class ClientRunningController implements Initializable {
 		Thread.sleep(1000);
 		
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/Client/resource/ClientMain.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Client/resource/ClientMain.fxml"));
+			
+			Parent root = (Parent)loader.load();
+			ClientMainController controller = loader.getController();
+			
 			Scene scene = new Scene(root);
+			controller.setField(userID, socket, inputStream, outputStream);
 			Stage primaryStage = (Stage) ReturnBotton.getScene().getWindow();
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Client");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
