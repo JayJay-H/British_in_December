@@ -1,8 +1,13 @@
 package Manager.Java.Controllers;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 import java.util.function.Predicate;
 
 import javafx.beans.value.ChangeListener;
@@ -41,12 +46,60 @@ public class MemberManagementController implements Initializable {
 
 	private ObservableList<String> memberList;
 	private FilteredList<String> filteredMemberList;
-
-	@FXML
+	
+	// Socket 관련 필드
+	private String userID;
+	private Socket socket;
+    private DataOutputStream outputStream;
+    private DataInputStream inputStream;
+    
+    public void setField(String ID, Socket socket, DataOutputStream outputStream, DataInputStream inputStream) {
+    	this.userID = ID;
+    	this.socket = socket;
+    	this.outputStream = outputStream;
+    	this.inputStream = inputStream;
+    	findUserList();
+	}
+    
+    public void findUserList() {
+    	String resultStatus = null;
+		memberList.clear();
+		System.out.println(1);
+		try {
+			outputStream.writeUTF("Member findMemberList");
+			resultStatus = inputStream.readUTF();
+			if(resultStatus.equals("-1")) {
+				throw new IOException("DB error");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(resultStatus);
+		StringTokenizer mList = new StringTokenizer(resultStatus, "/");
+		while(mList.hasMoreTokens()) {
+			StringTokenizer ID = new StringTokenizer(mList.nextToken(), ";");
+			memberList.add(ID.nextToken());
+		}
+    }
+    
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		memberList = FXCollections.observableArrayList();
+		memberListView.setItems(memberList);
+		filteredMemberList = new FilteredList<String>(memberList);
+	}
+	
+	@FXML // 뒤로가기
 	public void backButtonHandler() {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/ManagerGui.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager/Resource/View/ManagerGui.fxml"));
+			
+			Parent root = (Parent)loader.load();
+			ManagerController controller = loader.getController();
+			
 			Scene scene = new Scene(root);
+			controller.setField(userID, socket, outputStream, inputStream);
 			Stage primaryStage = (Stage) backButton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Manager");
@@ -70,20 +123,33 @@ public class MemberManagementController implements Initializable {
 		memberListView.setItems(filteredMemberList);
 	}
 
-	@FXML
+	@FXML // 사용자 정보 확인
 	public void checkMemberInfoButtonHandler() {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/MemberInformationGui.fxml"));
-			Scene scene = new Scene(root);
-			Stage primaryStage = (Stage) backButton.getScene().getWindow();
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("Manager");
+			
+			String selectedID = memberListView.getSelectionModel().getSelectedItem();
+			System.out.println(selectedID);
+			if(selectedID!=null) {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager/Resource/View/MemberInformationGui.fxml"));
+				
+				Parent root = (Parent)loader.load();
+				Scene scene = new Scene(root);
+				MemberInformationController controller = loader.getController();
+				controller.setField(userID, socket, outputStream, inputStream, selectedID);
+				
+				Stage primaryStage = (Stage) backButton.getScene().getWindow();
+				primaryStage.setScene(scene);
+				primaryStage.setTitle("Member Information");
+			} else {
+				new Alert(Alert.AlertType.INFORMATION, "조회하고자 하는 ID를 선택해주세요!", ButtonType.CLOSE).show();
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	@FXML
+	@FXML // 사용자 삭제
 	public void deleteMemberInfoButtonHandler() {
 		int selectedIndex = memberListView.getSelectionModel().getSelectedIndex();
 		if (selectedIndex < 0) {
@@ -95,15 +161,6 @@ public class MemberManagementController implements Initializable {
 				memberList.remove(selectedIndex);
 			}
 		}
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		memberList = FXCollections.observableArrayList();
-		//에시 ID
-		memberList.add("example ID");
-		memberListView.setItems(memberList);
-		filteredMemberList = new FilteredList<String>(memberList);
 	}
 
 }

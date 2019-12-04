@@ -273,7 +273,7 @@ public class ServerMain {
 								String result = memberManagement.findMember(authInfo.nextToken());
 								out.writeUTF(result);
 							}catch (SQLException e) {
-								out.writeUTF("DB 오류");
+								out.writeUTF("-1");
 							}
 							break;
 							
@@ -282,7 +282,7 @@ public class ServerMain {
 								String result = memberManagement.findMemberList();
 								out.writeUTF(result);
 							}catch (SQLException e) {
-								out.writeUTF("DB 오류");
+								out.writeUTF("-1");
 							}
 							break;
 							
