@@ -64,7 +64,6 @@ public class MemberManagementController implements Initializable {
     public void findUserList() {
     	String resultStatus = null;
 		memberList.clear();
-		System.out.println(1);
 		try {
 			outputStream.writeUTF("Member findMemberList");
 			resultStatus = inputStream.readUTF();
@@ -75,11 +74,24 @@ public class MemberManagementController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(resultStatus);
 		StringTokenizer mList = new StringTokenizer(resultStatus, "/");
 		while(mList.hasMoreTokens()) {
 			StringTokenizer ID = new StringTokenizer(mList.nextToken(), ";");
 			memberList.add(ID.nextToken());
+		}
+    }
+    
+    public void deleteMember(String ID) {
+    	String resultStatus = null;
+    	try {
+			outputStream.writeUTF("Member delete " + ID);
+			resultStatus = inputStream.readUTF();
+			if(resultStatus.equals("-1")) {
+				throw new IOException("DB error");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
     }
     
@@ -152,13 +164,27 @@ public class MemberManagementController implements Initializable {
 	@FXML // 사용자 삭제
 	public void deleteMemberInfoButtonHandler() {
 		int selectedIndex = memberListView.getSelectionModel().getSelectedIndex();
+		String selectedID = memberListView.getSelectionModel().getSelectedItem();
 		if (selectedIndex < 0) {
 			new Alert(Alert.AlertType.WARNING, "삭제할 항목을 선택하세요.", ButtonType.CLOSE).show();
 		} else {
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "정말 삭제하시겠습니까?", ButtonType.OK, ButtonType.CANCEL);
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK) {
-				memberList.remove(selectedIndex);
+				
+				boolean resultStatus = false;
+		    	try {
+					outputStream.writeUTF("Member delete " + selectedID);
+					resultStatus = inputStream.readBoolean();
+					if(!resultStatus) {
+						throw new IOException("DB error");
+					}
+					resultStatus = true;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					new Alert(Alert.AlertType.WARNING, "삭제 실패!", ButtonType.CLOSE).show();
+				}
+		    	findUserList();
 			}
 		}
 	}
