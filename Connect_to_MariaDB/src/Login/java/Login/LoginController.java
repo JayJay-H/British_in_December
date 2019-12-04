@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.ResourceBundle;
 
+import Manager.Java.Controllers.ManagerController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -103,10 +104,9 @@ public class LoginController implements Initializable {
 					}
 				}	// 매니저일 때.
 			} else if(whoareyou.getSelectedToggle().getUserData().toString().equals("Manager")){
-				outputStream.writeUTF("Manager "+ID+" "+Pass);
 				String loginStatus = null;
 				try {
-					outputStream.writeUTF("Member "+ID+" "+Pass);
+					outputStream.writeUTF("Manager "+ID+" "+Pass);
 					loginStatus = inputStream.readUTF();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -114,7 +114,11 @@ public class LoginController implements Initializable {
 				
 				if(loginStatus.equals("0")) {
 					try {
-						Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/ManagerGui.fxml"));
+						FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager/Resource/View/ManagerGui.fxml"));
+
+						loader.setControllerFactory(param -> new ManagerController(ID));
+						Parent root = (Parent)loader.load();
+						
 						Scene scene = new Scene(root);
 						Stage primaryStage = (Stage) RegisterBotton.getScene().getWindow();
 						primaryStage.setScene(scene);
