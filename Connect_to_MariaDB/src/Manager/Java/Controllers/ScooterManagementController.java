@@ -77,9 +77,19 @@ public class ScooterManagementController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		StringTokenizer sList = new StringTokenizer(resultStatus, "/");
-		while(sList.hasMoreTokens()) {
-			scooterList.add(sList.nextToken());
+		StringTokenizer allScooterList = new StringTokenizer(resultStatus, "/");
+		while(allScooterList.hasMoreTokens()) {
+			StringTokenizer scooter = new StringTokenizer(allScooterList.nextToken(), ";");
+			String scooterID = scooter.nextToken();
+			String scooterLocation = scooter.nextToken();
+			String scooterNowUse = scooter.nextToken();
+			
+			String addToList = "ID : "+ scooterID
+								+ "\n현재 위치 : "
+								+ scooterLocation
+								+ "\n사용 가능 여부 : "
+								+ scooterNowUse;
+			scooterList.add(addToList);
 		}
 	}
 	
