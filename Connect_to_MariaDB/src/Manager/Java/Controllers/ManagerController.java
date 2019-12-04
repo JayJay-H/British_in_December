@@ -102,8 +102,7 @@ public class ManagerController implements Initializable{
 	// 로그아웃
     public void closeAction() {
         try {
-			outputStream.writeUTF("Member changeManager "+ID+" 0");
-			System.out.println("1");
+			//outputStream.writeUTF("Member changeManager "+ID+" 0");
         	//만약 소켓이 안 닫혀 있다면 닫기
             if (socket != null && !socket.isClosed()) {
                 socket.close();
