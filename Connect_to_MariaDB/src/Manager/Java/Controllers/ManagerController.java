@@ -30,12 +30,17 @@ public class ManagerController implements Initializable{
 	@FXML
 	Button MemberManagementButton;
 	
-	private String ID; 
+	// Socket 관련 필드
+	private String ID;
 	private Socket socket;
     private DataOutputStream outputStream;
+    private DataInputStream inputStream;
     
-    public void setID(String ID) {
+    public void setField(String ID, Socket socket, DataOutputStream outputStream, DataInputStream inputStream) {
     	this.ID = ID;
+    	this.socket = socket;
+    	this.outputStream = outputStream;
+    	this.inputStream = inputStream;
 	}
     
     @Override
@@ -43,13 +48,11 @@ public class ManagerController implements Initializable{
     	Platform.runLater(() -> {
         	idLabel.setText(ID);
     	});
-		startClient();
 	}
     
 	@FXML
 	public void backButtonHandler(ActionEvent event) {
 		try {
-			outputStream.writeUTF("Member changeManager "+ID+" 0");
 			Parent root = FXMLLoader.load(getClass().getResource("/Login/resource/LoginGUI.fxml"));
 			Scene scene = new Scene(root);
 			Stage primaryStage = (Stage) backButton.getScene().getWindow();
@@ -64,9 +67,12 @@ public class ManagerController implements Initializable{
 	@FXML
 	public void ScooterManagementButtonHandler(ActionEvent event) {
 		try {
-			System.out.println(ID);
-			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/ScooterManagementGui.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager/Resource/View/ScooterManagementGui.fxml"));
+			Parent root = (Parent)loader.load();
 			Scene scene = new Scene(root);
+			ScooterManagementController controller = loader.getController();
+			controller.setField(ID, socket, outputStream, inputStream);
+			
 			Stage primaryStage = (Stage) ScooterManagementButton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("ScooterManagement");
@@ -88,35 +94,10 @@ public class ManagerController implements Initializable{
 		}
 	}
 	
-	public
-	
-	void startClient() {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                	socket = new Socket();
-                    socket.connect(new InetSocketAddress("localhost", 8000));
-                    
-                    outputStream = new DataOutputStream(socket.getOutputStream());
-                    outputStream.writeUTF("Manager ! !");
-                } catch (IOException e) {
-                    disconnectServer();
-                }
-            }
-        };
-        Thread thread = new Thread(runnable);
-        thread.start();
-    }
-	
-	void disconnectServer() {
-        if (!socket.isClosed()) {
-        	closeAction();
-        }
-    }
-	
     public void closeAction() {
         try {
+			outputStream.writeUTF("Member changeManager "+ID+" 0");
+			System.out.println("1");
         	//만약 소켓이 안 닫혀 있다면 닫기
             if (socket != null && !socket.isClosed()) {
                 socket.close();

@@ -197,9 +197,6 @@ public class ServerMain {
 				if(q.equals("Member")) {
 					ID = authInfo.nextToken();
 					Pass = authInfo.nextToken();
-					if(ID.equals("!")) {
-						return 0;
-					}
 					loginStatus = authMember.authenticateMember(ID, Pass);
 					
 					if(loginStatus.equals("0")) {
@@ -216,9 +213,6 @@ public class ServerMain {
 				if(q.equals("Manager")) {
 					ID = authInfo.nextToken();
 					Pass = authInfo.nextToken();
-					if(ID.equals("!")) {
-						return 0;
-					}
 					loginStatus = authManager.authenticateManager(ID, Pass);
 					
 					if(loginStatus.equals("0")) {
@@ -325,7 +319,7 @@ public class ServerMain {
 								String result = scooterManagement.findScooter(authInfo.nextToken());
 								out.writeUTF(result);
 							}catch (SQLException e) {
-								out.writeUTF("DB 오류");
+								out.writeUTF("-1");
 							}
 							break;
 							
@@ -334,7 +328,7 @@ public class ServerMain {
 								String result = scooterManagement.findScooterList();
 								out.writeUTF(result);
 							}catch (SQLException e) {
-								out.writeUTF("DB 오류");
+								out.writeUTF("-1");
 							}
 							break;
 							
@@ -366,7 +360,7 @@ public class ServerMain {
 			} catch (IOException e) {
 				return -2;
 			}
-			return 0;
+			return -3;
 		}
 		
 		private void disconnectClient() {

@@ -1,5 +1,9 @@
 package Manager.Java.Controllers;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -46,11 +50,39 @@ public class ScooterManagementController implements Initializable {
 	
 	private ObservableList<String> scooterList;
 	private FilteredList<String> filteredList;
-
-	private String selectedScooterID;
-	private String selectedScooterLocation;
-	private String selectedScooterNowUse;
-
+	
+	private String userID;
+	private Socket socket;
+	private DataOutputStream outputStream;
+	private DataInputStream inputStream;
+	
+	public void setField(String ID, Socket socket, DataOutputStream outputStream, DataInputStream inputStream) {
+		this.userID = ID;
+		this.socket = socket;
+		this.outputStream = outputStream;
+		this.inputStream = inputStream;
+		findScooterList();
+	}
+	
+	public void findScooterList(){
+		String resultStatus = null;
+		scooterList.clear();
+		try {
+			outputStream.writeUTF("Scooter findScooterList");
+			resultStatus = inputStream.readUTF();
+			if(resultStatus.equals("-1")) {
+				throw new IOException("DB error");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		StringTokenizer sList = new StringTokenizer(resultStatus, "/");
+		while(sList.hasMoreTokens()) {
+			scooterList.add(sList.nextToken());
+		}
+	}
+	/*
 	// 데이터베이스에 저장되어있는 scooterID와 비교해서 같은 스쿠터라면 그 스쿠터의 정보를 확인하게 한다.
 	public String getScooterID() {
 		int selectedIndex = scooterListView.getSelectionModel().getSelectedIndex();
@@ -92,13 +124,18 @@ public class ScooterManagementController implements Initializable {
 			return selectedScooterNowUse;
 		}
 	}
-
+	*/
 	@FXML
 	public void backButtonHandler(ActionEvent event) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/Manager/Resource/View/ManagerGui.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager/Resource/View/ManagerGui.fxml"));
+			
+			Parent root = (Parent)loader.load();
+			ManagerController controller = loader.getController();
+			
 			Scene scene = new Scene(root);
-			Stage primaryStage = (Stage) backButton.getScene().getWindow();
+			controller.setField(userID, socket, outputStream, inputStream);
+			Stage primaryStage = (Stage) checkButton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Manager");
 		} catch (Exception e) {
@@ -109,18 +146,35 @@ public class ScooterManagementController implements Initializable {
 	@FXML
 	public void addButtonHandler() {
 		String addScooterID = scooterID.getText();
-		String addScooterXLocation = scooterXLocation.getText();
-
-		if (!addScooterID.equals("") && !addScooterXLocation.equals("")) {
+		String addScooterLocation = scooterXLocation.getText();
+		boolean addStatus = false;
+		if (!addScooterID.equals("") && !addScooterLocation.equals("")) {
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Scooter을 /를 정말 추가하시겠습니까?", ButtonType.OK,
 					ButtonType.CANCEL);
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK) {
-				scooterList.add("ScooterID : " + addScooterID + "\nScooter의 X좌표 : " + addScooterXLocation
-						+ "\nScooter 사용정보 : 사용가능");
-				scooterListView.setItems(scooterList);
-				scooterID.setText("");
-				scooterXLocation.setText("");
+			//Optional<ButtonType> result = alert.showAndWait();
+			try {
+				outputStream.writeUTF("Scooter add "+ addScooterID + " " + addScooterLocation);
+				addStatus = inputStream.readBoolean();
+				if(!addStatus) {
+					throw new Exception();
+				}
+			} catch (Exception e) {
+				new Alert(Alert.AlertType.INFORMATION, "추가 실패!", ButtonType.CLOSE).show();
+			}
+			if(addStatus) {
+				/*
+				if (result.get() == ButtonType.OK) {
+					scooterList.add(addScooterID 
+									+ "의 위치 : " 
+									+ addScooterLocation
+									+ "\n사용상태 : 0"
+								);
+					scooterListView.setItems(scooterList);
+					scooterID.setText("");
+					scooterXLocation.setText("");
+				}
+				*/
+				findScooterList();
 			}
 		} else {
 			new Alert(Alert.AlertType.WARNING, "Scooter의 정보를 모두 입력해주세요.", ButtonType.CLOSE).show();
@@ -129,6 +183,7 @@ public class ScooterManagementController implements Initializable {
 
 	@FXML
 	public void checkButtonHandler() {
+		findScooterList();
 		filteredList.setPredicate(new Predicate<String>() {
 			@Override
 			public boolean test(String t) {
@@ -142,10 +197,8 @@ public class ScooterManagementController implements Initializable {
 	}
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(URL location, ResourceBundle resources){
 		scooterList = FXCollections.observableArrayList();
-		// 스쿠터 리스트 예시
-		scooterList.add("ScooterID : exampleScooter" + "\nScooter의 X좌표 : 0" + "\nScooter 사용정보 : 사용가능");
 		scooterListView.setItems(scooterList);
 		filteredList = new FilteredList<String>(scooterList);
 		
