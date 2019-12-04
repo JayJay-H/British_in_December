@@ -28,7 +28,7 @@ public class memberManagement {
 			updateTarget = new String[] {"null", "null", "null", "1"};
 			
 			return updateDB.updateMember(ID, updateTarget);
-		} else if(table.equals("Member") && nowUse.equals("0")) {
+		} else if(table.equals("Manager") && nowUse.equals("0")) {
 			updateTarget = new String[] {"null", "0"};
 			
 			return updateDB.updateManager(ID, updateTarget);

@@ -103,8 +103,30 @@ public class ServerMain {
                 public void run() {
             		try {
             			while(true) { //로그인
-                            int loginStatus = login();
+            				
+            				byte[] bytes = new byte[256];
+            				InputStream inputStream = socket.getInputStream();
+                            // 클라이언트가 비정상 종료를 했을 경우 IOException 발생
+                            int readByteCount = inputStream.read(bytes);
+                            // 클라이언트가 정상적으로 Socket의 close()를 호출했을 경우
+                            if (readByteCount == -1) {
+                                throw new IOException();
+                            }
                             
+                            // 클라이언트의 비정상 종료를 감지하기 위해 위와같은 방법을 써서 한번받은 bytes배열을 가지고 명령을 수행.
+                            // 맨 bytes[0], bytes[1] 은 빈칸과 null 이므로 for문은 2번째 인덱스부터 시작한다.
+                            // 이 후 bytes[i]들은 char형으로 바꾸어 StringBuilder에 append
+                            // StringBuilder를 String으로 바꾸고 쿼리를 실행시킨다.
+                            StringBuilder sb = new StringBuilder();
+                            for(int i=2; i<bytes.length; i++) {
+                            	if(bytes[i] == 0)
+                            		break;
+                            	sb.append((char)bytes[i]);
+                            }
+                            String data = sb.toString();
+            				
+                            int loginStatus = login(data);
+                            System.out.println("login: "+loginStatus);
             				if(loginStatus==0) {
             					break;
             				} else if(loginStatus==-2) {
@@ -113,7 +135,6 @@ public class ServerMain {
             			}
             			
             			while(true) { //메소드 실행
-            				
             				// 비 정상적으로 접속이 끊겼는지 아닌지를 파악함
             				byte[] bytes = new byte[256];
             				InputStream inputStream = socket.getInputStream();
@@ -136,6 +157,7 @@ public class ServerMain {
                             }
                             String data = sb.toString();
                             
+                            System.out.println(data);
             				// 쿼리를 실행하는 부분
             				int methodStatus = method(data);
             				
@@ -150,20 +172,10 @@ public class ServerMain {
             			//접속이 끊긴상태
             			if(loginTable.equals("Member")) {
             				memberManagement.changeNowUse("Member", ID, "0");
-            				try {
-								socket.close();
-							} catch (IOException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
+            				disconnectClient();
             			}else {
             				memberManagement.changeNowUse("Manager", ID, "0");
-            				try {
-								socket.close();
-							} catch (IOException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
+            				disconnectClient();
             			}
             		}
                 }
@@ -173,13 +185,8 @@ public class ServerMain {
             service.submit(runnable);
         }
 		
-		private int login() {
-			StringTokenizer authInfo;
-			try {
-				authInfo = new StringTokenizer(in.readUTF());
-			} catch (Exception e) {
-				return -1;
-			}
+		private int login(String data) {
+			StringTokenizer authInfo = new StringTokenizer(data);
 			String 			loginStatus = null;
 			String			q = authInfo.nextToken();
 			
@@ -355,7 +362,19 @@ public class ServerMain {
 			}
 			return 0;
 		}
+		
+		private void disconnectClient() {
+            try {
+                clientList.remove(Client.this);
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
 	}
+	
+	
 	
 	public static void main(String[] args) {
 		ServerMain start = new ServerMain();
