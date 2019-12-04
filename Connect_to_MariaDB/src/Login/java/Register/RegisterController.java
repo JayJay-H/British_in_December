@@ -79,7 +79,6 @@ public class RegisterController implements Initializable {
 			
 			// 회원가입 성공, 실패시 메시지 출력
 			if (signUpStatus && PassStatus) {
-				System.out.println("ㅋㅋ");
 				ErrorMessageLabel.setText("회원가입 성공!");
 				try {
 					closeAction();

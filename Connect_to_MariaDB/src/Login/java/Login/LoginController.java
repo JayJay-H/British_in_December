@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.ResourceBundle;
 
+import Client.java.ClientMainController;
+import Client.java.ClientRunningController;
 import Manager.Java.Controllers.ManagerController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -80,10 +82,16 @@ public class LoginController implements Initializable {
 				// 로그인이 성공할 시 클라이언트 세션에 들어감.
 				if(loginStatus.equals("0")) {
 					try {
-						Parent root = FXMLLoader.load(getClass().getResource("/Client/resource/ClientMain.fxml"));
+						FXMLLoader loader = new FXMLLoader(getClass().getResource("/Client/resource/ClientMain.fxml"));
+						
+						Parent root = (Parent)loader.load();
+						ClientMainController controller = loader.getController();
+						
 						Scene scene = new Scene(root);
-						Stage primaryStage = (Stage) RegisterBotton.getScene().getWindow();
+						controller.setField(ID, socket, inputStream, outputStream);
+						Stage primaryStage = (Stage) LoginBotton.getScene().getWindow();
 						primaryStage.setScene(scene);
+						primaryStage.setTitle("Client");
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

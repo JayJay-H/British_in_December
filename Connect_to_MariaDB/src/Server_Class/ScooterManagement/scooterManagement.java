@@ -39,11 +39,10 @@ public class scooterManagement {
 		
 		while(scooterList.next()){
 	
-			String scooter = scooterList.getString(1)
-					+ "의 위치 : " + scooterList.getString(2)
-					+ "\n사용상태 : " + scooterList.getString(3) + "/";
-			showList.append(scooter);
-			
+			String scooter = scooterList.getString(1) // ID
+					+ ";" + scooterList.getString(2) // location
+					+ ";" + scooterList.getString(3) + "/"; // nowUSe
+			showList.append(scooter);	
         }
 		
 		return showList.toString();

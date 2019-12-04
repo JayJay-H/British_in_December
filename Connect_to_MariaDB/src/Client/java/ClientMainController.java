@@ -1,8 +1,15 @@
 package Client.java;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 
+import Manager.Java.Controllers.ManagerController;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,7 +26,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 
 public class ClientMainController implements Initializable {
-
+	@FXML
+	Label idLabel;
 	@FXML
 	ListView<String> scooterListview;
 	@FXML
@@ -28,14 +36,32 @@ public class ClientMainController implements Initializable {
 	Label numOfScooter;
 
 	private ObservableList<String> scooterList;
-
+	
+	// socket 관련 필드
+	private Socket socket;
+	private DataInputStream inputStream;
+	private DataOutputStream outputStream;
+	private String userID;
+	
+	public void setField(String userID, Socket socket, DataInputStream inputStream, DataOutputStream outputStream) {
+		this.userID = userID;
+		this.socket = socket;
+		this.inputStream = inputStream;
+		this.outputStream = outputStream;
+		findCanUseScooter();
+	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO DB에서 이용가능한 스쿠터 받아오는 방식으로 수정
-		// 필요한 메서드는 Client 클래스에 있음
+		Platform.runLater(() -> {
+			idLabel.setText(userID);
+		});
+		
+		Platform.runLater(() -> {
+			numOfScooter.setText(numOfScooter());
+		});
 		scooterList = FXCollections.observableArrayList();
 		scooterListview.setItems(scooterList);
-		numOfScooter.setText(numOfScooter());
 	}
 
 	@FXML
@@ -48,13 +74,47 @@ public class ClientMainController implements Initializable {
 			return;
 		}
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/Client/resource/ClientRunning.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Client/resource/ClientRunning.fxml"));
+			
+			Parent root = (Parent)loader.load();
+			ClientRunningController controller = loader.getController();
+			
 			Scene scene = new Scene(root);
+			controller.setField(userID, socket, inputStream, outputStream);
 			Stage primaryStage = (Stage) SelectBotton.getScene().getWindow();
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("ClientRunning");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void findCanUseScooter() {
+		String resultStatus = null;
+		try {
+			outputStream.writeUTF("Scooter findScooterList");
+			resultStatus = inputStream.readUTF();
+			
+			if(resultStatus.equals("-1")) {
+				throw new IOException();
+			}
+		} catch (IOException e) {
+			new Alert(Alert.AlertType.INFORMATION, "스쿠터 데이터를 불러오는 중 오류가 생겼습니다!", ButtonType.CLOSE).show();
+		}
+		StringTokenizer allScooterList = new StringTokenizer(resultStatus, "/");
+		while(allScooterList.hasMoreTokens()) {
+			String scooterID;
+			String location;
+			String scooterNowUse;
+			StringTokenizer scooter = new StringTokenizer(allScooterList.nextToken(), ";");
+			scooterID = scooter.nextToken();
+			location = scooter.nextToken();
+			scooterNowUse = scooter.nextToken();
+			if(scooterNowUse.equals("0")) {
+				scooterList.add(scooterID);
+			}
+		}
+		
 	}
 	
 	public String numOfScooter() {
