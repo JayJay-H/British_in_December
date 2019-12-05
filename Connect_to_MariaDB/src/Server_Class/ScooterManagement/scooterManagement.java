@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import DBController.deleteFromDB;
 import DBController.insertIntoDB;
 import DBController.searchFromDB;
+import DBController.updateDB;
 
 public class scooterManagement {
 	
@@ -15,6 +16,29 @@ public class scooterManagement {
 	
 	public static boolean deleteScooter(String ID) {
 		return deleteFromDB.deleteScooter(ID);
+	}
+	
+	public static boolean changeNowUse(String table, String ID, String nowUse) {
+		String[] updateTarget = null;
+		
+		System.out.println(table+" "+nowUse+" "+ID);
+		
+		if(nowUse.equals("0")) {
+			updateTarget = new String[] {"null", "0"};
+			return updateDB.updateScooter(ID, updateTarget);
+		} else {
+			updateTarget = new String[] {"null", "1"};
+			return updateDB.updateScooter(ID, updateTarget);
+		}	
+	}
+	
+	public static boolean changeLocation(String table, String ID, String location) {
+		String[] updateTarget = null;
+		
+		System.out.println(table+" "+location+" "+ID);
+		updateTarget = new String[] {location, "null"};
+		
+		return updateDB.updateScooter(ID, updateTarget);
 	}
 	
 	public static String findScooter(String ID) throws SQLException {

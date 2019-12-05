@@ -84,7 +84,7 @@ public class ServerMain {
 		DataInputStream in;
         DataOutputStream out;
         
-        String ID;
+        String userID;
         String Pass;
         String loginTable;
         
@@ -140,6 +140,7 @@ public class ServerMain {
             				InputStream inputStream = socket.getInputStream();
                             // 클라이언트가 비정상 종료를 했을 경우 IOException 발생
                             int readByteCount = inputStream.read(bytes);
+                            //System.out.println(readByteCount);
                             // 클라이언트가 정상적으로 Socket의 close()를 호출했을 경우
                             if (readByteCount == -1) {
                                 throw new IOException();
@@ -171,10 +172,10 @@ public class ServerMain {
             		} catch (IOException e) {
             			//접속이 끊긴상태
             			if(loginTable.equals("Member")) {
-            				memberManagement.changeNowUse("Member", ID, "0");
+            				memberManagement.changeNowUse("Member", userID, "0");
             				disconnectClient();
             			}else {
-            				memberManagement.changeNowUse("Manager", ID, "0");
+            				memberManagement.changeNowUse("Manager", userID, "0");
             				disconnectClient();
             			}
             		}
@@ -186,22 +187,23 @@ public class ServerMain {
         }
 		
 		private int login(String data) {
+			
 			StringTokenizer authInfo = new StringTokenizer(data);
 			String 			loginStatus = null;
 			String			q = authInfo.nextToken();
 			
-			ID = null;
+			userID = null;
 			Pass = null;
 			
 			try {
 				if(q.equals("Member")) {
-					ID = authInfo.nextToken();
+					userID = authInfo.nextToken();
 					Pass = authInfo.nextToken();
-					loginStatus = authMember.authenticateMember(ID, Pass);
+					loginStatus = authMember.authenticateMember(userID, Pass);
 					
 					if(loginStatus.equals("0")) {
 						out.writeUTF(loginStatus);
-						memberManagement.changeNowUse("Member", ID, "1");
+						memberManagement.changeNowUse("Member", userID, "1");
 						loginTable = "Member";
 						return 0;
 					} else {
@@ -211,13 +213,13 @@ public class ServerMain {
 				}
 				
 				if(q.equals("Manager")) {
-					ID = authInfo.nextToken();
+					userID = authInfo.nextToken();
 					Pass = authInfo.nextToken();
-					loginStatus = authManager.authenticateManager(ID, Pass);
+					loginStatus = authManager.authenticateManager(userID, Pass);
 					
 					if(loginStatus.equals("0")) {
 						out.writeUTF(loginStatus);
-						memberManagement.changeNowUse("Manager", ID, "1");
+						memberManagement.changeNowUse("Manager", userID, "1");
 						loginTable = "Manager";
 						return 0;
 					} else {
@@ -227,9 +229,9 @@ public class ServerMain {
 				}
 				
 				if(q.equals("SignUp")) {
-					ID = authInfo.nextToken();
+					userID = authInfo.nextToken();
 					Pass = authInfo.nextToken();
-					boolean signUpStatus = memberManagement.addMember(ID, Pass);
+					boolean signUpStatus = memberManagement.addMember(userID, Pass);
 					out.writeBoolean(signUpStatus);
 					if(signUpStatus) {
 						return 0;
@@ -313,6 +315,29 @@ public class ServerMain {
 						case "delete":
 							out.writeBoolean(scooterManagement.deleteScooter(authInfo.nextToken()));
 							break;
+						
+						case "changeScooterNowUse": // Scooter changeScooterNowUse ID nowUse
+							boolean changeNowUseStatus = scooterManagement.changeNowUse(request, authInfo.nextToken(), authInfo.nextToken());
+							if(changeNowUseStatus) {
+								out.writeUTF("changeNowUse");
+							} else {
+								out.writeUTF("failedNowUse");
+							}
+							
+							// 모든 클라이언트들에게 스쿠터 테이블을 업데이트 하라고 알림.
+	                        for (Client client : clientList) {
+	                        	
+	                        	if(!client.userID.equals(userID)) {
+		                        	client.sendUpadte();
+	                        	}
+	                        }
+							break;
+						
+						case "changeScooterLocation": // Scooter changeScooterLocation ID Location
+							boolean changeLocationStatus = scooterManagement.changeLocation(request, authInfo.nextToken(), authInfo.nextToken());
+							out.writeBoolean(changeLocationStatus);
+							sendUpadte();
+							break;
 							
 						case "findScooter":
 							try {
@@ -371,6 +396,21 @@ public class ServerMain {
                 e.printStackTrace();
             }
 
+        }
+		
+        private void sendUpadte() {
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                    	// 클라이언트에게 메시지를 보냄
+                    	DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+                    	outputStream.writeUTF("Update");
+                    } catch (IOException e) {}
+                }
+            };
+            // 스레드풀에 넣기
+            service.submit(runnable);
         }
 	}
 	
