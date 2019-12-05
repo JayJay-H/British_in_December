@@ -88,7 +88,7 @@ public class LoginController implements Initializable {
 						ClientMainController controller = loader.getController();
 						
 						Scene scene = new Scene(root);
-						controller.setField(ID, socket, inputStream, outputStream);
+						controller.setField(ID, socket, outputStream, inputStream);
 						Stage primaryStage = (Stage) LoginBotton.getScene().getWindow();
 						primaryStage.setScene(scene);
 						primaryStage.setTitle("Client");

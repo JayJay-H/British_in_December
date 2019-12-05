@@ -76,7 +76,7 @@ public class updateDB {
 		}
 	}
 	
-	public static boolean updateScooter(String[] updateTarget, String[] originalContent) {
+	public static boolean updateScooter(String ID, String[] updateTarget) {
 		try {
 			
 			Statement 	stmt = connectToDB.DBStmt();
@@ -94,9 +94,9 @@ public class updateDB {
 		        			+ "=\""
 		        			+ updateTarget[i]
 		        			+ "\" where "
-		        			+ columns[i]
+		        			+ "ID"
 		        			+ "=\""
-		        			+ originalContent[i]
+		        			+ ID
 		        			+ "\"";
 		        	
 		        	stmt.executeUpdate(sql);

@@ -110,7 +110,7 @@ public class ClientRunningController implements Initializable {
 			ClientMainController controller = loader.getController();
 			
 			Scene scene = new Scene(root);
-			controller.setField(userID, socket, inputStream, outputStream);
+			controller.setField(userID, socket, outputStream, inputStream);
 			Stage primaryStage = (Stage) ReturnBotton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Client");

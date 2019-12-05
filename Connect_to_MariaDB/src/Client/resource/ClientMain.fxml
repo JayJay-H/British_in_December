@@ -9,17 +9,17 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.java.ClientMainController">
    <children>
-      <ListView fx:id="scooterListview" layoutX="31.0" layoutY="89.0" prefHeight="283.0" prefWidth="227.0" />
-      <Button fx:id="SelectBotton" layoutX="276.0" layoutY="220.0" mnemonicParsing="false" onAction="#selectScooter" text="선택" />
+      <ListView fx:id="scooterListview" layoutX="31.0" layoutY="89.0" prefHeight="222.0" prefWidth="227.0" />
+      <Button fx:id="SelectBotton" layoutX="281.0" layoutY="189.0" mnemonicParsing="false" onAction="#bookScooter" text="예약" />
       <Label layoutX="116.0" layoutY="14.0" text="스쿠터 선택하기">
          <font>
             <Font size="15.0" />
          </font></Label>
-      <HBox layoutX="25.0" layoutY="43.0" spacing="5.0">
+      <HBox alignment="CENTER" layoutX="55.0" layoutY="45.0" spacing="5.0">
          <children>
             <Label fx:id="idLabel" />
             <Label text="님 반갑습니다." />
-            <Label text="사용하실 스쿠터를 선택해주세요" />
+            <Label prefHeight="14.0" prefWidth="183.0" text="예약하실 스쿠터를 선택해주세요" />
          </children>
       </HBox>
       <HBox layoutX="79.0" layoutY="68.0">
@@ -28,5 +28,9 @@
             <Label fx:id="numOfScooter" prefHeight="14.0" prefWidth="40.0" textFill="#2321a4" />
          </children>
       </HBox>
+      <ListView fx:id="bookedScooterListView" layoutX="31.0" layoutY="343.0" prefHeight="22.0" prefWidth="227.0" />
+      <Label layoutX="101.0" layoutY="323.0" text="예약하신 스쿠터" />
+      <Button layoutX="269.0" layoutY="326.0" mnemonicParsing="false" onAction="#selectScooter" text="사용하기" />
+      <Button layoutX="269.0" layoutY="354.0" mnemonicParsing="false" onAction="#cancleBookingScooter" text="예약취소" />
    </children>
 </AnchorPane>
