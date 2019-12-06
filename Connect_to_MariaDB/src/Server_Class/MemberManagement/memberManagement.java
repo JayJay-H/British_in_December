@@ -15,7 +15,7 @@ public class memberManagement {
 		return deleteFromDB.deleteMember(ID);
 	}
 	
-	public static boolean changeNowUse(String table, String ID, String nowUse) {
+	public synchronized static boolean changeNowUse(String table, String ID, String nowUse) {
 		String[] updateTarget = null;
 		
 		System.out.println(table+" "+nowUse+" "+ID);

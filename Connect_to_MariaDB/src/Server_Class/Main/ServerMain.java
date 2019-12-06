@@ -335,11 +335,10 @@ public class ServerMain {
 						
 						case "changeScooterLocation": // Scooter changeScooterLocation ID Location
 							boolean changeLocationStatus = scooterManagement.changeLocation(request, authInfo.nextToken(), authInfo.nextToken());
-							out.writeBoolean(changeLocationStatus);
-							sendUpadte();
+							//out.writeBoolean(changeLocationStatus);
 							break;
 							
-						case "findScooter":
+						case "findScooter": // Scooter findScooter ID
 							try {
 								String result = scooterManagement.findScooter(authInfo.nextToken());
 								out.writeUTF(result);
