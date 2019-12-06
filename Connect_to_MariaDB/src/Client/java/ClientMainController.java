@@ -43,6 +43,8 @@ public class ClientMainController implements Initializable {
 
 	private ObservableList<String> scooterList;
 	private ObservableList<String> bookedScooterList;
+	private boolean stop;
+	private static Thread thread;
 	
 	// socket 관련 필드
 	private Socket socket;
@@ -55,6 +57,7 @@ public class ClientMainController implements Initializable {
 		this.socket = socket;
 		this.inputStream = inputStream;
 		this.outputStream = outputStream;
+		stop = false;
 		findCanUseScooter();
 		Platform.runLater(() -> {
 			numOfScooter.setText(numOfScooter());
@@ -67,7 +70,6 @@ public class ClientMainController implements Initializable {
 		Platform.runLater(() -> {
 			idLabel.setText(userID);
 		});
-		
 		scooterList 		= FXCollections.observableArrayList();
 		bookedScooterList 	= FXCollections.observableArrayList();
 		
@@ -78,7 +80,7 @@ public class ClientMainController implements Initializable {
 	@FXML // 스쿠터 사용
 	public void selectScooter() {
 
-		String selectScooter = scooterListview.getSelectionModel().getSelectedItem();
+		String selectScooter = bookedScooterListView.getSelectionModel().getSelectedItem();
 		if (selectScooter == null) {
 			new Alert(Alert.AlertType.WARNING, "선택된 스쿠터가 없습니다.", ButtonType.CLOSE).show();
 			return;
@@ -94,6 +96,9 @@ public class ClientMainController implements Initializable {
 			Stage primaryStage = (Stage) SelectBotton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("ClientRunning");
+			// receive 스레드멈추기
+			stop = true;
+			outputStream.writeUTF("Scooter findScooterList");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -147,16 +152,19 @@ public class ClientMainController implements Initializable {
                 receive();
             }
         };
-        Thread thread = new Thread(runnable);
+        thread = new Thread(runnable);
         thread.setDaemon(true); // FX스레드를 데몬으로 실행시켜서 닫는 창을 눌렀을 때 child thread들을 같이 종료시킬 수 있다.
         thread.start();
 	}
 	
 	void receive() {
         while (true) {
+        	if(stop) {
+        		break;
+        	}
             try {
                 String data = inputStream.readUTF();
-                
+                System.out.println(data);
                 switch(data) {
                 case "Update":
                 	Platform.runLater(() -> {

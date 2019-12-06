@@ -99,10 +99,11 @@ public class ClientRunningController implements Initializable {
 		// TODO 스쿠터 반납 할떄 DB에서 해당 스쿠터 위치변환 밑 멤버의 위치 변화
 		// 서버에서 돌아가야하는 부분임... 해결방법좀여
 		
-		timeline.stop();
-		cost.setText(cost.getText()+"\n"+"결제완료 되었습니다.");
-		Thread.sleep(1000);
-		
+		//	timeline.stop();
+		/*
+			cost.setText(cost.getText()+"\n"+"결제완료 되었습니다.");
+			Thread.sleep(1000);
+		*/
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Client/resource/ClientMain.fxml"));
 			
