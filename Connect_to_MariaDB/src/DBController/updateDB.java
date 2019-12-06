@@ -4,7 +4,7 @@ import java.sql.Statement;
 
 public class updateDB {
 	
-	public static boolean updateMember(String ID, String[] updateTarget) {
+	public synchronized static boolean updateMember(String ID, String[] updateTarget) {
 		try {
 			
 			Statement 	stmt = connectToDB.DBStmt();

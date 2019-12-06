@@ -43,8 +43,10 @@ public class ClientMainController implements Initializable {
 
 	private ObservableList<String> scooterList;
 	private ObservableList<String> bookedScooterList;
-	private boolean stop;
-	private static Thread thread;
+	private boolean receiveThreadStopFlag;
+	private String[] locationArray = {"정문", "공과대학 2호관", "공과대학 3호관", 
+									"공과대학 4호관","공과대학 5호관", "공과대학 1호관",
+									"경상대학", "도서관", "백마교양관", "인문대학", "서문"};
 	
 	// socket 관련 필드
 	private Socket socket;
@@ -57,11 +59,12 @@ public class ClientMainController implements Initializable {
 		this.socket = socket;
 		this.inputStream = inputStream;
 		this.outputStream = outputStream;
-		stop = false;
+		receiveThreadStopFlag = false;
 		findCanUseScooter();
 		Platform.runLater(() -> {
 			numOfScooter.setText(numOfScooter());
 		});
+		bookedScooterList.clear();
 		updateListener();
 	}
 	
@@ -86,19 +89,24 @@ public class ClientMainController implements Initializable {
 			return;
 		}
 		try {
+			StringTokenizer scooterString = new StringTokenizer(selectScooter, " ");
+			scooterString.nextToken();
+			StringTokenizer scooterInfo = new StringTokenizer(scooterString.nextToken(), "\n");
+			String scooterID = scooterInfo.nextToken();
+			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Client/resource/ClientRunning.fxml"));
 			
 			Parent root = (Parent)loader.load();
 			ClientRunningController controller = loader.getController();
 			
 			Scene scene = new Scene(root);
-			controller.setField(userID, socket, inputStream, outputStream);
+			controller.setField(userID, scooterID, socket, inputStream, outputStream);
 			Stage primaryStage = (Stage) SelectBotton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("ClientRunning");
 			// receive 스레드멈추기
-			stop = true;
-			outputStream.writeUTF("Scooter findScooterList");
+			receiveThreadStopFlag = true;
+			outputStream.writeUTF("Scooter findScooterList"); // 스레드가 멈출 수 있게 의미없는 쿼리를 보냅니다.
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -113,9 +121,10 @@ public class ClientMainController implements Initializable {
 			return;
 		}
 		if(bookedScooterList.size()<1) {
-			StringTokenizer scooter = new StringTokenizer(selectedScooter, " ");
-			scooter.nextToken();
-			String scooterID = scooter.nextToken();
+			StringTokenizer scooterString = new StringTokenizer(selectedScooter, " ");
+			scooterString.nextToken();
+			StringTokenizer scooterInfo = new StringTokenizer(scooterString.nextToken(), "\n");
+			String scooterID = scooterInfo.nextToken();
 			outputStream.writeUTF("Scooter changeScooterNowUse "+ scooterID + " 1");
 			
 			String bookedScooter = scooterList.remove(selectedIndex);
@@ -135,9 +144,10 @@ public class ClientMainController implements Initializable {
 			return;
 		}
 		
-		StringTokenizer scooter = new StringTokenizer(selectedScooter, " ");
-		scooter.nextToken();
-		String scooterID = scooter.nextToken();
+		StringTokenizer scooterString = new StringTokenizer(selectedScooter, " ");
+		scooterString.nextToken();
+		StringTokenizer scooterInfo = new StringTokenizer(scooterString.nextToken(), "\n");
+		String scooterID = scooterInfo.nextToken();
 		outputStream.writeUTF("Scooter changeScooterNowUse "+ scooterID + " 0");
 		
 		String bookedScooter = bookedScooterList.remove(selectedIndex);
@@ -152,19 +162,19 @@ public class ClientMainController implements Initializable {
                 receive();
             }
         };
-        thread = new Thread(runnable);
+        Thread thread = new Thread(runnable);
         thread.setDaemon(true); // FX스레드를 데몬으로 실행시켜서 닫는 창을 눌렀을 때 child thread들을 같이 종료시킬 수 있다.
         thread.start();
 	}
 	
 	void receive() {
         while (true) {
-        	if(stop) {
+        	if(receiveThreadStopFlag) {
         		break;
         	}
             try {
                 String data = inputStream.readUTF();
-                System.out.println(data);
+                //System.out.println(data);
                 switch(data) {
                 case "Update":
                 	Platform.runLater(() -> {
@@ -187,7 +197,7 @@ public class ClientMainController implements Initializable {
 		try {
 			outputStream.writeUTF("Scooter findScooterList");
 			inputScooterList = inputStream.readUTF();
-			
+			//System.out.println(inputScooterList);
 			if(inputScooterList.equals("-1")) {
 				throw new IOException();
 			}
@@ -199,13 +209,15 @@ public class ClientMainController implements Initializable {
 			String scooterID;
 			String location;
 			String scooterNowUse;
+			
 			StringTokenizer scooter = new StringTokenizer(allScooterList.nextToken(), ";");
 			scooterID = scooter.nextToken();
-			location = scooter.nextToken();
+			location = locationArray[Integer.parseInt(scooter.nextToken())];
 			scooterNowUse = scooter.nextToken();
+			
 			if(scooterNowUse.equals("0")) {
 				Platform.runLater(() -> {
-					scooterList.add("ID: " + scooterID + " 위치: " + location + " ");
+					scooterList.add("ID: " + scooterID + "\n위치: " + location + " ");
 				});
 			}
 		}

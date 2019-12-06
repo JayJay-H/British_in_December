@@ -18,7 +18,7 @@ public class scooterManagement {
 		return deleteFromDB.deleteScooter(ID);
 	}
 	
-	public static boolean changeNowUse(String table, String ID, String nowUse) {
+	public synchronized static boolean changeNowUse(String table, String ID, String nowUse) {
 		String[] updateTarget = null;
 		
 		System.out.println(table+" "+nowUse+" "+ID);
@@ -36,20 +36,21 @@ public class scooterManagement {
 		String[] updateTarget = null;
 		
 		System.out.println(table+" "+location+" "+ID);
+		
 		updateTarget = new String[] {location, "null"};
 		
 		return updateDB.updateScooter(ID, updateTarget);
 	}
 	
-	public static String findScooter(String ID) throws SQLException {
+	public synchronized static String findScooter(String ID) throws SQLException {
 		ResultSet scooterList = searchFromDB.searchObjects("Scooter");
 		String scooter=null;
 		
 		while(scooterList.next()) {
 			if(ID.equals(scooterList.getString(1))) {
-				scooter = scooterList.getString(1)
-						+"의 위치: " + scooterList.getString(2)
-						+"\n사용상태: " + scooterList.getString(3) + "/\n";
+				scooter = scooterList.getString(1) // ID
+						+";" + scooterList.getString(2) // Location
+						+";" + scooterList.getString(3); // nowUse
 				break;
 			}
 		}
@@ -57,7 +58,7 @@ public class scooterManagement {
 		return scooter;
 	}
 
-	public static String findScooterList() throws SQLException {
+	public synchronized static String findScooterList() throws SQLException {
 		ResultSet scooterList = searchFromDB.searchObjects("Scooter");
 		StringBuilder showList = new StringBuilder();
 		
