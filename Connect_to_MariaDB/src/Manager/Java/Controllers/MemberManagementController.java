@@ -74,9 +74,9 @@ public class MemberManagementController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		StringTokenizer mList = new StringTokenizer(resultStatus, "/");
-		while(mList.hasMoreTokens()) {
-			StringTokenizer ID = new StringTokenizer(mList.nextToken(), ";");
+		StringTokenizer inputmemberList = new StringTokenizer(resultStatus, "/");
+		while(inputmemberList.hasMoreTokens()) {
+			StringTokenizer ID = new StringTokenizer(inputmemberList.nextToken(), ";");
 			memberList.add(ID.nextToken());
 		}
     }
