@@ -11,8 +11,9 @@ public class ClientRunningMain extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/Client/resource/ClientRuning.fxml"));
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/Client/resource/ClientRunning.fxml"));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/Client/resource/ClientRunningForm.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("ClientRunningMain");
 			primaryStage.show();
