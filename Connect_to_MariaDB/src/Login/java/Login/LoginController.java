@@ -161,7 +161,7 @@ public class LoginController implements Initializable {
             public void run() {
                 try {
                 	socket = new Socket();
-                    socket.connect(new InetSocketAddress("localhost", 8000));
+                    socket.connect(new InetSocketAddress("59.27.140.107", 8000));
                     LoginErrTextLabel.setText("반갑습니다!");
                     
             		inputStream = new DataInputStream(socket.getInputStream());
