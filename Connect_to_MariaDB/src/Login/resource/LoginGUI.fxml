@@ -9,35 +9,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.java.Login.LoginController">
    <children>
-      <Label layoutX="182.0" layoutY="14.0" text="로그인" />
-      <HBox layoutX="117.0" layoutY="196.0" spacing="50.0">
+      <Label layoutX="178.0" layoutY="14.0" text="LOGIN">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <HBox layoutX="106.0" layoutY="194.0" spacing="50.0">
          <children>
-            <Button fx:id="LoginBotton" mnemonicParsing="false" onAction="#login" text="로그인" />
-            <Button fx:id="RegisterBotton" mnemonicParsing="false" onAction="#register" text="회원가입" />
+            <Button fx:id="LoginBotton" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="70.0" text="로그인" />
+            <Button fx:id="RegisterBotton" mnemonicParsing="false" onAction="#register" prefHeight="25.0" prefWidth="70.0" text="회원가입" />
          </children>
       </HBox>
-      <HBox layoutX="28.0" layoutY="79.0" spacing="25.0">
+      <HBox alignment="CENTER_LEFT" layoutX="28.0" layoutY="79.0" spacing="25.0">
          <children>
             <Label text="아이디" />
             <TextField fx:id="IdTextField" />
          </children>
       </HBox>
-      <HBox layoutX="22.0" layoutY="128.0" spacing="20.0">
+      <HBox alignment="CENTER_LEFT" layoutX="22.0" layoutY="128.0" spacing="20.0">
          <children>
             <Label text="비밀번호" />
             <PasswordField fx:id="PassTextField" />
          </children>
       </HBox>
-      <VBox layoutX="277.0" layoutY="79.0" spacing="30.0">
+      <VBox layoutX="275.0" layoutY="82.0" prefHeight="41.0" prefWidth="109.0" spacing="35.0">
          <children>
             <RadioButton mnemonicParsing="false" text="사용자로 로그인" userData="Client">
                <toggleGroup>
                   <ToggleGroup fx:id="whoareyou" />
                </toggleGroup></RadioButton>
-            <RadioButton mnemonicParsing="false" text="매니저로 로그인" toggleGroup="$whoareyou" userData="Manager"/>
+            <RadioButton mnemonicParsing="false" text="매니저로 로그인" toggleGroup="$whoareyou" userData="Manager" />
          </children>
       </VBox>
       <Label fx:id="LoginErrTextLabel" alignment="CENTER" layoutX="-1.0" layoutY="40.0" prefHeight="14.0" prefWidth="400.0" />
