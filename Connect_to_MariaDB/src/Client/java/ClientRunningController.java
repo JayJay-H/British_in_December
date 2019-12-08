@@ -113,7 +113,7 @@ public class ClientRunningController implements Initializable {
 		int nowLocation = (int)(Math.random()*(max - min +1)) + min;
 		
 		outputStream.writeUTF("Scooter changeScooterLocation "+scooterID+" "+nowLocation);
-		//System.out.println(inputStream.readUTF());
+		inputStream.readBoolean();
 		outputStream.writeUTF("Scooter changeScooterNowUse " + scooterID + " 0");
 		inputStream.readUTF();
 	}

@@ -310,6 +310,13 @@ public class ServerMain {
 					switch(method) {
 						case "add":
 							out.writeBoolean(scooterManagement.addScooter(authInfo.nextToken(), authInfo.nextToken()));
+							// 모든 클라이언트들에게 스쿠터 테이블을 업데이트 하라고 알림.
+	                        for (Client client : clientList) {
+	                        	
+	                        	if(!client.userID.equals(userID)) {
+		                        	client.sendUpadte();
+	                        	}
+	                        }
 							break;
 							
 						case "delete":
@@ -335,7 +342,7 @@ public class ServerMain {
 						
 						case "changeScooterLocation": // Scooter changeScooterLocation ID Location
 							boolean changeLocationStatus = scooterManagement.changeLocation(request, authInfo.nextToken(), authInfo.nextToken());
-							//out.writeBoolean(changeLocationStatus);
+							out.writeBoolean(changeLocationStatus);
 							break;
 							
 						case "findScooter": // Scooter findScooter ID

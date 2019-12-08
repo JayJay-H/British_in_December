@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.function.Predicate;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -46,7 +47,10 @@ public class ScooterManagementController implements Initializable {
 	TextField scooterXLocation;
 	@FXML
 	TextField scooterCheckID;
-
+	
+	private String[] locationArray = {"정문", "공과대학 2호관", "공과대학 3호관", 
+			"공과대학 4호관","공과대학 5호관", "공과대학 1호관",
+			"경상대학", "도서관", "백마교양관", "인문대학", "서문"};
 	
 	private ObservableList<String> scooterList;
 	private FilteredList<String> filteredList;
@@ -62,35 +66,15 @@ public class ScooterManagementController implements Initializable {
 		this.outputStream = outputStream;
 		this.inputStream = inputStream;
 		findScooterList();
+		updateListener();
 	}
 	
-	public void findScooterList(){
-		String resultStatus = null;
-		scooterList.clear();
-		try {
-			outputStream.writeUTF("Scooter findScooterList");
-			resultStatus = inputStream.readUTF();
-			if(resultStatus.equals("-1")) {
-				throw new IOException("DB error");
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		StringTokenizer allScooterList = new StringTokenizer(resultStatus, "/");
-		while(allScooterList.hasMoreTokens()) {
-			StringTokenizer scooter = new StringTokenizer(allScooterList.nextToken(), ";");
-			String scooterID = scooter.nextToken();
-			String scooterLocation = scooter.nextToken();
-			String scooterNowUse = scooter.nextToken();
-			
-			String addToList = "ID : "+ scooterID
-								+ "\n현재 위치 : "
-								+ scooterLocation
-								+ "\n사용 가능 여부 : "
-								+ scooterNowUse;
-			scooterList.add(addToList);
-		}
+	@Override
+	public void initialize(URL location, ResourceBundle resources){
+		scooterList = FXCollections.observableArrayList();
+		scooterListView.setItems(scooterList);
+		filteredList = new FilteredList<String>(scooterList);
+		
 	}
 	
 	@FXML
@@ -115,34 +99,23 @@ public class ScooterManagementController implements Initializable {
 	public void addButtonHandler() {
 		String addScooterID = scooterID.getText();
 		String addScooterLocation = scooterXLocation.getText();
-		boolean addStatus = false;
 		if (!addScooterID.equals("") && !addScooterLocation.equals("")) {
-			Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Scooter을 /를 정말 추가하시겠습니까?", ButtonType.OK,
+			new Alert(Alert.AlertType.CONFIRMATION, "Scooter을 /를 정말 추가하시겠습니까?", ButtonType.OK,
 					ButtonType.CANCEL);
 			//Optional<ButtonType> result = alert.showAndWait();
 			try {
 				outputStream.writeUTF("Scooter add "+ addScooterID + " " + addScooterLocation);
-				addStatus = inputStream.readBoolean();
-				if(!addStatus) {
-					throw new Exception();
-				}
+				scooterID.setText("");
+				scooterXLocation.setText("");
+				String addToList = 
+						"ID : "+ addScooterID
+						+ "\n현재 위치 : "
+						+ locationArray[Integer.parseInt(addScooterLocation)]
+						+ "\n사용 가능 여부 : "
+						+ "0";
+				scooterList.add(addToList);
 			} catch (Exception e) {
 				new Alert(Alert.AlertType.INFORMATION, "추가 실패!", ButtonType.CLOSE).show();
-			}
-			if(addStatus) {
-				/*
-				if (result.get() == ButtonType.OK) {
-					scooterList.add(addScooterID 
-									+ "의 위치 : " 
-									+ addScooterLocation
-									+ "\n사용상태 : 0"
-								);
-					scooterListView.setItems(scooterList);
-					scooterID.setText("");
-					scooterXLocation.setText("");
-				}
-				*/
-				findScooterList();
 			}
 		} else {
 			new Alert(Alert.AlertType.WARNING, "Scooter의 정보를 모두 입력해주세요.", ButtonType.CLOSE).show();
@@ -151,7 +124,6 @@ public class ScooterManagementController implements Initializable {
 
 	@FXML
 	public void checkButtonHandler() {
-		findScooterList();
 		filteredList.setPredicate(new Predicate<String>() {
 			@Override
 			public boolean test(String t) {
@@ -164,16 +136,66 @@ public class ScooterManagementController implements Initializable {
 		scooterListView.setItems(filteredList);
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources){
-		scooterList = FXCollections.observableArrayList();
-		scooterListView.setItems(scooterList);
-		filteredList = new FilteredList<String>(scooterList);
-		
-	}
 
-	/*
-	 * #해야할 일 1. scooterList를 데이터 베이스와 연결해서 추가를 하면 데이터베이스에도 scooter가 추가될 수 있도록 한다.
-	 * 2. scooterListView에서 선택한 scooter마다의 정보를 출력할 수 있도록 해야 한다.
-	 */
+
+	// 실시간 업데이트를 위한 리스너메소드.
+	public void updateListener() {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                receive();
+            }
+        };
+        Thread thread = new Thread(runnable);
+        thread.setDaemon(true); // FX스레드를 데몬으로 실행시켜서 닫는 창을 눌렀을 때 child thread들을 같이 종료시킬 수 있음.
+        thread.start();
+	}
+	
+	void receive() {
+        while (true) {
+            try {
+            	
+            	// "Update"라는 문자열을 받으면 현재 scooterList를 갱신한다.
+                String data = inputStream.readUTF();
+                //System.out.println(data);
+                
+                if(data.equals("Update")) {
+                	Platform.runLater(() -> {
+                    	scooterList.clear();
+                	});
+                	findScooterList();
+                }
+            } catch (IOException e) {
+                break;
+            }
+        }
+    }
+	
+	public void findScooterList(){
+		String resultStatus = null;
+		scooterList.clear();
+		try {
+			outputStream.writeUTF("Scooter findScooterList");
+			resultStatus = inputStream.readUTF();
+			if(resultStatus.equals("-1")) {
+				throw new IOException();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		StringTokenizer allScooterList = new StringTokenizer(resultStatus, "/");
+		while(allScooterList.hasMoreTokens()) {
+			StringTokenizer scooter = new StringTokenizer(allScooterList.nextToken(), ";");
+			String scooterID = scooter.nextToken();
+			String scooterLocation = locationArray[Integer.parseInt(scooter.nextToken())];
+			String scooterNowUse = scooter.nextToken();
+			
+			String addToList = "ID : "+ scooterID
+								+ "\n현재 위치 : "
+								+ scooterLocation
+								+ "\n사용 가능 여부 : "
+								+ scooterNowUse;
+			scooterList.add(addToList);
+		}
+	}
 }
