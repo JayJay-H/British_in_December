@@ -74,7 +74,6 @@ public class ClientRunningController implements Initializable {
 	private String millisecondsToTime(long milliseconds) {
 		int h = 0, m = 0, s = 0;
 
-		// TODO
 		this.milliseconds++;
 
 		s = (int) ((milliseconds / 1000) % 60);
@@ -87,12 +86,11 @@ public class ClientRunningController implements Initializable {
 	private String millisecondsToCost(long milliseconds) {
 		int m = 0;
 
-		// TODO
 		//this.milliseconds++;
 
 		m = (int) ((milliseconds / 1000 / 60) % 60);
 
-		return String.format("%d", m * 500 + 1000);
+		return String.format("%d", m * 500 + 1000+"원");
 	}
 	
 	private void updateScooterLocation(long milliseconds) throws IOException {
@@ -126,9 +124,6 @@ public class ClientRunningController implements Initializable {
 	
 	@FXML
 	public void returnScooter() throws InterruptedException, IOException {
-		// TODO 스쿠터 반납 할떄 DB에서 해당 스쿠터 위치변환 밑 멤버의 위치 변화
-		// 서버에서 돌아가야하는 부분임... 해결방법좀여
-		
 		timeline.stop();
 		updateScooterLocation(milliseconds);
 		

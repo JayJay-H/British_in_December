@@ -13,6 +13,7 @@ public class ClientMain extends Application {
 		try {
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/Client/resource/ClientMain.fxml"));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/Client/resource/ClientMainForm.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("ClientMain");
 			primaryStage.show();
