@@ -54,25 +54,46 @@ public class ClientMainController implements Initializable {
 	private DataOutputStream outputStream;
 	private String userID;
 	
+	// 아이디를 받아와서 현재 어떤 아이디로 접속했는지를 알고, 소켓을 받아와서 로그아웃시 소켓을 닫아줘야함을 서버에 알려준다.
+	// 또한 initialize하기 전에 이 메소드로 fxml에 필요한 데이터, 스레드들을 모두 받아오고 실행시킨다.
 	public void setField(String userID, Socket socket, DataOutputStream outputStream, DataInputStream inputStream) {
 		this.userID = userID;
 		this.socket = socket;
-		this.inputStream = inputStream;
+		this.inputStream = inputStream; // input, output 스트림은 따로 만들기 귀찮아서 이렇게 받아온거다.
 		this.outputStream = outputStream;
+		
+		// 실시간 업데이트를 받아야하므로 flag를 false로 바꾼다
 		receiveThreadStopFlag = false;
+		
+		// 현재 스쿠터 리스트를 받아온다
 		findCanUseScooter();
+		
+		/* 
+		 * 스쿠터의 수를 받아온다. 그냥 setText를 하면 오류가난다.
+		 * javaFX와 관련된 스레드에 영향을 주기때문이다. 
+		 * 이것을 해결하려면 Platform.runLater() 를 통해 임시 스레드를 만들고,
+		 * 이 스레드로 스쿠터의 수를 받아온다.
+		 */
 		Platform.runLater(() -> {
 			numOfScooter.setText(numOfScooter());
 		});
+		
+		// 예약된 스쿠터 리스트를 초기화 시킨다.
 		bookedScooterList.clear();
+		
+		// 실시간 업데이트를 위한 리스너 스레드를 시작시킨다.
 		updateListener();
 	}
 	
 	@Override // 초기화
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		// setField의 스쿠터수 업데이트와 같은 이유로 Platform.runlater()를 사용한다.
+		// 이렇게 안하면 스레드 겹친다고 이클립스가 화낸다.
 		Platform.runLater(() -> {
 			idLabel.setText(userID);
 		});
+		
+		// 스쿠터 리스트와 예약된 스쿠터 리스트를 observableArrayList로 만들고 각각의 ListView에 할당시킨다.
 		scooterList 		= FXCollections.observableArrayList();
 		bookedScooterList 	= FXCollections.observableArrayList();
 		
@@ -80,46 +101,66 @@ public class ClientMainController implements Initializable {
 		bookedScooterListView.setItems(bookedScooterList);
 	}
 
-	@FXML // 스쿠터 사용
+	@FXML // 스쿠터를 사용할 때, 즉 진짜 돈을 측정하는 부분으로 넘어가는 버튼에 쓰인다.
 	public void selectScooter() {
-
+		
+		// bookedListView에서 선택된 스쿠터를 받아와서 ClientRunning 컨트롤러에 던져준다.
+		// 왜냐면 사용을 종료했을 때, 이를 데이터베이스에 반영시켜야하기 때문이다.
 		String selectScooter = bookedScooterListView.getSelectionModel().getSelectedItem();
 		if (selectScooter == null) {
 			new Alert(Alert.AlertType.WARNING, "선택된 스쿠터가 없습니다.", ButtonType.CLOSE).show();
 			return;
 		}
 		try {
+			// ListView에서 스쿠터 선택했을 때, 아이디 하나 쪼개서 넣어줄라고 이런짓을 한다.
 			StringTokenizer scooterString = new StringTokenizer(selectScooter, " ");
 			scooterString.nextToken();
 			StringTokenizer scooterInfo = new StringTokenizer(scooterString.nextToken(), "\n");
 			String scooterID = scooterInfo.nextToken();
 			
+			// 아이디를 얻었으면 이를 Running컨트롤러에 던져준다.
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Client/resource/ClientRunning.fxml"));
 			
 			Parent root = (Parent)loader.load();
 			ClientRunningController controller = loader.getController();
 			
 			Scene scene = new Scene(root);
+			
+			// 마찬가지로 setField를 통해 Running과 관련된 FXML에 필요한 데이터들을 미리 로드시킨다.
 			controller.setField(userID, scooterID, socket, inputStream, outputStream);
 			Stage primaryStage = (Stage) SelectBotton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("ClientRunning");
-			// receive 스레드멈추기
+			
+			/* receive 스레드멈추기
+			 * 안 멈추면 Running에서 다시 돌아왔을 때 오류가 난다.
+			 * Running에서 Main으로 넘어올 때 scooterList를 갱신하기 위해 findCanUseScooter()를 실행시키는데
+			 * findCanUseScooter()에서는 메소드에 있는 그 inputStream으로 받아야하지만
+			 * 이 녀석이 while(true)로 인해 계속 돌고있기 때문에 그 데이터를 뺏어다가
+			 * Update 문자열인지 아닌지 확인하고 버린다.
+			 * 따라서 그 스레드를 멈추지 않으면 정작 가야할 곳에 데이터가 안간다.
+			 */
 			receiveThreadStopFlag = true;
-			outputStream.writeUTF("Scooter findScooterList"); // 스레드가 멈출 수 있게 의미없는 쿼리를 보냅니다.
+			outputStream.writeUTF("Scooter findScooterList"); // 스레드가 멈출 수 있게 의미없는 쿼리를 보낸다.
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	@FXML
+	@FXML // 스쿠터 예약 관련 메소드
 	public void bookScooter() throws IOException {
+		// selectedIndex를 통해 선택했나 안 했나 체크.
 		int selectedIndex = scooterListview.getSelectionModel().getSelectedIndex();
-		String selectedScooter = scooterListview.getSelectionModel().getSelectedItem();
 		if(selectedIndex < 0) {
 			new Alert(Alert.AlertType.WARNING, "예약하실 스쿠터를 선택하세요.", ButtonType.CLOSE).show();
 			return;
 		}
+		
+		// 선택한 칸에 대한 정보를 저장
+		String selectedScooter = scooterListview.getSelectionModel().getSelectedItem();
+		
+		// 예약할 시 scooterList에서 선택한 스쿠터 삭제, bookedList에 추가
+		// 선택한 스쿠터에 대한 nowUse를 1로 바꾸어 데이터 베이스에 저장.
 		if(bookedScooterList.size()<1) {
 			StringTokenizer scooterString = new StringTokenizer(selectedScooter, " ");
 			scooterString.nextToken();
@@ -135,15 +176,20 @@ public class ClientMainController implements Initializable {
 		}
 	}
 	
-	@FXML
+	@FXML // 예약취소관련 메소드
 	public void cancleBookingScooter() throws IOException {
+		// selectedIndex를 통해 선택했나 안 했나 체크.
 		int selectedIndex = bookedScooterListView.getSelectionModel().getSelectedIndex();
-		String selectedScooter = bookedScooterListView.getSelectionModel().getSelectedItem();
 		if(selectedIndex < 0) {
 			new Alert(Alert.AlertType.WARNING, "예약취소하실 스쿠터를 선택하세요.", ButtonType.CLOSE).show();
 			return;
 		}
 		
+		// 선택한 칸에 대한 정보를 저장
+		String selectedScooter = bookedScooterListView.getSelectionModel().getSelectedItem();
+		
+		// 선택한 스쿠터를 bookedScooterList에서 제거, scooterList에 추가.
+		// 선택한 스쿠터에 대한 nowUse를 0으로 바꿈.
 		StringTokenizer scooterString = new StringTokenizer(selectedScooter, " ");
 		scooterString.nextToken();
 		StringTokenizer scooterInfo = new StringTokenizer(scooterString.nextToken(), "\n");
@@ -155,6 +201,7 @@ public class ClientMainController implements Initializable {
 		numOfScooter.setText(numOfScooter());
 	}
 	
+	// 실시간 업데이트를 위한 리스너메소드.
 	public void updateListener() {
         Runnable runnable = new Runnable() {
             @Override
@@ -163,20 +210,24 @@ public class ClientMainController implements Initializable {
             }
         };
         Thread thread = new Thread(runnable);
-        thread.setDaemon(true); // FX스레드를 데몬으로 실행시켜서 닫는 창을 눌렀을 때 child thread들을 같이 종료시킬 수 있다.
+        thread.setDaemon(true); // FX스레드를 데몬으로 실행시켜서 닫는 창을 눌렀을 때 child thread들을 같이 종료시킬 수 있음.
         thread.start();
 	}
 	
 	void receive() {
         while (true) {
+        	
+        	// 스쿠터를 사용할 때, 실시간 업데이트 종료
         	if(receiveThreadStopFlag) {
         		break;
         	}
             try {
+            	
+            	// "Update"라는 문자열을 받으면 현재 scooterList를 갱신한다.
                 String data = inputStream.readUTF();
                 //System.out.println(data);
-                switch(data) {
-                case "Update":
+                
+                if(data.equals("Update")) {
                 	Platform.runLater(() -> {
                     	scooterList.clear();
                 	});
@@ -184,7 +235,6 @@ public class ClientMainController implements Initializable {
                 	Platform.runLater(() -> {
                 		numOfScooter.setText(numOfScooter());
                 	});
-                    break;
                 }
             } catch (IOException e) {
                 break;
@@ -192,9 +242,12 @@ public class ClientMainController implements Initializable {
         }
     }
 	
+	// scooterList를 갱신하는 메소드
 	public void findCanUseScooter() {
 		String inputScooterList = null;
 		try {
+			// 스쿠터 리스트를 데이터베이스에서 가져온다.
+			// 못가져왔다면 IOException시킴.
 			outputStream.writeUTF("Scooter findScooterList");
 			inputScooterList = inputStream.readUTF();
 			//System.out.println(inputScooterList);
@@ -204,6 +257,8 @@ public class ClientMainController implements Initializable {
 		} catch (IOException e) {
 			new Alert(Alert.AlertType.INFORMATION, "스쿠터 데이터를 불러오는 중 오류가 생겼습니다!", ButtonType.CLOSE).show();
 		}
+		
+		// 받아온 리스트를 가공하여 scooterList에 넣는다.
 		StringTokenizer allScooterList = new StringTokenizer(inputScooterList, "/");
 		while(allScooterList.hasMoreTokens()) {
 			String scooterID;
@@ -224,6 +279,7 @@ public class ClientMainController implements Initializable {
 		
 	}
 	
+	// 스쿠터가 총 몇개인지를 String으로 반환시킴.
 	public String numOfScooter() {
 		String number = "총 " + ((Integer) scooterList.size()).toString() + " 대";
 		return number;
