@@ -55,6 +55,7 @@ public class ManagerController implements Initializable{
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/Login/resource/LoginGUI.fxml"));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/Login/resource/LoginForm.css").toExternalForm());
 			Stage primaryStage = (Stage) backButton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Login");
