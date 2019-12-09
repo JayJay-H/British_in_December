@@ -1,11 +1,11 @@
-#LoginBotton {
+#RegisterBotton {
 	-fx-background-color: #58ACFA;
 }
 
-#RegisterBotton {
+#CancleBotton {
 	-fx-background-color: #BDBDBD;
 }
 
-#LoginErrTextLabel {
+#ErrorMessageLabel {
 	-fx-text-fill: #B40404;
 }
