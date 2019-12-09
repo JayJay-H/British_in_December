@@ -6,31 +6,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-	prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="Manager.Java.Controllers.MemberManagementController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-background-image: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager.Java.Controllers.MemberManagementController">
 	<children>
-		<ListView fx:id="memberListView" layoutX="14.0"
-			layoutY="68.0" prefHeight="378.0" prefWidth="262.0" />
+		<ListView fx:id="memberListView" layoutX="14.0" layoutY="68.0" prefHeight="378.0" prefWidth="262.0" />
 		<Label layoutX="144.0" layoutY="31.0" text="MemberManagement" />
-		<Button fx:id="backButton" layoutX="344.0" layoutY="14.0"
-			mnemonicParsing="false" onAction="#backButtonHandler" text="Back" />
-		<TextField fx:id="memberIDTextField" layoutX="14.0"
-			layoutY="463.0" prefHeight="22.0" prefWidth="262.0"
-			promptText="회원의 ID를 입력하세요" />
-		<Button fx:id="findMemberIDButton" layoutX="301.0"
-			layoutY="463.0" mnemonicParsing="false"
-			onAction="#findMemberIDButtonHandler" text="조회하기" />
-		<Button fx:id="checkMemberInfoButton" layoutX="297.0"
-			layoutY="127.0" mnemonicParsing="false"
-			onAction="#checkMemberInfoButtonHandler" prefHeight="47.0"
-			prefWidth="94.0" text="회원 정보 확인" />
-		<Button fx:id="deleteMemberInfoButton" layoutX="297.0"
-			layoutY="202.0" mnemonicParsing="false"
-			onAction="#deleteMemberInfoButtonHandler" prefHeight="47.0"
-			prefWidth="94.0" text="회원 정보 삭제" />
+		<Button fx:id="backButton" layoutX="344.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonHandler" text="Back" />
+		<TextField fx:id="memberIDTextField" layoutX="14.0" layoutY="463.0" prefHeight="22.0" prefWidth="262.0" promptText="회원의 ID를 입력하세요" />
+		<Button fx:id="findMemberIDButton" layoutX="301.0" layoutY="463.0" mnemonicParsing="false" onAction="#findMemberIDButtonHandler" text="조회하기" />
+		<Button fx:id="checkMemberInfoButton" layoutX="297.0" layoutY="127.0" mnemonicParsing="false" onAction="#checkMemberInfoButtonHandler" prefHeight="47.0" prefWidth="94.0" text="회원 정보 확인" />
+		<Button fx:id="deleteMemberInfoButton" layoutX="297.0" layoutY="202.0" mnemonicParsing="false" onAction="#deleteMemberInfoButtonHandler" prefHeight="47.0" prefWidth="94.0" text="회원 정보 삭제" />
 	</children>
 </AnchorPane>
