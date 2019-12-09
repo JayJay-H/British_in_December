@@ -13,6 +13,7 @@ public class RegisterMain extends Application {
 		try {
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/Login/resource/RegisterGUI.fxml"));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/Login/resource/RegisterForm.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Register");
 			primaryStage.show();
