@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.java.ClientMainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="342.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.java.ClientMainController">
    <children>
       <ListView fx:id="scooterListview" layoutX="31.0" layoutY="89.0" prefHeight="222.0" prefWidth="227.0" />
       <Button fx:id="SelectBotton" layoutX="269.0" layoutY="189.0" mnemonicParsing="false" onAction="#bookScooter" prefHeight="25.0" prefWidth="65.0" text="예약" />

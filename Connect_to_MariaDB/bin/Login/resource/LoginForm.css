@@ -1,0 +1,11 @@
+#LoginBotton {
+	-fx-background-color: #58ACFA;
+}
+
+#RegisterBotton {
+	-fx-background-color: #BDBDBD;
+}
+
+#LoginErrTextLabel {
+	-fx-text-fill: #B40404;
+}
