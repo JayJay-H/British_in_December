@@ -1,0 +1,11 @@
+#RegisterBotton {
+	-fx-background-color: #58ACFA;
+}
+
+#CancleBotton {
+	-fx-background-color: #BDBDBD;
+}
+
+#ErrorMessageLabel {
+	-fx-text-fill: #B40404;
+}
