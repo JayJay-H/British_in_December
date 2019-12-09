@@ -13,6 +13,7 @@ public class LoginMain extends Application {
 		try {
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/Login/resource/LoginGUI.fxml"));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/Login/resource/LoginForm.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Login");
 			primaryStage.show();
