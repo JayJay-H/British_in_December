@@ -7,39 +7,25 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.java.Login.LoginController">
+<AnchorPane prefHeight="250.0" prefWidth="400.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.java.Login.LoginController">
    <children>
-      <Label layoutX="182.0" layoutY="14.0" text="로그인" />
-      <HBox layoutX="117.0" layoutY="196.0" spacing="50.0">
-         <children>
-            <Button fx:id="LoginBotton" mnemonicParsing="false" onAction="#login" text="로그인" />
-            <Button fx:id="RegisterBotton" mnemonicParsing="false" onAction="#register" text="회원가입" />
-         </children>
-      </HBox>
-      <HBox layoutX="28.0" layoutY="79.0" spacing="25.0">
-         <children>
-            <Label text="아이디" />
-            <TextField fx:id="IdTextField" />
-         </children>
-      </HBox>
-      <HBox layoutX="22.0" layoutY="128.0" spacing="20.0">
-         <children>
-            <Label text="비밀번호" />
-            <PasswordField fx:id="PassTextField" />
-         </children>
-      </HBox>
-      <VBox layoutX="277.0" layoutY="79.0" spacing="30.0">
-         <children>
-            <RadioButton mnemonicParsing="false" text="사용자로 로그인" userData="Client">
-               <toggleGroup>
-                  <ToggleGroup fx:id="whoareyou" />
-               </toggleGroup></RadioButton>
-            <RadioButton mnemonicParsing="false" text="매니저로 로그인" toggleGroup="$whoareyou" userData="Manager"/>
-         </children>
-      </VBox>
+      <Label layoutX="178.0" layoutY="14.0" text="LOGIN">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
       <Label fx:id="LoginErrTextLabel" alignment="CENTER" layoutX="-1.0" layoutY="40.0" prefHeight="14.0" prefWidth="400.0" />
+      <TextField fx:id="IdTextField" layoutX="73.0" layoutY="81.0" promptText="아이디" />
+      <PasswordField fx:id="PassTextField" layoutX="73.0" layoutY="113.0" promptText="비밀번호" />
+      <Button fx:id="LoginBotton" layoutX="255.0" layoutY="80.0" mnemonicParsing="false" onAction="#login" prefHeight="55.0" prefWidth="70.0" text="로그인" />
+      <Button fx:id="RegisterBotton" layoutX="90.0" layoutY="192.0" mnemonicParsing="false" onAction="#register" prefHeight="25.0" prefWidth="70.0" text="회원가입" />
+      <RadioButton layoutX="216.0" layoutY="196.0" mnemonicParsing="false" text="사용자로 로그인" userData="Client">
+         <toggleGroup>
+            <ToggleGroup fx:id="whoareyou" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="216.0" layoutY="168.0" mnemonicParsing="false" text="매니저로 로그인" toggleGroup="$whoareyou" userData="Manager" />
+      <Label layoutX="67.0" layoutY="169.0" text="이용이 처음이시라면?" />
    </children>
 </AnchorPane>
