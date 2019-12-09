@@ -5,12 +5,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="200.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager.Java.Controllers.MemberInformationController">
+<AnchorPane prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager.Java.Controllers.MemberInformationController">
 	<children>
-		<Button fx:id="backButton" layoutX="194.0" layoutY="12.0" mnemonicParsing="false" onAction="#backButtonHandler" text="Back" />
-		<Label layoutX="71.0" layoutY="7.0" text="MemberInformation" />
-      <VBox layoutX="62.0" layoutY="34.0" spacing="20.0">
+		<Button fx:id="backButton" layoutX="195.0" layoutY="214.0" mnemonicParsing="false" onAction="#backButtonHandler" text="Back" />
+		<Label layoutX="61.0" layoutY="14.0" text="Member Information">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <VBox layoutX="45.0" layoutY="50.0" spacing="20.0">
          <children>
             <HBox>
                <children>
