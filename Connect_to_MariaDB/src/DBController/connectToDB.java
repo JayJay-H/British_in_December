@@ -12,7 +12,7 @@ public class connectToDB {
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String url = "jdbc:mysql://59.27.140.107:3306/term_project_seven?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
+            String url = "jdbc:mysql://59.27.140.107:3306/term_project_seven?characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false";
             conn = DriverManager.getConnection(url, "termSeven", "sevenmillion");
 
             stmt = conn.createStatement();
