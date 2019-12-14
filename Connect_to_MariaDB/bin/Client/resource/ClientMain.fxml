@@ -32,5 +32,6 @@
       <Label layoutX="101.0" layoutY="323.0" text="예약하신 스쿠터" />
       <Button fx:id="UseBotton" layoutX="269.0" layoutY="326.0" mnemonicParsing="false" onAction="#selectScooter" prefWidth="65.0" text="사용하기" />
       <Button fx:id="CancleBotton" layoutX="269.0" layoutY="354.0" mnemonicParsing="false" onAction="#cancleBookingScooter" prefWidth="65.0" text="예약취소" />
+      <Button fx:id="LogoutButton" layoutX="269.0" layoutY="11.0" mnemonicParsing="false" onAction="#Logout" prefHeight="25.0" prefWidth="65.0" text="로그아웃" />
    </children>
 </AnchorPane>

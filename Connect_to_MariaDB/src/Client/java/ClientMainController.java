@@ -46,6 +46,8 @@ public class ClientMainController implements Initializable {
 	Button UseBotton;
 	@FXML
 	Label Title;
+	@FXML 
+	Button LogoutButton;
 
 	private ObservableList<String> scooterList;
 	private ObservableList<String> bookedScooterList;
@@ -58,7 +60,6 @@ public class ClientMainController implements Initializable {
 	private DataInputStream inputStream;
 	private DataOutputStream outputStream;
 	private String userID;
-	@FXML Button LogoutButton;
 
 	// 아이디를 받아와서 현재 어떤 아이디로 접속했는지를 알고, 소켓을 받아와서 로그아웃시 소켓을 닫아줘야함을 서버에 알려준다.
 	// 또한 initialize하기 전에 이 메소드로 fxml에 필요한 데이터, 스레드들을 모두 받아오고 실행시킨다.
@@ -202,6 +203,23 @@ public class ClientMainController implements Initializable {
 		scooterList.add(bookedScooter);
 		numOfScooter.setText(numOfScooter());
 	}
+	
+	// 로그아웃
+	@FXML public void Logout() {
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/Login/resource/LoginGUI.fxml"));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/Login/resource/LoginForm.css").toExternalForm());
+			Stage primaryStage = (Stage) CancleBotton.getScene().getWindow();
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("Login");
+			closeAction();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	// 실시간 업데이트를 위한 리스너메소드.
 	public void updateListener() {
@@ -286,7 +304,17 @@ public class ClientMainController implements Initializable {
 		String number = "총 " + ((Integer) scooterList.size()).toString() + " 대";
 		return number;
 	}
-
-	@FXML public void Logout() {}
+	
+	// 로그아웃시 소켓을 닫는 메소드
+    public void closeAction() {
+        try {
+        	//만약 소켓이 안 닫혀 있다면 닫기
+            if (socket != null && !socket.isClosed()) {
+                socket.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
