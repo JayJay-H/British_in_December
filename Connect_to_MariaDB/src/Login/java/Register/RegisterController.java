@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Button;
 
-public class RegisterController implements Initializable {
+public class RegisterController {
 
 	@FXML
 	Label ErrorMessageLabel;
@@ -37,15 +37,25 @@ public class RegisterController implements Initializable {
 	@FXML
 	Button ToLogin;
 	
+	// 소켓 관련 필드
 	private Socket socket;	
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
+    
+	public void setField(Socket socket, DataOutputStream outputStream, DataInputStream inputStream) {
+		this.socket = socket;
+		this.inputStream = inputStream; // input, output 스트림은 따로 만들기 귀찮아서 이렇게 받아온거다.
+		this.outputStream = outputStream;
+	}
 	
+	/*
+	@Override
 	public void initialize(URL location, ResourceBundle resources) {
         // 클라이언트 시작
         startClient();
     }
-
+	*/
+	
 	@FXML
 	public void register() {
 		String ID = IdTextField.getText();
@@ -81,11 +91,13 @@ public class RegisterController implements Initializable {
 			if (signUpStatus && PassStatus) {
 				ErrorMessageLabel.setText("회원가입 성공!");
 				try {
-					closeAction();
 					Parent root = FXMLLoader.load(getClass().getResource("/Login/resource/LoginGUI.fxml"));
 					Scene scene = new Scene(root);
+					scene.getStylesheets().add(getClass().getResource("/Login/resource/LoginForm.css").toExternalForm());
 					Stage primaryStage = (Stage) CancleBotton.getScene().getWindow();
 					primaryStage.setScene(scene);
+					primaryStage.setTitle("Login");
+					closeAction();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -96,16 +108,19 @@ public class RegisterController implements Initializable {
 	@FXML
 	public void cancle() {
 		try {
-			closeAction();
 			Parent root = FXMLLoader.load(getClass().getResource("/Login/resource/LoginGUI.fxml"));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/Login/resource/LoginForm.css").toExternalForm());
 			Stage primaryStage = (Stage) CancleBotton.getScene().getWindow();
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Login");
+			closeAction();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	/*
 	void startClient() {
         Runnable runnable = new Runnable() {
             @Override
@@ -130,7 +145,7 @@ public class RegisterController implements Initializable {
         	closeAction();
         }
     }
-    
+    */
     public void closeAction() {
         try {
         	//만약 소켓이 안 닫혀 있다면 닫기
