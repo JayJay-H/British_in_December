@@ -161,10 +161,10 @@ public class ClientMainController implements Initializable {
 			new Alert(Alert.AlertType.WARNING, "예약하실 스쿠터를 선택하세요.", ButtonType.CLOSE).show();
 			return;
 		}
-
+		
 		// 선택한 칸에 대한 정보를 저장
 		String selectedScooter = scooterListview.getSelectionModel().getSelectedItem();
-
+		
 		// 예약할 시 scooterList에서 선택한 스쿠터 삭제, bookedList에 추가
 		// 선택한 스쿠터에 대한 nowUse를 1로 바꾸어 데이터 베이스에 저장.
 		if (bookedScooterList.size() < 1) {
@@ -172,6 +172,14 @@ public class ClientMainController implements Initializable {
 			scooterString.nextToken();
 			StringTokenizer scooterInfo = new StringTokenizer(scooterString.nextToken(), "\n");
 			String scooterID = scooterInfo.nextToken();
+			scooterInfo.nextToken();
+			String scooterNowUse = scooterInfo.nextToken();
+			
+			if(scooterNowUse.equals("1")) {
+				new Alert(Alert.AlertType.WARNING, "이미 사용중인 스쿠터 입니다.", ButtonType.CLOSE).show();
+				return;
+			}
+			
 			outputStream.writeUTF("Scooter changeScooterNowUse " + scooterID + " 1");
 
 			String bookedScooter = scooterList.remove(selectedIndex);
