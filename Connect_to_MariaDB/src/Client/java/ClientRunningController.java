@@ -90,7 +90,7 @@ public class ClientRunningController implements Initializable {
 
 		m = (int) ((milliseconds / 1000 / 60) % 60);
 
-		return String.format("%d 원", m * 500 + 1000);
+		return String.format("%d", m * 500 + 1000);
 	}
 	
 	private void updateScooterLocation(long milliseconds) throws IOException {

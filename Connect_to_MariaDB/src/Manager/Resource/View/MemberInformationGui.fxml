@@ -7,43 +7,43 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager.Java.Controllers.MemberInformationController">
+<AnchorPane prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" stylesheets="@../Css/MemberInformationGuiCss.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager.Java.Controllers.MemberInformationController">
 	<children>
-		<Button fx:id="backButton" layoutX="195.0" layoutY="214.0" mnemonicParsing="false" onAction="#backButtonHandler" text="Back" />
-		<Label layoutX="61.0" layoutY="14.0" text="Member Information">
+		<Button fx:id="backButton" layoutX="195.0" layoutY="214.0" mnemonicParsing="false" onAction="#backButtonHandler" stylesheets="@../Css/MemberInformationGuiCss.css" text="Back" />
+		<Label layoutX="61.0" layoutY="14.0" stylesheets="@../Css/MemberInformationGuiCss.css" text="Member Information">
          <font>
             <Font size="14.0" />
          </font></Label>
-      <VBox layoutX="45.0" layoutY="50.0" spacing="20.0">
+      <VBox layoutX="45.0" layoutY="50.0" spacing="20.0" stylesheets="@../Css/MemberInformationGuiCss.css">
          <children>
-            <HBox>
+            <HBox stylesheets="@../Css/MemberInformationGuiCss.css">
                <children>
-            		<Label text="ID :  " />
-            		<Label fx:id="IDLabel" />
+            		<Label stylesheets="@../Css/MemberInformationGuiCss.css" text="ID :  " />
+            		<Label fx:id="IDLabel" stylesheets="@../Css/MemberInformationGuiCss.css" />
                </children>
             </HBox>
-            <HBox>
+            <HBox stylesheets="@../Css/MemberInformationGuiCss.css">
                <children>
-            		<Label text="PASS :  " />
-            		<Label fx:id="PASSLabel" />
+            		<Label stylesheets="@../Css/MemberInformationGuiCss.css" text="PASS :  " />
+            		<Label fx:id="PASSLabel" stylesheets="@../Css/MemberInformationGuiCss.css" />
                </children>
             </HBox>
-            <HBox>
+            <HBox stylesheets="@../Css/MemberInformationGuiCss.css">
                <children>
-            		<Label text="Phone : " />
-            		<Label fx:id="phoneLabel" />
+            		<Label stylesheets="@../Css/MemberInformationGuiCss.css" text="Phone : " />
+            		<Label fx:id="phoneLabel" stylesheets="@../Css/MemberInformationGuiCss.css" />
                </children>
             </HBox>
-            <HBox>
+            <HBox stylesheets="@../Css/MemberInformationGuiCss.css">
                <children>
-            		<Label text="E-Mail : " />
-            		<Label fx:id="mailLabel" />
+            		<Label stylesheets="@../Css/MemberInformationGuiCss.css" text="E-Mail : " />
+            		<Label fx:id="mailLabel" stylesheets="@../Css/MemberInformationGuiCss.css" />
                </children>
             </HBox>
-            <HBox>
+            <HBox stylesheets="@../Css/MemberInformationGuiCss.css">
                <children>
-            		<Label text="NowUse : " />
-            		<Label fx:id="nowUseLabel" />
+            		<Label stylesheets="@../Css/MemberInformationGuiCss.css" text="NowUse : " />
+            		<Label fx:id="nowUseLabel" stylesheets="@../Css/MemberInformationGuiCss.css" />
                </children>
             </HBox>
          </children>
