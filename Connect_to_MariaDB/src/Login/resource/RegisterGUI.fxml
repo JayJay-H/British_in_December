@@ -12,9 +12,9 @@
 
 <AnchorPane prefHeight="250.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" stylesheets="@RegisterForm.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.java.Register.RegisterController">
 	<children>
-		<Label id="RegisterLabel" alignment="CENTER" layoutY="-1.0" prefHeight="26.0" prefWidth="301.0" stylesheets="@RegisterForm.css" text="REGISTER">
+		<Label id="RegisterLabel" alignment="CENTER" layoutY="-1.0" prefHeight="30.0" prefWidth="301.0" stylesheets="@RegisterForm.css" text="REGISTER">
 			<font>
-				<Font size="14.0" />
+				<Font size="16.0" />
 			</font>
 		</Label>
 		<HBox layoutX="56.0" layoutY="203.0" spacing="50.0" stylesheets="@RegisterForm.css" />

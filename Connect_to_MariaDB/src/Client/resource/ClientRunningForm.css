@@ -1,3 +1,14 @@
+Label {
+	-fx-font-family: "Arial";
+	-fx-font-weight: bold;
+}
+
+#LapTimeLabel{
+	-fx-background-color: #08088A;
+	-fx-text-fill: #fff;
+	-fx-font-family: "Arial";
+	-fx-font-weight: bold;
+}
 #startBotton {
 	-fx-background-color: #58ACFA;
     -fx-border-color: #01A9DB;
