@@ -45,6 +45,7 @@ public class ClientRunningController implements Initializable {
 	private DataOutputStream outputStream;
 	private String userID;
 	private String scooterID;
+	@FXML Button closeButton;
 	
 	public void setField(String userID, String scooterID, Socket socket, DataInputStream inputStream, DataOutputStream outputStream) {
 		this.userID = userID;
@@ -137,6 +138,8 @@ public class ClientRunningController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+
+	@FXML public void closeButtonHandler() {}
 
 
 }

@@ -62,6 +62,7 @@ public class ScooterManagementController implements Initializable {
 	private Socket socket;
 	private DataOutputStream outputStream;
 	private DataInputStream inputStream;
+	@FXML Button closeButton;
 	
 	// 로그아웃을 위한 ID, Socket 그리고 만들기 귀찮아서 넘긴 output, input 스트림들
 	// 그리고 ScooterManagement를 위한 데이터를 미리 로드하는 작업을 수행하는 메소드
@@ -231,5 +232,10 @@ public class ScooterManagementController implements Initializable {
 				scooterList.add(addToList);
 			});
 		}
+	}
+	@FXML
+	public void closeButtonHandler() {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+	    stage.close();
 	}
 }

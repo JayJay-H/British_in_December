@@ -2,7 +2,24 @@ Label {
 	-fx-font-family: "Arial";
 	-fx-font-weight: bold;
 }
-
+#CloseButton{
+	-fx-font-family: "Arial";
+	-fx-font-weight: bold;
+	-fx-border-color: #FF0000;
+	-fx-border-radius: 10;
+	-fx-background-color: #FF0000;
+	-fx-background-radius: 10.0;
+    -fx-text-fill: #fff;
+}
+#CloseButton:pressed{
+	-fx-font-family: "Arial";
+	-fx-font-weight: bold;
+	-fx-border-color: #DF0101;
+	-fx-border-radius: 10;
+	-fx-background-color: #DF0101;
+	-fx-background-radius: 10.0;
+    -fx-text-fill: #fff;
+}
 #LapTimeLabel{
 	-fx-background-color: #08088A;
 	-fx-text-fill: #fff;

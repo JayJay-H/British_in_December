@@ -16,12 +16,13 @@
          </font></Label>
 		<Button fx:id="backButton" layoutX="345.0" layoutY="43.0" mnemonicParsing="false" onAction="#backButtonHandler" stylesheets="@../Css/MemberManagementGuiCss.css" text="Back" />
 		<TextField fx:id="memberIDTextField" layoutX="14.0" layoutY="463.0" prefHeight="22.0" prefWidth="262.0" promptText="회원의 ID를 입력하세요" stylesheets="@../Css/MemberManagementGuiCss.css" />
-		<Button fx:id="findMemberIDButton" layoutX="301.0" layoutY="463.0" mnemonicParsing="false" onAction="#findMemberIDButtonHandler" stylesheets="@../Css/MemberManagementGuiCss.css" text="조회하기" />
+		<Button fx:id="findMemberIDButton" layoutX="301.0" layoutY="462.0" mnemonicParsing="false" onAction="#findMemberIDButtonHandler" prefHeight="24.0" prefWidth="87.0" stylesheets="@../Css/MemberManagementGuiCss.css" text="조회하기" />
 		<Button fx:id="checkMemberInfoButton" layoutX="288.0" layoutY="127.0" mnemonicParsing="false" onAction="#checkMemberInfoButtonHandler" prefHeight="47.0" prefWidth="103.0" stylesheets="@../Css/MemberManagementGuiCss.css" text="회원 정보 확인" />
 		<Button fx:id="deleteMemberInfoButton" layoutX="288.0" layoutY="202.0" mnemonicParsing="false" onAction="#deleteMemberInfoButtonHandler" prefHeight="47.0" prefWidth="103.0" stylesheets="@../Css/MemberManagementGuiCss.css" text="회원 정보 삭제" />
       <Label layoutX="14.0" layoutY="59.0" text="※ 회원목록">
          <font>
             <Font size="14.0" />
          </font></Label>
+      <Button id="CloseButton" fx:id="closeButton" layoutX="373.0" layoutY="3.0" mnemonicParsing="false" onAction="#closeButtonHandler" prefHeight="9.0" prefWidth="3.0" text="X" />
 	</children>
 </AnchorPane>

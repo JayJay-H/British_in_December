@@ -58,7 +58,7 @@ public class StartSceneController implements Initializable {
 		 * loginStart.start();
 		 */
 	}
-
+	
 	private void loginStart() throws IOException {
 		try {
 			Parent secondView = FXMLLoader.load(getClass().getResource("/Login/resource/LoginGUI.fxml"));

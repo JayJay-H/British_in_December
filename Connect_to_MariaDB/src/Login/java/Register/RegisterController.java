@@ -41,6 +41,7 @@ public class RegisterController {
 	private Socket socket;	
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
+	@FXML Button closeButton;
     
 	public void setField(Socket socket, DataOutputStream outputStream, DataInputStream inputStream) {
 		this.socket = socket;
@@ -156,4 +157,9 @@ public class RegisterController {
             e.printStackTrace();
         }
     }
+	@FXML
+	public void closeButtonHandler() {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+	    stage.close();
+	}
 }

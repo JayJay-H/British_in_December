@@ -61,6 +61,7 @@ public class ClientMainController implements Initializable {
 	private DataInputStream inputStream;
 	private DataOutputStream outputStream;
 	private String userID;
+	@FXML Button closeButton;
 
 	// 아이디를 받아와서 현재 어떤 아이디로 접속했는지를 알고, 소켓을 받아와서 로그아웃시 소켓을 닫아줘야함을 서버에 알려준다.
 	// 또한 initialize하기 전에 이 메소드로 fxml에 필요한 데이터, 스레드들을 모두 받아오고 실행시킨다.
@@ -349,5 +350,7 @@ public class ClientMainController implements Initializable {
             e.printStackTrace();
         }
     }
+
+	@FXML public void closeButtonHandler() {}
 
 }
