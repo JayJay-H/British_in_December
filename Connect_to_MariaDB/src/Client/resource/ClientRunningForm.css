@@ -1,7 +1,15 @@
 #startBotton {
-	-fx-background-color:#a5df00;
+	-fx-background-color: #58ACFA;
+    -fx-border-color: #01A9DB;
+    -fx-text-fill: #fff;
 }
 
+#startBotton:pressed{
+	-fx-background-color: #0080FF;
+    -fx-border-color: #01A9DB;
+    -fx-text-fill: #fff;
+}
 #ReturnBotton {
 	-fx-background-color:#f78181;
+	-fx-border-color: #FA5858
 }

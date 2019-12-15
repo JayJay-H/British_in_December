@@ -1,11 +1,28 @@
-#SelectBotton {
-	-fx-background-color:#a5df00;
+Label {
+	-fx-font-family: "Arial";
+	-fx-font-weight: bold;
 }
-#UseBotton {
-	-fx-background-color:#a5df00;
+.button {
+    -fx-background-color: #58ACFA;
+    -fx-border-color: #01A9DB;
+    -fx-text-fill: #fff;
+}
+
+.button:pressed {
+	-fx-background-color: #0080FF;
+    -fx-border-color: #01A9DB;
+    -fx-text-fill: #fff;
+}
+
+#ClientMainLabel {
+	-fx-background-color: #08088A;
+	-fx-text-fill: #fff;
+	-fx-font-family: "Arial";
+	-fx-font-weight: bold;
 }
 #CancleBotton {
 	-fx-background-color:#f78181;
+	-fx-border-color: #FA5858
 }
 #Title {
 	-fx-text-fill:#000000;

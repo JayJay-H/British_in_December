@@ -7,31 +7,28 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="342.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.java.ClientMainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="350.0" style="-fx-background-color: #ffffff;" stylesheets="@ClientMainForm.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.java.ClientMainController">
    <children>
-      <ListView fx:id="scooterListview" layoutX="31.0" layoutY="89.0" prefHeight="222.0" prefWidth="227.0" />
-      <Button fx:id="SelectBotton" layoutX="269.0" layoutY="189.0" mnemonicParsing="false" onAction="#bookScooter" prefHeight="25.0" prefWidth="65.0" text="예약" />
-      <Label fx:id="Title" layoutX="113.0" layoutY="14.0" text="스쿠터 선택하기">
+      <ListView fx:id="scooterListview" layoutX="22.0" layoutY="113.0" prefHeight="242.0" prefWidth="227.0" stylesheets="@ClientMainForm.css" />
+      <Button fx:id="SelectBotton" layoutX="257.0" layoutY="328.0" mnemonicParsing="false" onAction="#bookScooter" prefHeight="26.0" prefWidth="78.0" stylesheets="@ClientMainForm.css" text="예약" />
+      <Label id="ClientMainLabel" fx:id="Title" alignment="CENTER" layoutY="-1.0" prefHeight="30.0" prefWidth="350.0" stylesheets="@ClientMainForm.css" text="ScooterReservation">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <HBox alignment="CENTER" layoutX="55.0" layoutY="45.0" spacing="5.0">
+      <HBox alignment="CENTER" layoutX="20.0" layoutY="44.0" spacing="5.0" stylesheets="@ClientMainForm.css">
          <children>
-            <Label fx:id="idLabel" />
-            <Label text="님 반갑습니다." />
-            <Label prefHeight="14.0" prefWidth="183.0" text="예약하실 스쿠터를 선택해주세요" />
+            <Label fx:id="idLabel" prefHeight="14.0" prefWidth="0.0" stylesheets="@ClientMainForm.css" />
+            <Label stylesheets="@ClientMainForm.css" text="님 반갑습니다." />
          </children>
       </HBox>
-      <HBox layoutX="79.0" layoutY="68.0">
-         <children>
-            <Label text="이용가능스쿠터: " />
-            <Label fx:id="numOfScooter" prefHeight="14.0" prefWidth="40.0" textFill="#2321a4" />
-         </children>
-      </HBox>
-      <ListView fx:id="bookedScooterListView" layoutX="31.0" layoutY="343.0" prefHeight="22.0" prefWidth="227.0" />
-      <Label layoutX="101.0" layoutY="323.0" text="예약하신 스쿠터" />
-      <Button fx:id="UseBotton" layoutX="269.0" layoutY="326.0" mnemonicParsing="false" onAction="#selectScooter" prefWidth="65.0" text="사용하기" />
-      <Button fx:id="CancleBotton" layoutX="269.0" layoutY="354.0" mnemonicParsing="false" onAction="#cancleBookingScooter" prefWidth="65.0" text="예약취소" />
-      <Button fx:id="LogoutButton" layoutX="269.0" layoutY="11.0" mnemonicParsing="false" onAction="#Logout" prefHeight="25.0" prefWidth="65.0" text="로그아웃" />
+      <HBox layoutX="79.0" layoutY="68.0" stylesheets="@ClientMainForm.css" />
+      <ListView fx:id="bookedScooterListView" layoutX="22.0" layoutY="405.0" prefHeight="22.0" prefWidth="227.0" stylesheets="@ClientMainForm.css" />
+      <Label layoutX="92.0" layoutY="381.0" stylesheets="@ClientMainForm.css" text="예약하신 스쿠터" />
+      <Button fx:id="UseBotton" layoutX="257.0" layoutY="376.0" mnemonicParsing="false" onAction="#selectScooter" prefHeight="24.0" prefWidth="78.0" stylesheets="@ClientMainForm.css" text="사용하기" />
+      <Button fx:id="CancleBotton" layoutX="257.0" layoutY="404.0" mnemonicParsing="false" onAction="#cancleBookingScooter" prefHeight="24.0" prefWidth="78.0" stylesheets="@ClientMainForm.css" text="예약취소" />
+      <Button fx:id="LogoutButton" layoutX="257.0" layoutY="38.0" mnemonicParsing="false" onAction="#Logout" prefHeight="26.0" prefWidth="78.0" stylesheets="@ClientMainForm.css" text="로그아웃" />
+      <Label layoutX="22.0" layoutY="90.0" stylesheets="@ClientMainForm.css" text="이용가능스쿠터: " />
+      <Label layoutX="20.0" layoutY="68.0" prefHeight="14.0" prefWidth="183.0" stylesheets="@ClientMainForm.css" text="예약하실 스쿠터를 선택해주세요" />
+      <Label fx:id="numOfScooter" layoutX="116.0" layoutY="90.0" prefHeight="14.0" prefWidth="40.0" stylesheets="@ClientMainForm.css" textFill="#2321a4" />
    </children>
 </AnchorPane>

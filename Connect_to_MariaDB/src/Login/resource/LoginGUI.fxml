@@ -9,23 +9,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="250.0" prefWidth="400.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.java.Login.LoginController">
+<AnchorPane prefHeight="250.0" prefWidth="400.0" style="-fx-background-color: #ffffff;" stylesheets="@LoginForm.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.java.Login.LoginController">
    <children>
-      <Label layoutX="178.0" layoutY="14.0" text="LOGIN">
+      <Label id="LoginLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="-3.0" prefHeight="34.0" prefWidth="400.0" stylesheets="@LoginForm.css" text="LOGIN">
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
          </font></Label>
-      <Label fx:id="LoginErrTextLabel" alignment="CENTER" layoutX="-1.0" layoutY="40.0" prefHeight="14.0" prefWidth="400.0" />
-      <TextField fx:id="IdTextField" layoutX="73.0" layoutY="81.0" promptText="아이디" />
-      <PasswordField fx:id="PassTextField" layoutX="73.0" layoutY="113.0" promptText="비밀번호" />
-      <Button fx:id="LoginBotton" layoutX="255.0" layoutY="80.0" mnemonicParsing="false" onAction="#login" prefHeight="55.0" prefWidth="70.0" text="로그인" />
-      <Button fx:id="RegisterBotton" layoutX="90.0" layoutY="192.0" mnemonicParsing="false" onAction="#register" prefHeight="25.0" prefWidth="70.0" text="회원가입" />
-      <RadioButton layoutX="216.0" layoutY="196.0" mnemonicParsing="false" text="사용자로 로그인" userData="Client">
+      <Label fx:id="LoginErrTextLabel" alignment="CENTER" layoutY="228.0" prefHeight="14.0" prefWidth="400.0" stylesheets="@LoginForm.css" />
+      <TextField fx:id="IdTextField" layoutX="74.0" layoutY="150.0" promptText="아이디" stylesheets="@LoginForm.css" />
+      <PasswordField fx:id="PassTextField" layoutX="74.0" layoutY="182.0" promptText="비밀번호" stylesheets="@LoginForm.css" />
+      <Button fx:id="LoginBotton" layoutX="256.0" layoutY="149.0" mnemonicParsing="false" onAction="#login" prefHeight="55.0" prefWidth="70.0" stylesheets="@LoginForm.css" text="로그인" />
+      <Button fx:id="RegisterBotton" layoutX="256.0" layoutY="77.0" mnemonicParsing="false" onAction="#register" prefHeight="42.0" prefWidth="70.0" stylesheets="@LoginForm.css" text="회원가입" />
+      <RadioButton layoutX="74.0" layoutY="108.0" mnemonicParsing="false" stylesheets="@LoginForm.css" text="사용자로 로그인" userData="Client">
          <toggleGroup>
             <ToggleGroup fx:id="whoareyou" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton layoutX="216.0" layoutY="168.0" mnemonicParsing="false" text="매니저로 로그인" toggleGroup="$whoareyou" userData="Manager" />
-      <Label layoutX="67.0" layoutY="169.0" text="이용이 처음이시라면?" />
+      <RadioButton layoutX="74.0" layoutY="82.0" mnemonicParsing="false" stylesheets="@LoginForm.css" text="매니저로 로그인" toggleGroup="$whoareyou" userData="Manager" />
    </children>
 </AnchorPane>
