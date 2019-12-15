@@ -1,3 +1,14 @@
+Label {
+	-fx-font-family: "Arial";
+	-fx-font-weight: bold;
+}
+#MemberManagementLabel{
+	-fx-background-color: #08088A;
+	-fx-text-fill: #fff;
+	-fx-font-family: "Arial";
+	-fx-font-weight: bold;
+}
+
 .button {
     -fx-background-color: #58ACFA;
     -fx-border-color: #01A9DB;
@@ -9,3 +20,4 @@
     -fx-border-color: #01A9DB;
     -fx-text-fill: #fff;
 }
+
