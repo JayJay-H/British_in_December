@@ -42,7 +42,6 @@ public class LoginController implements Initializable {
 	private Socket socket;
 	private DataInputStream inputStream;
 	private DataOutputStream outputStream;
-	private double nowX, nowY;
 
 	public void initialize(URL location, ResourceBundle resources) {
 		// 클라이언트 시작

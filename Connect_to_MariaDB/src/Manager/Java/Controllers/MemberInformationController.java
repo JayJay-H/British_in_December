@@ -60,7 +60,7 @@ public class MemberInformationController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(resultStatus);
+		
 		StringTokenizer userInfo = new StringTokenizer(resultStatus, ";");
 		IDLabel.setText(userInfo.nextToken());
 		PASSLabel.setText(userInfo.nextToken());

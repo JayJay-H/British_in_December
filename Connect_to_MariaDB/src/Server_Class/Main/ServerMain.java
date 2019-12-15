@@ -131,7 +131,7 @@ public class ServerMain {
                             String data = sb.toString();
             				
                             int loginStatus = login(data);
-                            System.out.println("login: "+loginStatus);
+                            
             				if(loginStatus==0) {
             					break;
             				} else if(loginStatus==-2) {
@@ -145,7 +145,7 @@ public class ServerMain {
             				InputStream inputStream = socket.getInputStream();
                             // 클라이언트가 비정상 종료를 했을 경우 IOException 발생
                             int readByteCount = inputStream.read(bytes);
-                            //System.out.println(readByteCount);
+                            
                             // 클라이언트가 정상적으로 Socket의 close()를 호출했을 경우
                             if (readByteCount == -1) {
                                 throw new IOException();
@@ -162,8 +162,6 @@ public class ServerMain {
                             	sb.append((char)bytes[i]);
                             }
                             String data = sb.toString();
-                            
-                            //System.out.println(data);
                             
             				// 쿼리를 실행하는 부분
             				int methodStatus = method(data);
@@ -331,7 +329,10 @@ public class ServerMain {
 	                        	try {
 									scooterUse = memberManagement.getMemberScooterUse(client.userID);
 								} catch (SQLException e) {}
-	                        	if(client.userID != null && !client.userID.equals(userID) && scooterUse == 0) {
+	                        	if(client.userID.charAt(0) == '#') {
+	                        		client.sendUpadte();
+	                        	}
+	                        	else if(client.userID != null && !client.userID.equals(userID) && scooterUse == 0) {
 		                        	client.sendUpadte();
 	                        	}
 	                        }
@@ -349,7 +350,6 @@ public class ServerMain {
 						case "findScooter": // Scooter findScooter ID
 							try {
 								String result = scooterManagement.findScooter(authInfo.nextToken());
-								System.out.print("");
 								out.writeUTF(result);
 							}catch (SQLException e) {
 								out.writeUTF("-1");
@@ -366,11 +366,9 @@ public class ServerMain {
 							break;
 							
 						case "getScooterNowUse": // Scooter getScooterNowUse ID
-							System.out.println("getScooterNowUse");
 							try {
 								int scooterNowUse = scootermanagement.getScooterNowUse(authInfo.nextToken());
 								scooterManagement.setCanChangeGetStatus();
-								System.out.println("changed!");
 								if(scooterNowUse == 0) {
 									out.writeInt(100);
 								} else {

@@ -76,7 +76,6 @@ public class ClientMainController implements Initializable {
 
 		// 실시간 업데이트를 받아야하므로 flag를 false로 바꾼다
 		receiveThreadStopFlag = false;
-		System.out.println("start");
 
 		// 현재 스쿠터 리스트를 받아온다
 		findCanUseScooter();
@@ -262,7 +261,6 @@ public class ClientMainController implements Initializable {
 
 			// 스쿠터를 사용할 때, 실시간 업데이트 종료
 			if (receiveThreadStopFlag) {
-				System.out.println("stopped");
 				break;
 			}
 			try {
@@ -299,14 +297,12 @@ public class ClientMainController implements Initializable {
 		try {
 			// 스쿠터 리스트를 데이터베이스에서 가져온다.
 			// 못가져왔다면 IOException시킴.
-			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 
 			// 서버가 클라이언트로부터 오는 쿼리들을 놓침을 방지한다.
 			Thread.sleep(100);
-
-			out.writeUTF("Scooter findScooterList");
+			
+			outputStream.writeUTF("Scooter findScooterList");
 			inputScooterList = inputStream.readUTF();
-			System.out.println(inputScooterList);
 			if (inputScooterList.equals("-1")) {
 				throw new IOException();
 			}

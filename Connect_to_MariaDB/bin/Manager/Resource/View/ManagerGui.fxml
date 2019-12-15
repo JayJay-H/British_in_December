@@ -82,7 +82,7 @@
 		</HBox>
 		<Label id="ManagementLabel" alignment="CENTER"
 			onMouseDragged="#LabelDragged" onMousePressed="#LabelPressed"
-			onMouseReleased="#LabelReleasd" prefHeight="30.0" prefWidth="300.0"
+			onMouseReleased="#LabelReleased" prefHeight="30.0" prefWidth="300.0"
 			text="Manager">
 			<font>
 				<Font size="16.0" />
