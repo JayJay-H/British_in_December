@@ -10,6 +10,8 @@ import DBController.updateDB;
 
 public class scooterManagement {
 	
+	static boolean getStatus;
+	
 	// 스쿠터를 추가한다.
 	public static boolean addScooter(String ID, String Location) {
 		return insertIntoDB.addScooter(ID, Location);
@@ -78,15 +80,26 @@ public class scooterManagement {
 		return showList.toString();
 	}
 	
-	public static int getScooterNowUse(String ID) throws SQLException {
+	public synchronized int getScooterNowUse(String ID) throws SQLException {
+		System.out.println(getStatus);
+		while(getStatus) {
+			try {
+				wait();
+			} catch (InterruptedException e) {}
+		}
+		getStatus = true;
+		
 		ResultSet scooterList = searchFromDB.searchObjects("Scooter"); // DB에서 모든 스쿠터 정보를 받아온다.
 		
 		while(scooterList.next()){
 			if(scooterList.getString(1).equals(ID)) {
+				
+				getStatus = false;
+				System.out.println(getStatus);
+				notifyAll();
 				return Integer.parseInt(scooterList.getString(3));
 			}
         }
-		
 		return -1; // 존재하지 않는 ID.
 	}
 	
