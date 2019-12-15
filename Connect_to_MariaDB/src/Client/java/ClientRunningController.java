@@ -90,30 +90,20 @@ public class ClientRunningController implements Initializable {
 
 		m = (int) ((milliseconds / 1000 / 60) % 60);
 
-		return String.format("%d", m * 500 + 1000);
+		return String.format("%d 원", m * 500 + 1000);
 	}
 	
-	private void updateScooterLocation(long milliseconds) throws IOException {
-		int m;
-		m = (int) ((milliseconds / 1000 / 60) % 60);
+	private void updateScooterLocation() {
 		
-		outputStream.writeUTF("Scooter findScooter "+ scooterID);
-		String scooterInfoInput = inputStream.readUTF();
+		int nowLocation = (int)(Math.random()*11); // 무작위 위치로 간다.
 		
-		StringTokenizer scooterInfo = new StringTokenizer(scooterInfoInput, ";");
-		scooterInfo.nextToken();
-		String scooterLocation = scooterInfo.nextToken();
-		int pastLocation = Integer.parseInt(scooterLocation);
-		int min = pastLocation - m;
-		int max = 2*m + min;
-		if(min < 0) min = 0;
-		if(max > 10) max = 10;
-		int nowLocation = (int)(Math.random()*(max - min +1)) + min;
-		
-		outputStream.writeUTF("Scooter changeScooterLocation "+scooterID+" "+nowLocation);
-		inputStream.readBoolean();
-		outputStream.writeUTF("Scooter changeScooterNowUse " + scooterID + " 0");
-		inputStream.readUTF();
+		try {
+			outputStream.writeUTF("Scooter changeScooterLocation "+scooterID+" "+nowLocation); 	// 스쿠터의 위치 변경을 DB에 저장한다.
+			outputStream.writeUTF("Scooter changeScooterNowUse " + scooterID + " 0");			// 스쿠터를 사용가능하다는 것을 DB에 저장한다.
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -125,9 +115,9 @@ public class ClientRunningController implements Initializable {
 	@FXML
 	public void returnScooter() throws InterruptedException, IOException {
 		timeline.stop();
-		updateScooterLocation(milliseconds);
+		updateScooterLocation();
 		
-		new Alert(Alert.AlertType.INFORMATION, cost.getText()+"원\n결제되셨습니다.", ButtonType.CLOSE).show();
+		new Alert(Alert.AlertType.INFORMATION, cost.getText()+"\n결제되셨습니다.", ButtonType.CLOSE).show();
 		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Client/resource/ClientMain.fxml"));
@@ -140,6 +130,8 @@ public class ClientRunningController implements Initializable {
 			Stage primaryStage = (Stage) ReturnBotton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Client");
+			
+			outputStream.writeUTF("Scooter changeScooterUse "+ userID +" 0"); // 사용자가 스쿠터를 사용하지 않음을 DB에 저장한다.
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -88,6 +88,11 @@ public class ServerMain {
         String Pass;
         String loginTable;
         
+        authMember authmember = new authMember();
+        authManager authmanager = new authManager();
+        memberManagement membermanagement = new memberManagement();
+        scooterManagement scootermanagement = new scooterManagement();
+        
 		public Client(Socket socket) {
             this.socket = socket;
             try {
@@ -158,7 +163,8 @@ public class ServerMain {
                             }
                             String data = sb.toString();
                             
-                            System.out.println(data);
+                            //System.out.println(data);
+                            
             				// 쿼리를 실행하는 부분
             				int methodStatus = method(data);
             				
@@ -199,7 +205,7 @@ public class ServerMain {
 				if(q.equals("Member")) {
 					userID = authInfo.nextToken();
 					Pass = authInfo.nextToken();
-					loginStatus = authMember.authenticateMember(userID, Pass);
+					loginStatus = authmember.authenticateMember(userID, Pass);
 					
 					if(loginStatus.equals("0")) {
 						out.writeUTF(loginStatus);
@@ -215,7 +221,7 @@ public class ServerMain {
 				if(q.equals("Manager")) {
 					userID = authInfo.nextToken();
 					Pass = authInfo.nextToken();
-					loginStatus = authManager.authenticateManager(userID, Pass);
+					loginStatus = authmanager.authenticateManager(userID, Pass);
 					
 					if(loginStatus.equals("0")) {
 						out.writeUTF(loginStatus);
@@ -231,7 +237,7 @@ public class ServerMain {
 				if(q.equals("SignUp")) {
 					userID = authInfo.nextToken();
 					Pass = authInfo.nextToken();
-					boolean signUpStatus = memberManagement.addMember(userID, Pass);
+					boolean signUpStatus = membermanagement.addMember(userID, Pass);
 					out.writeBoolean(signUpStatus);
 					if(signUpStatus) {
 						return 0;
@@ -255,7 +261,7 @@ public class ServerMain {
 				if(request.equals("Member")) {
 					switch(method) {
 						case "add": // Member add ID PASS
-							out.writeBoolean(memberManagement.addMember(authInfo.nextToken(), authInfo.nextToken()));
+							out.writeBoolean(membermanagement.addMember(authInfo.nextToken(), authInfo.nextToken()));
 							break;
 							
 						case "delete": // Member delete ID
@@ -288,14 +294,6 @@ public class ServerMain {
 							}
 							break;
 							
-						case "findToken":
-							try {
-								out.writeInt(memberManagement.findToken(authInfo.nextToken()));
-							} catch (SQLException e) {
-								out.writeInt(-2); // DB 관련 오류
-							}
-							break;
-							
 						case "getNum":
 							try {
 								out.writeInt(memberManagement.getNumberOfMember());
@@ -314,7 +312,7 @@ public class ServerMain {
 							// 모든 클라이언트들에게 스쿠터 테이블을 업데이트 하라고 알림.
 	                        for (Client client : clientList) {
 	                        	
-	                        	if(!client.userID.equals(userID)) {
+	                        	if(client.userID != null && !client.userID.equals(userID)) {
 		                        	client.sendUpadte();
 	                        	}
 	                        }
@@ -325,30 +323,33 @@ public class ServerMain {
 							break;
 						
 						case "changeScooterNowUse": // Scooter changeScooterNowUse ID nowUse
-							boolean changeNowUseStatus = scooterManagement.changeNowUse(request, authInfo.nextToken(), authInfo.nextToken());
-							if(changeNowUseStatus) {
-								out.writeUTF("changeNowUse");
-							} else {
-								out.writeUTF("failedNowUse");
-							}
-							
+							scootermanagement.changeNowUse(request, authInfo.nextToken(), authInfo.nextToken());
+
 							// 모든 클라이언트들에게 스쿠터 테이블을 업데이트 하라고 알림.
 	                        for (Client client : clientList) {
-	                        	
-	                        	if(!client.userID.equals(userID)) {
+	                        	int scooterUse = -1;
+	                        	try {
+									scooterUse = memberManagement.getMemberScooterUse(client.userID);
+								} catch (SQLException e) {}
+	                        	if(client.userID != null && !client.userID.equals(userID) && scooterUse == 0) {
 		                        	client.sendUpadte();
 	                        	}
 	                        }
 							break;
 						
 						case "changeScooterLocation": // Scooter changeScooterLocation ID Location
-							boolean changeLocationStatus = scooterManagement.changeLocation(request, authInfo.nextToken(), authInfo.nextToken());
-							out.writeBoolean(changeLocationStatus);
+							scootermanagement.changeLocation(request, authInfo.nextToken(), authInfo.nextToken());
+							
+							break;
+						
+						case "changeScooterUse": // Scooter changeScooterUse ID scooterUse
+							memberManagement.changeScooterUse(authInfo.nextToken(), authInfo.nextToken());
 							break;
 							
 						case "findScooter": // Scooter findScooter ID
 							try {
 								String result = scooterManagement.findScooter(authInfo.nextToken());
+								System.out.print("");
 								out.writeUTF(result);
 							}catch (SQLException e) {
 								out.writeUTF("-1");
@@ -357,7 +358,7 @@ public class ServerMain {
 							
 						case "findScooterList":
 							try {
-								String result = scooterManagement.findScooterList();
+								String result = scootermanagement.findScooterList();
 								out.writeUTF(result);
 							}catch (SQLException e) {
 								out.writeUTF("-1");
@@ -389,6 +390,10 @@ public class ServerMain {
 							break;
 					}
 				}
+				
+				if(request.equals("nothing")) {
+					out.writeInt(1);
+				}
 			} catch (IOException e) {
 				return -2;
 			}
@@ -411,8 +416,7 @@ public class ServerMain {
                 public void run() {
                     try {
                     	// 클라이언트에게 메시지를 보냄
-                    	DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-                    	outputStream.writeUTF("Update");
+                    	out.writeInt(10);
                     } catch (IOException e) {}
                 }
             };

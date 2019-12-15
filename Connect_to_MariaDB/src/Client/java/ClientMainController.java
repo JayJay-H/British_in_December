@@ -63,7 +63,7 @@ public class ClientMainController implements Initializable {
 
 	// 아이디를 받아와서 현재 어떤 아이디로 접속했는지를 알고, 소켓을 받아와서 로그아웃시 소켓을 닫아줘야함을 서버에 알려준다.
 	// 또한 initialize하기 전에 이 메소드로 fxml에 필요한 데이터, 스레드들을 모두 받아오고 실행시킨다.
-	public void setField(String userID, Socket socket, DataOutputStream outputStream, DataInputStream inputStream) {
+	public void setField(String userID, Socket socket, DataOutputStream outputStream, DataInputStream inputStream) throws InterruptedException {
 		this.userID = userID;
 		this.socket = socket;
 		this.inputStream = inputStream; // input, output 스트림은 따로 만들기 귀찮아서 이렇게 받아온거다.
@@ -71,14 +71,15 @@ public class ClientMainController implements Initializable {
 
 		// 실시간 업데이트를 받아야하므로 flag를 false로 바꾼다
 		receiveThreadStopFlag = false;
-
+		System.out.println("start");
+		
 		// 현재 스쿠터 리스트를 받아온다
 		findCanUseScooter();
-
+		
 		/*
-		 * 스쿠터의 수를 받아온다. 그냥 setText를 하면 오류가난다. javaFX와 관련된 스레드에 영향을 주기때문이다. 이것을 해결하려면
-		 * Platform.runLater() 를 통해 임시 스레드를 만들고, 이 스레드로 스쿠터의 수를 받아온다.
-		 */
+		* 스쿠터의 수를 받아온다. 그냥 setText를 하면 오류가난다. javaFX와 관련된 스레드에 영향을 주기때문이다. 이것을 해결하려면
+		* Platform.runLater() 를 통해 임시 스레드를 만들고, 이 스레드로 스쿠터의 수를 받아온다.
+		*/
 		Platform.runLater(() -> {
 			numOfScooter.setText(numOfScooter());
 		});
@@ -92,6 +93,7 @@ public class ClientMainController implements Initializable {
 
 	@Override // 초기화
 	public void initialize(URL arg0, ResourceBundle arg1) {
+
 		// setField의 스쿠터수 업데이트와 같은 이유로 Platform.runlater()를 사용한다.
 		// 이렇게 안하면 스레드 겹친다고 이클립스가 화낸다.
 		Platform.runLater(() -> {
@@ -144,7 +146,8 @@ public class ClientMainController implements Initializable {
 			 * Update 문자열인지 아닌지 확인하고 버린다. 따라서 그 스레드를 멈추지 않으면 정작 가야할 곳에 데이터가 안간다.
 			 */
 			receiveThreadStopFlag = true;
-			outputStream.writeUTF("Scooter findScooterList"); // 스레드가 멈출 수 있게 의미없는 쿼리를 보낸다.
+			outputStream.writeUTF("Scooter changeScooterUse "+ userID +" 1"); // 사용자가 스쿠터를 사용 중임을 DB에 저장한다.
+			outputStream.writeUTF("nothing !"); // 스레드가 멈출 수 있게 의미없는 쿼리를 보낸다.
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -226,7 +229,12 @@ public class ClientMainController implements Initializable {
 		Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
-				receive();
+				try {
+					receive();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		};
 		Thread thread = new Thread(runnable);
@@ -234,20 +242,20 @@ public class ClientMainController implements Initializable {
 		thread.start();
 	}
 
-	void receive() {
+	void receive() throws InterruptedException {
 		while (true) {
 
 			// 스쿠터를 사용할 때, 실시간 업데이트 종료
 			if (receiveThreadStopFlag) {
+				System.out.println("stopped");
 				break;
 			}
 			try {
-
+				
 				// "Update"라는 문자열을 받으면 현재 scooterList를 갱신한다.
-				String data = inputStream.readUTF();
-				// System.out.println(data);
+				int data = inputStream.readInt();
 
-				if (data.equals("Update")) {
+				if (data == 10) {
 					Platform.runLater(() -> {
 						scooterList.clear();
 					});
@@ -263,18 +271,24 @@ public class ClientMainController implements Initializable {
 	}
 
 	// scooterList를 갱신하는 메소드
-	public void findCanUseScooter() {
+	public void findCanUseScooter() throws InterruptedException {
 		String inputScooterList = null;
 		try {
 			// 스쿠터 리스트를 데이터베이스에서 가져온다.
 			// 못가져왔다면 IOException시킴.
-			outputStream.writeUTF("Scooter findScooterList");
+			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+			
+			// 서버가 클라이언트로부터 오는 쿼리들을 놓침을 방지한다.
+			Thread.sleep(100);
+			
+			out.writeUTF("Scooter findScooterList");
 			inputScooterList = inputStream.readUTF();
-			// System.out.println(inputScooterList);
+			System.out.println(inputScooterList);
 			if (inputScooterList.equals("-1")) {
 				throw new IOException();
 			}
 		} catch (IOException e) {
+			e.printStackTrace();
 			new Alert(Alert.AlertType.INFORMATION, "스쿠터 데이터를 불러오는 중 오류가 생겼습니다!", ButtonType.CLOSE).show();
 		}
 
@@ -308,6 +322,7 @@ public class ClientMainController implements Initializable {
 	// 로그아웃시 소켓을 닫는 메소드
     public void closeAction() {
         try {
+        	
         	//만약 소켓이 안 닫혀 있다면 닫기
             if (socket != null && !socket.isClosed()) {
                 socket.close();
