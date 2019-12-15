@@ -78,6 +78,18 @@ public class scooterManagement {
 		return showList.toString();
 	}
 	
+	public static int getScooterNowUse(String ID) throws SQLException {
+		ResultSet scooterList = searchFromDB.searchObjects("Scooter"); // DB에서 모든 스쿠터 정보를 받아온다.
+		
+		while(scooterList.next()){
+			if(scooterList.getString(1).equals(ID)) {
+				return Integer.parseInt(scooterList.getString(3));
+			}
+        }
+		
+		return -1; // 존재하지 않는 ID.
+	}
+	
 	// 스쿠터의 모든 수를 반환한다.
 	public static int getNumberOfScooter() throws SQLException {
 		ResultSet memberList = searchFromDB.searchObjects("Scooter"); // DB에서 모든 스쿠터 정보를 받아온다.

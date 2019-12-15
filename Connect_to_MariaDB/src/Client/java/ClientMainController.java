@@ -54,7 +54,8 @@ public class ClientMainController implements Initializable {
 	private boolean receiveThreadStopFlag;
 	private String[] locationArray = { "정문", "공과대학 2호관", "공과대학 3호관", "공과대학 4호관", "공과대학 5호관", "공과대학 1호관", "경상대학", "도서관",
 			"백마교양관", "인문대학", "서문" };
-
+	
+	int scooterNowUse;
 	// socket 관련 필드
 	private Socket socket;
 	private DataInputStream inputStream;
@@ -154,7 +155,7 @@ public class ClientMainController implements Initializable {
 	}
 
 	@FXML // 스쿠터 예약 관련 메소드
-	public void bookScooter() throws IOException {
+	public void bookScooter() throws IOException, InterruptedException {
 		// selectedIndex를 통해 선택했나 안 했나 체크.
 		int selectedIndex = scooterListview.getSelectionModel().getSelectedIndex();
 		if (selectedIndex < 0) {
@@ -172,11 +173,12 @@ public class ClientMainController implements Initializable {
 			scooterString.nextToken();
 			StringTokenizer scooterInfo = new StringTokenizer(scooterString.nextToken(), "\n");
 			String scooterID = scooterInfo.nextToken();
-			scooterInfo.nextToken();
-			String scooterNowUse = scooterInfo.nextToken();
-			
-			if(scooterNowUse.equals("1")) {
+			outputStream.writeUTF("Scooter getScooterNowUse " + scooterID);
+
+			Thread.sleep(100);
+			if(scooterNowUse == -100) {
 				new Alert(Alert.AlertType.WARNING, "이미 사용중인 스쿠터 입니다.", ButtonType.CLOSE).show();
+				outputStream.writeUTF("update !");
 				return;
 			}
 			
@@ -209,7 +211,6 @@ public class ClientMainController implements Initializable {
 		StringTokenizer scooterInfo = new StringTokenizer(scooterString.nextToken(), "\n");
 		String scooterID = scooterInfo.nextToken();
 		outputStream.writeUTF("Scooter changeScooterNowUse " + scooterID + " 0");
-
 		String bookedScooter = bookedScooterList.remove(selectedIndex);
 		scooterList.add(bookedScooter);
 		numOfScooter.setText(numOfScooter());
@@ -271,6 +272,14 @@ public class ClientMainController implements Initializable {
 					Platform.runLater(() -> {
 						numOfScooter.setText(numOfScooter());
 					});
+				}
+				
+				if (data == 100) {
+					scooterNowUse = data;
+				}
+				
+				if (data == -100) {
+					scooterNowUse = data;
 				}
 			} catch (IOException e) {
 				break;
