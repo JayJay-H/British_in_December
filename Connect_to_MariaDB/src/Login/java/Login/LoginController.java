@@ -63,6 +63,12 @@ public class LoginController implements Initializable {
 	public void login() throws IOException {
 		String ID = IdTextField.getText();
 		String Pass = PassTextField.getText();
+		
+		if(ID == null) {
+			new Alert(Alert.AlertType.WARNING, "아이디를 입력해주세요.", ButtonType.CLOSE).show();
+		} else if (Pass == null) {
+			new Alert(Alert.AlertType.WARNING, "비밀번호를 입력해주세요.", ButtonType.CLOSE).show();
+		}
 
 		// 멤버인지 매니저인지 확인한 후 로그인 진행.
 		if(whoareyou.getSelectedToggle() == null) {
@@ -164,6 +170,7 @@ public class LoginController implements Initializable {
                     socket.connect(new InetSocketAddress("localhost", 8000));
                     Platform.runLater(() -> {
                         LoginErrTextLabel.setText("반갑습니다!");
+                        LoginBotton.setDisable(false);
                     });
                     
             		inputStream = new DataInputStream(socket.getInputStream());
@@ -180,6 +187,7 @@ public class LoginController implements Initializable {
     void disconnectServer() {
     	Platform.runLater(() -> {
             LoginErrTextLabel.setText("서버가 열려있지 않습니다.");
+            LoginBotton.setDisable(true);
         });
         if (!socket.isClosed()) {
         	closeAction();
