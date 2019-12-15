@@ -14,7 +14,7 @@ public class StartSceneMain extends Application {
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/Login/resource/StartSceneGUI.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("StartScene");
+			primaryStage.setTitle("Welcome");
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

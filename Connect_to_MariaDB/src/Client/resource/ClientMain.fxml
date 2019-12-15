@@ -15,8 +15,8 @@
          <font>
             <Font size="16.0" />
          </font></Label>
-      <ListView fx:id="bookedScooterListView" layoutX="22.0" layoutY="405.0" prefHeight="22.0" prefWidth="227.0" stylesheets="@ClientMainForm.css" />
-      <Label layoutX="92.0" layoutY="381.0" stylesheets="@ClientMainForm.css" text="예약하신 스쿠터" />
+      <ListView fx:id="bookedScooterListView" layoutX="22.0" layoutY="377.0" prefHeight="50.0" prefWidth="227.0" stylesheets="@ClientMainForm.css" />
+      <Label layoutX="92.0" layoutY="360.0" stylesheets="@ClientMainForm.css" text="예약하신 스쿠터" />
       <Button fx:id="UseBotton" layoutX="257.0" layoutY="376.0" mnemonicParsing="false" onAction="#selectScooter" prefHeight="24.0" prefWidth="78.0" stylesheets="@ClientMainForm.css" text="사용하기" />
       <Button fx:id="CancleBotton" layoutX="257.0" layoutY="404.0" mnemonicParsing="false" onAction="#cancleBookingScooter" prefHeight="24.0" prefWidth="78.0" stylesheets="@ClientMainForm.css" text="예약취소" />
       <Button fx:id="LogoutButton" layoutX="257.0" layoutY="38.0" mnemonicParsing="false" onAction="#Logout" prefHeight="26.0" prefWidth="78.0" stylesheets="@ClientMainForm.css" text="로그아웃" />
