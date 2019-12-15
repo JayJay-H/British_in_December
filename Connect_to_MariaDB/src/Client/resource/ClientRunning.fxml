@@ -7,35 +7,61 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" stylesheets="@ClientRunningForm.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.java.ClientRunningController">
-   <children>
-      <ImageView fitHeight="322.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@runningImage.gif" />
-         </image>
-      </ImageView>
-      <Label id="LapTimeLabel" alignment="CENTER" layoutY="-1.0" prefHeight="30.0" prefWidth="300.0" stylesheets="@ClientRunningForm.css" text="Lap Time">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
-      <Label layoutX="24.0" layoutY="124.0" stylesheets="@ClientRunningForm.css" text="금액 :">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-      <Label fx:id="useTime" layoutX="93.0" layoutY="68.0" prefHeight="42.0" prefWidth="204.0" stylesheets="@ClientRunningForm.css" text="00:00:00">
-         <font>
-            <Font size="36.0" />
-         </font></Label>
-      <Label fx:id="cost" alignment="CENTER" layoutX="42.0" layoutY="118.0" prefHeight="27.0" prefWidth="182.0" stylesheets="@ClientRunningForm.css" text="0000원">
-         <font>
-            <Font size="24.0" />
-         </font></Label>
-      <Button fx:id="ReturnBotton" layoutX="164.0" layoutY="224.0" mnemonicParsing="false" onAction="#returnScooter" prefHeight="25.0" prefWidth="80.0" stylesheets="@ClientRunningForm.css" text="반납" />
-      <Button fx:id="startBotton" layoutX="56.0" layoutY="224.0" mnemonicParsing="false" onAction="#startAction" prefHeight="25.0" prefWidth="80.0" stylesheets="@ClientRunningForm.css" text="이용시작" />
-      <Label layoutX="24.0" layoutY="81.0" stylesheets="@ClientRunningForm.css" text="사용시간 : ">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0"
+	prefWidth="300.0" style="-fx-background-color: #ffffff;"
+	stylesheets="@ClientRunningForm.css"
+	xmlns="http://javafx.com/javafx/11.0.1"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="Client.java.ClientRunningController">
+	<children>
+		<ImageView fitHeight="322.0" fitWidth="300.0"
+			pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@runningImage.gif" />
+			</image>
+		</ImageView>
+		<Label id="LapTimeLabel" alignment="CENTER" layoutY="-1.0"
+			prefHeight="30.0" prefWidth="300.0"
+			stylesheets="@ClientRunningForm.css" text="Lap Time">
+			<font>
+				<Font size="16.0" />
+			</font>
+		</Label>
+		<Label layoutX="24.0" layoutY="124.0"
+			stylesheets="@ClientRunningForm.css" text="금액 :">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Label fx:id="useTime" layoutX="93.0" layoutY="68.0"
+			prefHeight="42.0" prefWidth="204.0"
+			stylesheets="@ClientRunningForm.css" text="00:00:00">
+			<font>
+				<Font size="36.0" />
+			</font>
+		</Label>
+		<Label fx:id="cost" alignment="CENTER" layoutX="42.0"
+			layoutY="118.0" prefHeight="27.0" prefWidth="182.0"
+			stylesheets="@ClientRunningForm.css" text="0000원">
+			<font>
+				<Font size="24.0" />
+			</font>
+		</Label>
+		<Button fx:id="ReturnBotton" layoutX="164.0" layoutY="224.0"
+			mnemonicParsing="false" onAction="#returnScooter" prefHeight="25.0"
+			prefWidth="80.0" stylesheets="@ClientRunningForm.css" text="반납" />
+		<Button fx:id="startBotton" layoutX="56.0" layoutY="224.0"
+			mnemonicParsing="false" onAction="#startAction" prefHeight="25.0"
+			prefWidth="80.0" stylesheets="@ClientRunningForm.css" text="이용시작" />
+		<Label layoutX="24.0" layoutY="81.0"
+			stylesheets="@ClientRunningForm.css" text="사용시간 : ">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Button id="CloseButton" fx:id="closeButton" layoutX="274.0"
+			layoutY="3.0" mnemonicParsing="false" onAction="#closeButtonHandler"
+			prefHeight="9.0" prefWidth="3.0" text="X" />
+	</children>
 </AnchorPane>

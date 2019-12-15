@@ -35,6 +35,7 @@ public class ManagerController implements Initializable{
 	private Socket socket;
     private DataOutputStream outputStream;
     private DataInputStream inputStream;
+	@FXML Button closeButton;
     
     public void setField(String ID, Socket socket, DataOutputStream outputStream, DataInputStream inputStream) {
     	this.ID = ID;
@@ -112,4 +113,10 @@ public class ManagerController implements Initializable{
             e.printStackTrace();
         }
     }
+
+	@FXML
+	public void closeButtonHandler() {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+	    stage.close();
+	}
 }
