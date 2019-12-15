@@ -25,6 +25,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class ScooterManagementController implements Initializable {
@@ -237,5 +238,22 @@ public class ScooterManagementController implements Initializable {
 	public void closeButtonHandler() {
 		Stage stage = (Stage) closeButton.getScene().getWindow();
 	    stage.close();
+	}
+
+	@FXML public void LabelDragged(MouseEvent event) {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
+	}
+
+	@FXML public void LabelPressed(MouseEvent event) {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
+	}
+	@FXML public void LabelReleased(MouseEvent event) {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
 	}
 }

@@ -80,8 +80,10 @@
 				<Label fx:id="idLabel" prefHeight="14.0" prefWidth="150.0" />
 			</children>
 		</HBox>
-		<Label id="ManagementLabel" alignment="CENTER" prefHeight="30.0"
-			prefWidth="300.0" text="Manager">
+		<Label id="ManagementLabel" alignment="CENTER"
+			onMouseDragged="#LabelDragged" onMousePressed="#LabelPressed"
+			onMouseReleased="#LabelReleasd" prefHeight="30.0" prefWidth="300.0"
+			text="Manager">
 			<font>
 				<Font size="16.0" />
 			</font>

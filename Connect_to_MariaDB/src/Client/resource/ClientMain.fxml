@@ -22,8 +22,10 @@
 			mnemonicParsing="false" onAction="#bookScooter" prefHeight="26.0"
 			prefWidth="78.0" stylesheets="@ClientMainForm.css" text="예약" />
 		<Label id="ClientMainLabel" fx:id="Title" alignment="CENTER"
-			layoutY="-1.0" prefHeight="30.0" prefWidth="350.0"
-			stylesheets="@ClientMainForm.css" text="ScooterReservation">
+			layoutY="-1.0" onMouseDragged="#LabelDragged"
+			onMousePressed="#LabelPressed" onMouseReleased="#LabelReleased"
+			prefHeight="30.0" prefWidth="350.0" stylesheets="@ClientMainForm.css"
+			text="ScooterReservation">
 			<font>
 				<Font size="16.0" />
 			</font>

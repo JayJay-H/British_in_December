@@ -22,7 +22,8 @@
 			</image>
 		</ImageView>
 		<Label id="LapTimeLabel" alignment="CENTER" layoutY="-1.0"
-			prefHeight="30.0" prefWidth="300.0"
+			onMouseDragged="#LabelDragged" onMousePressed="#LabelPressed"
+			onMouseReleased="#LabelReleased" prefHeight="30.0" prefWidth="300.0"
 			stylesheets="@ClientRunningForm.css" text="Lap Time">
 			<font>
 				<Font size="16.0" />
@@ -60,8 +61,5 @@
 				<Font size="14.0" />
 			</font>
 		</Label>
-		<Button id="CloseButton" fx:id="closeButton" layoutX="274.0"
-			layoutY="3.0" mnemonicParsing="false" onAction="#closeButtonHandler"
-			prefHeight="9.0" prefWidth="3.0" text="X" />
 	</children>
 </AnchorPane>

@@ -8,55 +8,81 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" stylesheets="@../Css/MemberInformationGuiCss.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager.Java.Controllers.MemberInformationController">
+<AnchorPane prefHeight="300.0" prefWidth="300.0"
+	style="-fx-background-color: #ffffff;"
+	stylesheets="@../Css/MemberInformationGuiCss.css"
+	xmlns="http://javafx.com/javafx/11.0.1"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="Manager.Java.Controllers.MemberInformationController">
 	<children>
-		<Button fx:id="backButton" layoutX="242.0" layoutY="262.0" mnemonicParsing="false" onAction="#backButtonHandler" stylesheets="@../Css/MemberInformationGuiCss.css" text="Back" />
-		<Label id="MemberInformationLabel" alignment="CENTER" prefHeight="30.0" prefWidth="300.0" stylesheets="@../Css/MemberInformationGuiCss.css" text="Member Information">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
-      <VBox id="InfoVBox" layoutX="15.0" layoutY="61.0" prefHeight="185.0" prefWidth="270.0" spacing="20.0" stylesheets="@../Css/MemberInformationGuiCss.css">
-         <children>
-            <HBox stylesheets="@../Css/MemberInformationGuiCss.css">
-               <children>
-            		<Label stylesheets="@../Css/MemberInformationGuiCss.css" text=" ● ID :  " />
-            		<Label fx:id="IDLabel" stylesheets="@../Css/MemberInformationGuiCss.css" />
-               </children>
-               <VBox.margin>
-                  <Insets top="15.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox stylesheets="@../Css/MemberInformationGuiCss.css">
-               <children>
-            		<Label stylesheets="@../Css/MemberInformationGuiCss.css" text=" ● PASS :  " />
-            		<Label fx:id="PASSLabel" stylesheets="@../Css/MemberInformationGuiCss.css" />
-               </children>
-            </HBox>
-            <HBox stylesheets="@../Css/MemberInformationGuiCss.css">
-               <children>
-            		<Label stylesheets="@../Css/MemberInformationGuiCss.css" text=" ● Phone : " />
-            		<Label fx:id="phoneLabel" stylesheets="@../Css/MemberInformationGuiCss.css" />
-               </children>
-            </HBox>
-            <HBox stylesheets="@../Css/MemberInformationGuiCss.css">
-               <children>
-            		<Label stylesheets="@../Css/MemberInformationGuiCss.css" text=" ● E-Mail : " />
-            		<Label fx:id="mailLabel" stylesheets="@../Css/MemberInformationGuiCss.css" />
-               </children>
-            </HBox>
-            <HBox stylesheets="@../Css/MemberInformationGuiCss.css">
-               <children>
-            		<Label stylesheets="@../Css/MemberInformationGuiCss.css" text=" ● NowUse : " />
-            		<Label fx:id="nowUseLabel" stylesheets="@../Css/MemberInformationGuiCss.css" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <Label layoutX="15.0" layoutY="37.0" text="※ 사용자 정보">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Button id="CloseButton" fx:id="closeButton" layoutX="272.0" layoutY="3.0" mnemonicParsing="false" onAction="#closeButtonHandler" prefHeight="9.0" prefWidth="3.0" text="X" />
+		<Button fx:id="backButton" layoutX="242.0" layoutY="262.0"
+			mnemonicParsing="false" onAction="#backButtonHandler"
+			stylesheets="@../Css/MemberInformationGuiCss.css" text="Back" />
+		<Label id="MemberInformationLabel" alignment="CENTER"
+			onMouseDragged="#LabelDragged" onMousePressed="#LabelPressed"
+			onMouseReleased="#LabelReleased" prefHeight="30.0" prefWidth="300.0"
+			stylesheets="@../Css/MemberInformationGuiCss.css"
+			text="Member Information">
+			<font>
+				<Font size="16.0" />
+			</font>
+		</Label>
+		<VBox id="InfoVBox" layoutX="15.0" layoutY="61.0"
+			prefHeight="185.0" prefWidth="270.0" spacing="20.0"
+			stylesheets="@../Css/MemberInformationGuiCss.css">
+			<children>
+				<HBox stylesheets="@../Css/MemberInformationGuiCss.css">
+					<children>
+						<Label stylesheets="@../Css/MemberInformationGuiCss.css"
+							text=" ● ID :  " />
+						<Label fx:id="IDLabel"
+							stylesheets="@../Css/MemberInformationGuiCss.css" />
+					</children>
+					<VBox.margin>
+						<Insets top="15.0" />
+					</VBox.margin>
+				</HBox>
+				<HBox stylesheets="@../Css/MemberInformationGuiCss.css">
+					<children>
+						<Label stylesheets="@../Css/MemberInformationGuiCss.css"
+							text=" ● PASS :  " />
+						<Label fx:id="PASSLabel"
+							stylesheets="@../Css/MemberInformationGuiCss.css" />
+					</children>
+				</HBox>
+				<HBox stylesheets="@../Css/MemberInformationGuiCss.css">
+					<children>
+						<Label stylesheets="@../Css/MemberInformationGuiCss.css"
+							text=" ● Phone : " />
+						<Label fx:id="phoneLabel"
+							stylesheets="@../Css/MemberInformationGuiCss.css" />
+					</children>
+				</HBox>
+				<HBox stylesheets="@../Css/MemberInformationGuiCss.css">
+					<children>
+						<Label stylesheets="@../Css/MemberInformationGuiCss.css"
+							text=" ● E-Mail : " />
+						<Label fx:id="mailLabel"
+							stylesheets="@../Css/MemberInformationGuiCss.css" />
+					</children>
+				</HBox>
+				<HBox stylesheets="@../Css/MemberInformationGuiCss.css">
+					<children>
+						<Label stylesheets="@../Css/MemberInformationGuiCss.css"
+							text=" ● NowUse : " />
+						<Label fx:id="nowUseLabel"
+							stylesheets="@../Css/MemberInformationGuiCss.css" />
+					</children>
+				</HBox>
+			</children>
+		</VBox>
+		<Label layoutX="15.0" layoutY="37.0" text="※ 사용자 정보">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Button id="CloseButton" fx:id="closeButton" layoutX="272.0"
+			layoutY="3.0" mnemonicParsing="false" onAction="#closeButtonHandler"
+			prefHeight="9.0" prefWidth="3.0" text="X" />
 	</children>
 </AnchorPane>

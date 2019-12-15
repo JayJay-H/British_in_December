@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Parent;
@@ -45,16 +46,17 @@ public class ClientRunningController implements Initializable {
 	private DataOutputStream outputStream;
 	private String userID;
 	private String scooterID;
-	@FXML Button closeButton;
-	
-	public void setField(String userID, String scooterID, Socket socket, DataInputStream inputStream, DataOutputStream outputStream) {
+
+
+	public void setField(String userID, String scooterID, Socket socket, DataInputStream inputStream,
+			DataOutputStream outputStream) {
 		this.userID = userID;
 		this.scooterID = scooterID;
 		this.socket = socket;
 		this.inputStream = inputStream;
 		this.outputStream = outputStream;
 	}
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO 매초마다 1분식 이용시간 증가, 이용시간 5분마다 위치변화 +-1, 이용요금 +1000원
@@ -87,20 +89,21 @@ public class ClientRunningController implements Initializable {
 	private String millisecondsToCost(long milliseconds) {
 		int m = 0;
 
-		//this.milliseconds++;
+		// this.milliseconds++;
 
 		m = (int) ((milliseconds / 1000 / 60) % 60);
 
 		return String.format("%d 원", m * 500 + 1000);
 	}
-	
+
 	private void updateScooterLocation() {
-		
-		int nowLocation = (int)(Math.random()*11); // 무작위 위치로 간다.
-		
+
+		int nowLocation = (int) (Math.random() * 11); // 무작위 위치로 간다.
+
 		try {
-			outputStream.writeUTF("Scooter changeScooterLocation "+scooterID+" "+nowLocation); 	// 스쿠터의 위치 변경을 DB에 저장한다.
-			outputStream.writeUTF("Scooter changeScooterNowUse " + scooterID + " 0");			// 스쿠터를 사용가능하다는 것을 DB에 저장한다.
+			outputStream.writeUTF("Scooter changeScooterLocation " + scooterID + " " + nowLocation); // 스쿠터의 위치 변경을 DB에
+																										// 저장한다.
+			outputStream.writeUTF("Scooter changeScooterNowUse " + scooterID + " 0"); // 스쿠터를 사용가능하다는 것을 DB에 저장한다.
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -112,34 +115,52 @@ public class ClientRunningController implements Initializable {
 		timeline.play();
 		startBotton.setDisable(true);
 	}
-	
+
 	@FXML
 	public void returnScooter() throws InterruptedException, IOException {
 		timeline.stop();
 		updateScooterLocation();
-		
-		new Alert(Alert.AlertType.INFORMATION, cost.getText()+"\n결제되셨습니다.", ButtonType.CLOSE).show();
-		
+
+		new Alert(Alert.AlertType.INFORMATION, cost.getText() + "\n결제되셨습니다.", ButtonType.CLOSE).show();
+
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Client/resource/ClientMain.fxml"));
-			
-			Parent root = (Parent)loader.load();
+
+			Parent root = (Parent) loader.load();
 			ClientMainController controller = loader.getController();
-			
+
 			Scene scene = new Scene(root);
 			controller.setField(userID, socket, outputStream, inputStream);
 			Stage primaryStage = (Stage) ReturnBotton.getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Client");
-			
-			outputStream.writeUTF("Scooter changeScooterUse "+ userID +" 0"); // 사용자가 스쿠터를 사용하지 않음을 DB에 저장한다.
-			
+
+			outputStream.writeUTF("Scooter changeScooterUse " + userID + " 0"); // 사용자가 스쿠터를 사용하지 않음을 DB에 저장한다.
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	@FXML public void closeButtonHandler() {}
+	@FXML
+	public void LabelDragged(MouseEvent event) {
+		Stage stage = (Stage) startBotton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
+	}
 
+	@FXML
+	public void LabelPressed(MouseEvent event) {
+		Stage stage = (Stage) startBotton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
+	}
+
+	@FXML
+	public void LabelReleased(MouseEvent event) {
+		Stage stage = (Stage) startBotton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
+	}
 
 }
