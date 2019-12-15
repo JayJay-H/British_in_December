@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="250.0" prefWidth="400.0" style="-fx-background-color: #ffffff;" stylesheets="@LoginForm.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.java.Login.LoginController">
 	<children>
-		<Label id="LoginLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="-1.0" prefHeight="30.0" prefWidth="400.0" stylesheets="@LoginForm.css" text="LOGIN">
+		<Label id="LoginLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="-1.0" onMouseDragged="#LabelDragged" onMousePressed="#LabelPressed" onMouseReleased="#LabelReleased" prefHeight="30.0" prefWidth="400.0" stylesheets="@LoginForm.css" text="LOGIN">
 			<font>
 				<Font size="18.0" />
 			</font>

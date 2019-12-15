@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -89,5 +90,22 @@ public class MemberInformationController {
 	public void closeButtonHandler() {
 		Stage stage = (Stage) closeButton.getScene().getWindow();
 	    stage.close();
+	}
+
+	@FXML public void LabelDragged(MouseEvent event) {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
+	}
+
+	@FXML public void LabelPressed(MouseEvent event) {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
+	}
+	@FXML public void LabelReleased(MouseEvent event) {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
 	}
 }

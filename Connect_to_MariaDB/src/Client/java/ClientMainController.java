@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.ListView;
 import javafx.scene.Parent;
@@ -46,7 +47,7 @@ public class ClientMainController implements Initializable {
 	Button UseBotton;
 	@FXML
 	Label Title;
-	@FXML 
+	@FXML
 	Button LogoutButton;
 
 	private ObservableList<String> scooterList;
@@ -54,18 +55,20 @@ public class ClientMainController implements Initializable {
 	private boolean receiveThreadStopFlag;
 	private String[] locationArray = { "정문", "공과대학 2호관", "공과대학 3호관", "공과대학 4호관", "공과대학 5호관", "공과대학 1호관", "경상대학", "도서관",
 			"백마교양관", "인문대학", "서문" };
-	
+
 	int scooterNowUse;
 	// socket 관련 필드
 	private Socket socket;
 	private DataInputStream inputStream;
 	private DataOutputStream outputStream;
 	private String userID;
-	@FXML Button closeButton;
+	@FXML
+	Button closeButton;
 
 	// 아이디를 받아와서 현재 어떤 아이디로 접속했는지를 알고, 소켓을 받아와서 로그아웃시 소켓을 닫아줘야함을 서버에 알려준다.
 	// 또한 initialize하기 전에 이 메소드로 fxml에 필요한 데이터, 스레드들을 모두 받아오고 실행시킨다.
-	public void setField(String userID, Socket socket, DataOutputStream outputStream, DataInputStream inputStream) throws InterruptedException {
+	public void setField(String userID, Socket socket, DataOutputStream outputStream, DataInputStream inputStream)
+			throws InterruptedException {
 		this.userID = userID;
 		this.socket = socket;
 		this.inputStream = inputStream; // input, output 스트림은 따로 만들기 귀찮아서 이렇게 받아온거다.
@@ -74,14 +77,14 @@ public class ClientMainController implements Initializable {
 		// 실시간 업데이트를 받아야하므로 flag를 false로 바꾼다
 		receiveThreadStopFlag = false;
 		System.out.println("start");
-		
+
 		// 현재 스쿠터 리스트를 받아온다
 		findCanUseScooter();
-		
+
 		/*
-		* 스쿠터의 수를 받아온다. 그냥 setText를 하면 오류가난다. javaFX와 관련된 스레드에 영향을 주기때문이다. 이것을 해결하려면
-		* Platform.runLater() 를 통해 임시 스레드를 만들고, 이 스레드로 스쿠터의 수를 받아온다.
-		*/
+		 * 스쿠터의 수를 받아온다. 그냥 setText를 하면 오류가난다. javaFX와 관련된 스레드에 영향을 주기때문이다. 이것을 해결하려면
+		 * Platform.runLater() 를 통해 임시 스레드를 만들고, 이 스레드로 스쿠터의 수를 받아온다.
+		 */
 		Platform.runLater(() -> {
 			numOfScooter.setText(numOfScooter());
 		});
@@ -148,7 +151,7 @@ public class ClientMainController implements Initializable {
 			 * Update 문자열인지 아닌지 확인하고 버린다. 따라서 그 스레드를 멈추지 않으면 정작 가야할 곳에 데이터가 안간다.
 			 */
 			receiveThreadStopFlag = true;
-			outputStream.writeUTF("Scooter changeScooterUse "+ userID +" 1"); // 사용자가 스쿠터를 사용 중임을 DB에 저장한다.
+			outputStream.writeUTF("Scooter changeScooterUse " + userID + " 1"); // 사용자가 스쿠터를 사용 중임을 DB에 저장한다.
 			outputStream.writeUTF("nothing !"); // 스레드가 멈출 수 있게 의미없는 쿼리를 보낸다.
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -163,10 +166,10 @@ public class ClientMainController implements Initializable {
 			new Alert(Alert.AlertType.WARNING, "예약하실 스쿠터를 선택하세요.", ButtonType.CLOSE).show();
 			return;
 		}
-		
+
 		// 선택한 칸에 대한 정보를 저장
 		String selectedScooter = scooterListview.getSelectionModel().getSelectedItem();
-		
+
 		// 예약할 시 scooterList에서 선택한 스쿠터 삭제, bookedList에 추가
 		// 선택한 스쿠터에 대한 nowUse를 1로 바꾸어 데이터 베이스에 저장.
 		if (bookedScooterList.size() < 1) {
@@ -177,13 +180,13 @@ public class ClientMainController implements Initializable {
 			outputStream.writeUTF("Scooter getScooterNowUse " + scooterID);
 
 			Thread.sleep(100);
-			
-			if(scooterNowUse == -100) {
+
+			if (scooterNowUse == -100) {
 				new Alert(Alert.AlertType.WARNING, "이미 사용중인 스쿠터 입니다.", ButtonType.CLOSE).show();
 				outputStream.writeUTF("update !");
 				return;
 			}
-			
+
 			outputStream.writeUTF("Scooter changeScooterNowUse " + scooterID + " 1");
 
 			String bookedScooter = scooterList.remove(selectedIndex);
@@ -217,9 +220,10 @@ public class ClientMainController implements Initializable {
 		scooterList.add(bookedScooter);
 		numOfScooter.setText(numOfScooter());
 	}
-	
+
 	// 로그아웃
-	@FXML public void Logout() {
+	@FXML
+	public void Logout() {
 		Parent root;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/Login/resource/LoginGUI.fxml"));
@@ -262,7 +266,7 @@ public class ClientMainController implements Initializable {
 				break;
 			}
 			try {
-				
+
 				// "Update"라는 문자열을 받으면 현재 scooterList를 갱신한다.
 				int data = inputStream.readInt();
 
@@ -275,11 +279,11 @@ public class ClientMainController implements Initializable {
 						numOfScooter.setText(numOfScooter());
 					});
 				}
-				
+
 				if (data == 100) {
 					scooterNowUse = data;
 				}
-				
+
 				if (data == -100) {
 					scooterNowUse = data;
 				}
@@ -296,10 +300,10 @@ public class ClientMainController implements Initializable {
 			// 스쿠터 리스트를 데이터베이스에서 가져온다.
 			// 못가져왔다면 IOException시킴.
 			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-			
+
 			// 서버가 클라이언트로부터 오는 쿼리들을 놓침을 방지한다.
 			Thread.sleep(100);
-			
+
 			out.writeUTF("Scooter findScooterList");
 			inputScooterList = inputStream.readUTF();
 			System.out.println(inputScooterList);
@@ -337,20 +341,45 @@ public class ClientMainController implements Initializable {
 		String number = "총 " + ((Integer) scooterList.size()).toString() + " 대";
 		return number;
 	}
-	
-	// 로그아웃시 소켓을 닫는 메소드
-    public void closeAction() {
-        try {
-        	
-        	//만약 소켓이 안 닫혀 있다면 닫기
-            if (socket != null && !socket.isClosed()) {
-                socket.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-	@FXML public void closeButtonHandler() {}
+	// 로그아웃시 소켓을 닫는 메소드
+	public void closeAction() {
+		try {
+
+			// 만약 소켓이 안 닫혀 있다면 닫기
+			if (socket != null && !socket.isClosed()) {
+				socket.close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void closeButtonHandler() {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.close();
+	}
+
+	@FXML
+	public void LabelDragged(MouseEvent event) {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
+	}
+
+	@FXML
+	public void LabelPressed(MouseEvent event) {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
+	}
+
+	@FXML
+	public void LabelReleased(MouseEvent event) {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
+	}
 
 }

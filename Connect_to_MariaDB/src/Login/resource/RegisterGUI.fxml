@@ -17,8 +17,9 @@
 	fx:controller="Login.java.Register.RegisterController">
 	<children>
 		<Label id="RegisterLabel" alignment="CENTER" layoutY="-1.0"
-			prefHeight="30.0" prefWidth="301.0" stylesheets="@RegisterForm.css"
-			text="REGISTER">
+			onMouseDragged="#LabelDragged" onMousePressed="#LabelPressed"
+			onMouseReleased="#LabelReleased" prefHeight="30.0" prefWidth="301.0"
+			stylesheets="@RegisterForm.css" text="REGISTER">
 			<font>
 				<Font size="16.0" />
 			</font>

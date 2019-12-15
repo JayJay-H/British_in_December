@@ -17,10 +17,12 @@ public class LoginMain extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Login");
 			primaryStage.show();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 
 	public static void main(String[] args) {
 		launch(args);

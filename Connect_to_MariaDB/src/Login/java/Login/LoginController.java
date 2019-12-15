@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,6 +42,7 @@ public class LoginController implements Initializable {
 	private Socket socket;
 	private DataInputStream inputStream;
 	private DataOutputStream outputStream;
+	private double nowX, nowY;
 
 	public void initialize(URL location, ResourceBundle resources) {
 		// 클라이언트 시작
@@ -167,6 +169,23 @@ public class LoginController implements Initializable {
 		Stage stage = (Stage) closeButton.getScene().getWindow();
 	    stage.close();
 	}
+
+	@FXML public void LabelDragged(MouseEvent event) {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
+	}
+
+	@FXML public void LabelPressed(MouseEvent event) {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
+	}
+	@FXML public void LabelReleased(MouseEvent event) {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.setX(event.getScreenX());
+		stage.setY(event.getScreenY());
+	}
 	void startClient() {
 		Runnable runnable = new Runnable() {
 			@Override
@@ -210,6 +229,7 @@ public class LoginController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+
 
 
 }
