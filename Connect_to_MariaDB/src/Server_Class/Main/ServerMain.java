@@ -368,7 +368,7 @@ public class ServerMain {
 						case "getScooterNowUse": // Scooter getScooterNowUse ID
 							System.out.println("getScooterNowUse");
 							try {
-								int scooterNowUse = scooterManagement.getScooterNowUse(authInfo.nextToken());
+								int scooterNowUse = scootermanagement.getScooterNowUse(authInfo.nextToken());
 								if(scooterNowUse == 0) {
 									out.writeInt(100);
 								} else {
