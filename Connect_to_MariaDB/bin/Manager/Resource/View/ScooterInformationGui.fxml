@@ -6,19 +6,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager.Java.Controllers.ScooterInformationController">
+<AnchorPane prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: #ffffff;" stylesheets="@../Css/ScooterInformationGuiCss.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager.Java.Controllers.ScooterInformationController">
 	<children>
-		<Button fx:id="backButton" layoutX="344.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonHandler" text="Back" />
-		<Label layoutX="121.0" layoutY="72.0" text="Scooter Information">
+		<Button fx:id="backButton" layoutX="344.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonHandler" stylesheets="@../Css/ScooterInformationGuiCss.css" text="Back" />
+		<Label layoutX="121.0" layoutY="72.0" stylesheets="@../Css/ScooterInformationGuiCss.css" text="Scooter Information">
          <font>
             <Font size="18.0" />
          </font></Label>
-		<Label layoutX="40.0" layoutY="181.0" text="ID : " />
-		<Label fx:id="IDLabel" layoutX="64.0" layoutY="181.0" text="_____________" />
-		<Label layoutX="40.0" layoutY="205.0" text="사용 여부 : " />
-		<Label fx:id="usedLabel" layoutX="103.0" layoutY="205.0" text="_________" />
-		<Label layoutX="40.0" layoutY="229.0" text="위치 : " />
-		<Label fx:id="locationLabel" layoutX="74.0" layoutY="229.0" text="________" />
-		<ListView layoutX="50.0" layoutY="263.0" prefHeight="200.0" prefWidth="300.0" />
+		<Label layoutX="40.0" layoutY="181.0" stylesheets="@../Css/ScooterInformationGuiCss.css" text="ID : " />
+		<Label fx:id="IDLabel" layoutX="64.0" layoutY="181.0" stylesheets="@../Css/ScooterInformationGuiCss.css" text="_____________" />
+		<Label layoutX="40.0" layoutY="205.0" stylesheets="@../Css/ScooterInformationGuiCss.css" text="사용 여부 : " />
+		<Label fx:id="usedLabel" layoutX="103.0" layoutY="205.0" stylesheets="@../Css/ScooterInformationGuiCss.css" text="_________" />
+		<Label layoutX="40.0" layoutY="229.0" stylesheets="@../Css/ScooterInformationGuiCss.css" text="위치 : " />
+		<Label fx:id="locationLabel" layoutX="74.0" layoutY="229.0" stylesheets="@../Css/ScooterInformationGuiCss.css" text="________" />
+		<ListView layoutX="50.0" layoutY="263.0" prefHeight="200.0" prefWidth="300.0" stylesheets="@../Css/ScooterInformationGuiCss.css" />
 	</children>
 </AnchorPane>

@@ -8,7 +8,7 @@ public class updateDB {
 		try {
 			
 			Statement 	stmt = connectToDB.DBStmt();
-			String[] 	columns = {"Password", "Phone", "Email", "nowUse"};
+			String[] 	columns = {"Password", "Phone", "Email", "nowUse", "scooterUse"};
 			
 	        for(int i=0; i<updateTarget.length; i++) {
 	        	

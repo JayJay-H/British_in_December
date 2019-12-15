@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+// DB에 연결하기 위한 클래스이다.
 public class connectToDB {
 	public static Statement DBStmt() {
 		Connection 	conn = null;

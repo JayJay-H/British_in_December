@@ -2,8 +2,10 @@ package DBController;
 
 import java.sql.Statement;
 
+// DB에서 정보를 삭제하기 위한 클래스이다.
 public class deleteFromDB {
-
+	
+	// Member테이블에서 해당 ID를 삭제한다.
 	public static boolean deleteMember(String ID) {
 		try {
 			
@@ -18,6 +20,7 @@ public class deleteFromDB {
 		}
 	}
 	
+	// Manager테이블에서 해당 ID를 삭제한다.
 	public static boolean deleteManager(String ID) {
 		try {
 			
@@ -32,6 +35,7 @@ public class deleteFromDB {
 		}
 	}
 	
+	// Scooter테이블에서 해당 ID를 삭제한다.
 	public static boolean deleteScooter(String ID) {
 		try {
 			
