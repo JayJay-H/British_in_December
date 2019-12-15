@@ -11,6 +11,7 @@ import DBController.updateDB;
 public class scooterManagement {
 	
 	static boolean getStatus;
+	static boolean canChangeGetStatus = false;
 	
 	// 스쿠터를 추가한다.
 	public static boolean addScooter(String ID, String Location) {
@@ -81,22 +82,23 @@ public class scooterManagement {
 	}
 	
 	public synchronized int getScooterNowUse(String ID) throws SQLException {
-		System.out.println(getStatus);
+		if(canChangeGetStatus) {
+			getStatus = false;
+			notifyAll();
+		}
+		
 		while(getStatus) {
 			try {
 				wait();
 			} catch (InterruptedException e) {}
 		}
 		getStatus = true;
+		canChangeGetStatus = false;
 		
 		ResultSet scooterList = searchFromDB.searchObjects("Scooter"); // DB에서 모든 스쿠터 정보를 받아온다.
 		
 		while(scooterList.next()){
 			if(scooterList.getString(1).equals(ID)) {
-				
-				getStatus = false;
-				System.out.println(getStatus);
-				notifyAll();
 				return Integer.parseInt(scooterList.getString(3));
 			}
         }
@@ -131,5 +133,9 @@ public class scooterManagement {
 	// 사용중이지 않은 스쿠터 수를 반환한다.
 	public static int getNumberOfCanUseScooter() throws SQLException {
 		return getNumberOfScooter() - getNumberOfCanUseScooter();
+	}
+	
+	public static void setCanChangeGetStatus() {
+		canChangeGetStatus = true;
 	}
 }

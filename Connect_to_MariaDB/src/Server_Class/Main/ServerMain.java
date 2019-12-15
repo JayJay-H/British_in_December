@@ -369,6 +369,8 @@ public class ServerMain {
 							System.out.println("getScooterNowUse");
 							try {
 								int scooterNowUse = scootermanagement.getScooterNowUse(authInfo.nextToken());
+								scooterManagement.setCanChangeGetStatus();
+								System.out.println("changed!");
 								if(scooterNowUse == 0) {
 									out.writeInt(100);
 								} else {
