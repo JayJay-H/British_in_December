@@ -8,56 +8,98 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" stylesheets="@../Css/ManagerGuiCss.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager.Java.Controllers.ManagerController">
+<AnchorPane maxHeight="1.7976931348623157E308"
+	maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+	prefHeight="400.0" prefWidth="300.0"
+	style="-fx-background-color: #ffffff;"
+	stylesheets="@../Css/ManagerGuiCss.css"
+	xmlns="http://javafx.com/javafx/11.0.1"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="Manager.Java.Controllers.ManagerController">
 	<children>
-		<Button fx:id="backButton" layoutX="215.0" layoutY="53.0" mnemonicParsing="false" onAction="#backButtonHandler" prefHeight="25.0" prefWidth="70.0" stylesheets="@../Css/ManagerGuiCss.css" text="로그아웃" />
-		<VBox id="scooterVBox" layoutX="7.0" layoutY="222.0" prefHeight="165.0" prefWidth="135.0" stylesheets="@../Css/ManagerGuiCss.css">
+		<Button fx:id="backButton" layoutX="215.0" layoutY="53.0"
+			mnemonicParsing="false" onAction="#backButtonHandler"
+			prefHeight="25.0" prefWidth="70.0"
+			stylesheets="@../Css/ManagerGuiCss.css" text="로그아웃" />
+		<VBox id="scooterVBox" layoutX="7.0" layoutY="222.0"
+			prefHeight="165.0" prefWidth="135.0"
+			stylesheets="@../Css/ManagerGuiCss.css">
 			<children>
-				<Label alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="77.0" prefWidth="134.0" text="스쿠터 관리" VBox.vgrow="ALWAYS">
+				<Label alignment="TOP_CENTER"
+					maxHeight="1.7976931348623157E308"
+					maxWidth="1.7976931348623157E308" prefHeight="77.0"
+					prefWidth="134.0" text="스쿠터 관리" VBox.vgrow="ALWAYS">
 					<VBox.margin>
 						<Insets bottom="5.0" top="25.0" />
 					</VBox.margin>
 				</Label>
-				<Button fx:id="ScooterManagementButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#ScooterManagementButtonHandler" text="Add / Delete" VBox.vgrow="ALWAYS">
+				<Button fx:id="ScooterManagementButton"
+					maxHeight="1.7976931348623157E308"
+					maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+					onAction="#ScooterManagementButtonHandler" text="Add / Delete"
+					VBox.vgrow="ALWAYS">
 					<VBox.margin>
 						<Insets bottom="25.0" left="20.0" right="20.0" top="5.0" />
 					</VBox.margin>
 				</Button>
 			</children>
 		</VBox>
-		<VBox id="memberVBox" layoutX="157.0" layoutY="220.0" prefHeight="166.0" prefWidth="135.0" stylesheets="@../Css/ManagerGuiCss.css">
+		<VBox id="memberVBox" layoutX="157.0" layoutY="220.0"
+			prefHeight="166.0" prefWidth="135.0"
+			stylesheets="@../Css/ManagerGuiCss.css">
 			<children>
-				<Label alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="77.0" prefWidth="134.0" stylesheets="@../Css/ManagerGuiCss.css" text="사용자 관리" VBox.vgrow="ALWAYS">
+				<Label alignment="TOP_CENTER"
+					maxHeight="1.7976931348623157E308"
+					maxWidth="1.7976931348623157E308" prefHeight="77.0"
+					prefWidth="134.0" stylesheets="@../Css/ManagerGuiCss.css"
+					text="사용자 관리" VBox.vgrow="ALWAYS">
 					<VBox.margin>
 						<Insets bottom="5.0" top="25.0" />
 					</VBox.margin>
 				</Label>
-				<Button fx:id="MemberManagementButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#MemberManagementButtonHandler" stylesheets="@../Css/ManagerGuiCss.css" text="Add / Delete" VBox.vgrow="ALWAYS">
+				<Button fx:id="MemberManagementButton"
+					maxHeight="1.7976931348623157E308"
+					maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+					onAction="#MemberManagementButtonHandler"
+					stylesheets="@../Css/ManagerGuiCss.css" text="Add / Delete"
+					VBox.vgrow="ALWAYS">
 					<VBox.margin>
 						<Insets bottom="25.0" left="20.0" right="20.0" top="5.0" />
 					</VBox.margin>
 				</Button>
 			</children>
 		</VBox>
-		<HBox id="idHBox" layoutX="14.0" layoutY="58.0" stylesheets="@../Css/ManagerGuiCss.css">
+		<HBox id="idHBox" layoutX="14.0" layoutY="58.0"
+			stylesheets="@../Css/ManagerGuiCss.css">
 			<children>
-      				<Label text="ID : ">
-               <font>
-                  <Font name="전주 완판본 각R" size="12.0" />
-               </font>
-            </Label>
-      				<Label fx:id="idLabel" prefHeight="14.0" prefWidth="150.0" />
+				<Label text="ID : ">
+					<font>
+						<Font name="전주 완판본 각R" size="12.0" />
+					</font>
+				</Label>
+				<Label fx:id="idLabel" prefHeight="14.0" prefWidth="150.0" />
 			</children>
 		</HBox>
-      <Label id="ManagementLabel" alignment="CENTER" prefHeight="27.0" prefWidth="300.0" text="Manager" />
-      <VBox id="InfoVBox" layoutX="7.0" layoutY="104.0" prefHeight="79.0" prefWidth="286.0">
-         <children>
-            <Label text="  ※ 관리창입니다" />
-            <Label text=" - 스쿠터의 추가 또는 삭제를 원하신다면" />
-            <Label text="   스쿠터 관리 버튼을 누르십시오." />
-            <Label text=" - 사용자의 삭제 또는 정보 확인을  원하신다면" />
-            <Label text="   사용자 관리 버튼을 누르십시오." />
-         </children>
-      </VBox>
+		<Label id="ManagementLabel" alignment="CENTER"
+			onMouseDragged="#LabelDragged" onMousePressed="#LabelPressed"
+			onMouseReleased="#LabelReleased" prefHeight="30.0" prefWidth="300.0"
+			text="Manager">
+			<font>
+				<Font size="16.0" />
+			</font>
+		</Label>
+		<VBox id="InfoVBox" layoutX="7.0" layoutY="104.0"
+			prefHeight="79.0" prefWidth="286.0">
+			<children>
+				<Label text="  ※ 관리창입니다" />
+				<Label text=" - 스쿠터의 추가 또는 삭제를 원하신다면" />
+				<Label text="   스쿠터 관리 버튼을 누르십시오." />
+				<Label text=" - 사용자의 삭제 또는 정보 확인을  원하신다면" />
+				<Label text="   사용자 관리 버튼을 누르십시오." />
+			</children>
+		</VBox>
+		<Button id="CloseButton" fx:id="closeButton" layoutX="272.0"
+			layoutY="2.0" mnemonicParsing="false" onAction="#closeButtonHandler"
+			prefHeight="9.0" prefWidth="3.0" text="X" />
 	</children>
 </AnchorPane>

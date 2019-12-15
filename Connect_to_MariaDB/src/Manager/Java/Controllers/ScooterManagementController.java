@@ -67,7 +67,7 @@ public class ScooterManagementController implements Initializable {
 	
 	// 로그아웃을 위한 ID, Socket 그리고 만들기 귀찮아서 넘긴 output, input 스트림들
 	// 그리고 ScooterManagement를 위한 데이터를 미리 로드하는 작업을 수행하는 메소드
-	public void setField(String ID, Socket socket, DataOutputStream outputStream, DataInputStream inputStream) {
+	public void setField(String ID, Socket socket, DataOutputStream outputStream, DataInputStream inputStream) throws InterruptedException {
 		this.userID = ID;
 		this.socket = socket;
 		this.outputStream = outputStream;
@@ -168,7 +168,12 @@ public class ScooterManagementController implements Initializable {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                receive();
+                try {
+					receive();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         };
         Thread thread = new Thread(runnable);
@@ -176,18 +181,17 @@ public class ScooterManagementController implements Initializable {
         thread.start();
 	}
 	
-	void receive() {
+	void receive() throws InterruptedException {
         while (true) {
         	if(updateListenerStopFlag) {
         		break;
         	}
             try {
             	
-            	// "Update"라는 문자열을 받으면 현재 scooterList를 갱신한다.
-                String data = inputStream.readUTF();
-                //System.out.println(data);
+            	// 10 이라는 정수를 받으면 현재 scooterList를 갱신한다.
+                int data = inputStream.readInt();
                 
-                if(data.equals("Update")) {
+                if(data == 10) {
                 	Platform.runLater(() -> {
                     	scooterList.clear();
                 	});
@@ -200,10 +204,15 @@ public class ScooterManagementController implements Initializable {
     }
 	
 	// 스쿠터 리스트에 보여줄 데이터를 가져오는 메소드
-	public void findScooterList(){
+	public void findScooterList() throws InterruptedException{
 		String resultStatus = null;
 		try {
+			
+			// 서버가 클라이언트로부터 오는 쿼리들을 놓침을 방지한다.
+			Thread.sleep(100);
+
 			outputStream.writeUTF("Scooter findScooterList");
+			
 			resultStatus = inputStream.readUTF();
 			if(resultStatus.equals("-1")) {
 				throw new IOException();

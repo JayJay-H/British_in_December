@@ -142,7 +142,6 @@ public class MemberManagementController implements Initializable {
 		try {
 			
 			String selectedID = memberListView.getSelectionModel().getSelectedItem();
-			System.out.println(selectedID);
 			if(selectedID!=null) {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager/Resource/View/MemberInformationGui.fxml"));
 				
