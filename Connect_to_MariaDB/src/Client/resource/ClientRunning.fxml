@@ -2,28 +2,40 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" stylesheets="@ClientRunningForm.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.java.ClientRunningController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" stylesheets="@ClientRunningForm.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.java.ClientRunningController">
    <children>
-      <Label layoutX="122.0" layoutY="71.0" stylesheets="@ClientRunningForm.css" text="이용시간">
+      <ImageView fitHeight="322.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@runningImage.gif" />
+         </image>
+      </ImageView>
+      <Label id="LapTimeLabel" alignment="CENTER" layoutY="-1.0" prefHeight="30.0" prefWidth="300.0" stylesheets="@ClientRunningForm.css" text="Lap Time">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Label layoutX="56.0" layoutY="124.0" stylesheets="@ClientRunningForm.css" text="금액 :">
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Label layoutX="136.0" layoutY="161.0" stylesheets="@ClientRunningForm.css" text="금액">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-      <Label fx:id="useTime" alignment="CENTER" layoutY="104.0" prefHeight="14.0" prefWidth="300.0" stylesheets="@ClientRunningForm.css" text="00:00">
+      <Label fx:id="useTime" alignment="CENTER" layoutX="76.0" layoutY="68.0" prefHeight="42.0" prefWidth="204.0" stylesheets="@ClientRunningForm.css" text="00:00">
          <font>
             <Font size="36.0" />
          </font></Label>
-      <Label fx:id="cost" alignment="CENTER" layoutY="186.0" prefHeight="14.0" prefWidth="300.0" stylesheets="@ClientRunningForm.css" text="0000원">
+      <Label fx:id="cost" alignment="CENTER" layoutY="118.0" prefHeight="14.0" prefWidth="300.0" stylesheets="@ClientRunningForm.css" text="0000원">
          <font>
             <Font size="24.0" />
          </font></Label>
-      <Button fx:id="ReturnBotton" layoutX="164.0" layoutY="272.0" mnemonicParsing="false" onAction="#returnScooter" prefHeight="25.0" prefWidth="80.0" stylesheets="@ClientRunningForm.css" text="반납" />
-      <Button fx:id="startBotton" layoutX="56.0" layoutY="272.0" mnemonicParsing="false" onAction="#startAction" prefHeight="25.0" prefWidth="80.0" stylesheets="@ClientRunningForm.css" text="이용시작" />
+      <Button fx:id="ReturnBotton" layoutX="164.0" layoutY="224.0" mnemonicParsing="false" onAction="#returnScooter" prefHeight="25.0" prefWidth="80.0" stylesheets="@ClientRunningForm.css" text="반납" />
+      <Button fx:id="startBotton" layoutX="56.0" layoutY="224.0" mnemonicParsing="false" onAction="#startAction" prefHeight="25.0" prefWidth="80.0" stylesheets="@ClientRunningForm.css" text="이용시작" />
+      <Label layoutX="56.0" layoutY="81.0" stylesheets="@ClientRunningForm.css" text="사용시간 : ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
