@@ -365,6 +365,18 @@ public class ServerMain {
 							}
 							break;
 							
+						case "getScooterNowUse": // Scooter getScooterNowUse ID
+							System.out.println("getScooterNowUse");
+							try {
+								int scooterNowUse = scooterManagement.getScooterNowUse(authInfo.nextToken());
+								if(scooterNowUse == 0) {
+									out.writeInt(100);
+								} else {
+									out.writeInt(-100);
+								}
+							} catch (SQLException e1) {}
+							break;
+							
 						case "getNum":
 							try {
 								out.writeInt(scooterManagement.getNumberOfScooter());
@@ -393,6 +405,10 @@ public class ServerMain {
 				
 				if(request.equals("nothing")) {
 					out.writeInt(1);
+				}
+				
+				if(request.equals("update")) {
+					out.writeInt(10);
 				}
 			} catch (IOException e) {
 				return -2;
