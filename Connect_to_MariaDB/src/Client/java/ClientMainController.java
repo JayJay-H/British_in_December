@@ -182,11 +182,10 @@ public class ClientMainController implements Initializable {
 
 			if (scooterNowUse == -100) {
 				new Alert(Alert.AlertType.WARNING, "이미 사용중인 스쿠터 입니다.", ButtonType.CLOSE).show();
-				outputStream.writeUTF("update !");
 				return;
 			}else if(scooterNowUse == 100){
 				outputStream.writeUTF("Scooter changeScooterNowUse " + scooterID + " 1");
-	
+				
 				String bookedScooter = scooterList.remove(selectedIndex);
 				bookedScooterList.add(bookedScooter);
 				numOfScooter.setText(numOfScooter());
