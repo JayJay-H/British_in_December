@@ -184,13 +184,13 @@ public class ClientMainController implements Initializable {
 				new Alert(Alert.AlertType.WARNING, "이미 사용중인 스쿠터 입니다.", ButtonType.CLOSE).show();
 				outputStream.writeUTF("update !");
 				return;
+			}else {
+				outputStream.writeUTF("Scooter changeScooterNowUse " + scooterID + " 1");
+	
+				String bookedScooter = scooterList.remove(selectedIndex);
+				bookedScooterList.add(bookedScooter);
+				numOfScooter.setText(numOfScooter());
 			}
-
-			outputStream.writeUTF("Scooter changeScooterNowUse " + scooterID + " 1");
-
-			String bookedScooter = scooterList.remove(selectedIndex);
-			bookedScooterList.add(bookedScooter);
-			numOfScooter.setText(numOfScooter());
 		} else {
 			new Alert(Alert.AlertType.WARNING, "스쿠터는 한 대 이상 예약하실 수 없습니다.", ButtonType.CLOSE).show();
 		}
